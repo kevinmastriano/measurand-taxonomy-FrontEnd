@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mtc:Taxonomy xmlns:uom="https://cls-schemas.s3.us-west-1.amazonaws.com/UOM_Database" xmlns:mtc="https://cls-schemas.s3.us-west-1.amazonaws.com/MetrologyTaxonomyCatalog">
+  <mtc:Taxon name="Measure.Coefficient.Voltage.Pressure.AC.RMS.Differential.RMS.PressureField" deprecated="false" replacement="">
+    <mtc:Definition>Pressure sensitivity level is the sound pressure level at a given audio signal level. The primary standard for sound pressure in air is defined as the microphone calibration procedure reciprocity method, defined in IEC 61094-2:2009.Pressure reciprocity relies on pairs of microphones which are coupled acoutsically, so that when one is driven electrically,the other experiences the resulting acoustic pressure and produces an electrical response.</mtc:Definition>
+    <mtc:Discipline name="Acoustics"/>
+    <mtc:ExternalReference name="IEC 61094-2:2009">
+      <mtc:url>https:webstore.iec.ch/publication/4486</mtc:url>
+    </mtc:ExternalReference>
+    <mtc:Parameter name="Sensitivity" optional="false" uom:Quantity=""/>
+    <mtc:Parameter name="Frequency" optional="false" uom:Quantity=""/>
+    <mtc:Parameter name="Pressure" optional="false" uom:Quantity=""/>
+    <mtc:Parameter name="Temperature" optional="false" uom:Quantity=""/>
+    <mtc:Parameter name="Humidity" optional="false" uom:Quantity=""/>
+    <mtc:Parameter name="Pressure" optional="false" uom:Quantity=""/>
+    <mtc:Result name="Sound Pressure Level measured in Volt/Pa (Voltage over Pressure)">
+      <uom:Quantity name=""/>
+    </mtc:Result>
+  </mtc:Taxon>
+  <mtc:Taxon name="Measure.Power.Ultrasonic" deprecated="false" replacement="">
+    <mtc:Definition>Measure of ultrasonic power in liquid is based on the measurement of radiation force using a gravimetric balance.The acoustic power radiated from the transducer can be related to the radiation force measured by an electronic balance.</mtc:Definition>
+    <mtc:Discipline name="Ultrasound"/>
+    <mtc:ExternalReference name="">
+      <mtc:url/>
+    </mtc:ExternalReference>
+    <mtc:Result name="Ultrasonic Power measured in Watts">
+      <uom:Quantity name=""/>
+    </mtc:Result>
+  </mtc:Taxon>
+</mtc:Taxonomy> 
