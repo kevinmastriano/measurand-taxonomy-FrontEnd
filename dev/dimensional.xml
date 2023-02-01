@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mtc:Taxonomy xmlns:uom="https://cls-schemas.s3.us-west-1.amazonaws.com/UOM_Database" xmlns:mtc="https://cls-schemas.s3.us-west-1.amazonaws.com/MetrologyTaxonomyCatalog">
+  <mtc:Taxon name="Measure.Length.SingleEnded" deprecated="false" replacement="">
+    <mtc:Definition>The distance from the centre of the first face of the gauge block to the plane of the reference flat to which the opposite face of the block is wrung, so as to include the wringing film.</mtc:Definition>
+    <mtc:Discipline name="Dimensional"/>
+    <mtc:ExternalReference name="">
+      <mtc:url/>
+    </mtc:ExternalReference>
+    <mtc:Parameter name="Length" optional="false" uom:Quantity=""/>
+    <mtc:Parameter name="Orientation" optional="false" uom:Quantity=""/>
+    <mtc:Parameter name="Range" optional="false" uom:Quantity=""/>
+    <mtc:Parameter name="Ambient Temperature" optional="false" uom:Quantity=""/>
+    <mtc:Parameter name="Ambient Humidity" optional="false" uom:Quantity=""/>
+    <mtc:Parameter name="Ambient Pressure" optional="false" uom:Quantity=""/>
+    <mtc:Result name="Length">
+      <uom:Quantity name="length"/>
+    </mtc:Result>
+  </mtc:Taxon>
+</mtc:Taxonomy>
