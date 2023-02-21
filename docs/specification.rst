@@ -5,7 +5,7 @@ Digital CMCs [1]_ should unambiguously describe laboratory services for
 machine consumption. A CMC comprises a measurand specification together
 with a measurement uncertainty. Sections `1.1 <#sec:structure>`__ and
 `1.2 <#sec:CMCUncertainty>`__, adapted from
-[MJK:CMCDev2]_ respectively detail the measurand
+:cite:t:`CMCDev2` respectively detail the measurand
 construction and the CMC uncertainty. The approved CMC taxonomy,
 comprising uniquely identified CMCs together with templates of their
 measurand specifications, resides at https://somewhere.there.
@@ -16,7 +16,7 @@ MII Measurand Structure
 -----------------------
 
 Simply stated, the measurand identifies what we intend to measure
-[VIM3]_. A measurement will fit its purpose to the
+:cite:t:`VIM3`. A measurement will fit its purpose to the
 degree that the measurand specification unambiguously and accurately
 describes the intent. Likewise, locating and selecting the correct
 measuring instrument to perform a measurement or a laboratory with the
@@ -41,7 +41,7 @@ rules:
    taxon string. [UniqueTaxonRule]
 
 #. Each taxon may have aliases, such as commonly used equivalents (from
-   *ISO-IEC 80000* [ISO80000]_, the KCDB, an AB’s [2]_
+   *ISO-IEC 80000* :cite:t:`ISO80000`, the KCDB, an AB’s [2]_
    conventions, etc.). These aliases may appear in human-readable
    documents generated from the digital document as the user prefers.
    [AliasRule]
@@ -60,7 +60,7 @@ rules:
    [QuantityNextRule]
 
 #. The measured quantity’s first token identifies the quantity kind
-   [VIM3]_, which shall unambiguously link to an
+   :cite:t:`VIM3`, which shall unambiguously link to an
    M-Layer aspect. [QKEntryRule]
 
 #. Any further tokens after the quantity-kind token hierarchically
@@ -107,7 +107,7 @@ organization.
 
 .. _TaxonomyExamples:
 
-    .. table:: Taxon examples [MJK:MII4IoT]_.
+    .. table:: Taxon examples :cite:t:`MJK:MII4IoT`.
 
       +-------------------------------------+-------------------------------+
       | **MII Taxon**                       | **Closest KCDB Alias**        |
@@ -134,14 +134,14 @@ Special Tokens
 
 To aid in naming taxons, the MII measurand taxonomy treats two common
 quantities specially: ratios and coefficients. The term “ratio”
-indicates a dimensionless quotient [ISO80000]_, such as
+indicates a dimensionless quotient :cite:t:`ISO80000`, such as
 strain (length per length), amplifier voltage gain (voltage per
 voltage), or refraction index (light speed per light speed).
 “Coefficient” on the other hand, indicates a quotient of two different
-quantities [ISO80000]_, such as a transducer
+quantities :cite:t:`ISO80000`, such as a transducer
 calibration correction (voltage per pressure). A ratio takes the name
 “factor” when used as a dimensionless proportionality constant
-[ISO80000]_. In practice, some common measurand names
+:cite:t:`ISO80000`. In practice, some common measurand names
 ignore this convention, e.g., “reflection coefficient”, “index of
 reflection”, both of which we compute as ratios and use as factors. Both
 ratios and coefficients play into CMCs.
@@ -210,7 +210,7 @@ instrument a correction model and determine the model’s coefficients
 from measurement results. Whether done at the calibration-point level or
 at the range, function, or instrument level, such a correction function
 with coefficient values raises the service from verification (that the
-instrument meets tolerances) to true calibration [VIM3]_.
+instrument meets tolerances) to true calibration :cite:t:`VIM3`.
 
 Though either the calibrating laboratory or the customer may have
 software to calculate modeling coefficients from the point-by-point
@@ -227,7 +227,7 @@ calibrate that function. In general though, the MII instrument
 specification schema will provide for calibration models of any form for
 which calibration services may assign coefficient values for smart
 instruments and digital calibration certificates
-[MJK:DataCompleteness]_.
+:cite:t:`MJK:DataCompleteness`.
 
 Formal Taxon Syntax
 ^^^^^^^^^^^^^^^^^^^
@@ -293,7 +293,7 @@ Parameters
 
 We devalue calibration without fully knowing and stating the measurement
 conditions, the measurand’s state. Specifying the measurand’s full state
-restricts its *definitional* uncertainty [VIM3]_, the
+restricts its *definitional* uncertainty :cite:t:`VIM3`, the
 range of (true) values that match the measurand; failing to do so may
 inflate definitional uncertainty beyond other uncertainty components, or
 even beyond the instrument MPE [9]_ specification, essentially making
@@ -331,7 +331,7 @@ reference temperature, and which to omit entirely as immaterial to the
 measurement process.
 
 A complete instrument specification includes the (rated, limiting, and
-reference) operating conditions [VIM3]_ for which its
+reference) operating conditions :cite:t:`VIM3` for which its
 specifications apply. However, an MII measurand taxon’s parameters
 include instrument operating conditions only when they overlap with
 laboratory capabilities. For instance, a voltage reference standard may
@@ -348,10 +348,10 @@ Measuring Intervals
 
 The abstract measurand taxons in the taxonomy apply to any measured
 value, so the taxonomy’s CMC templates themselves do not include
-measuring intervals (ranges [VIM3]_ or nominal values).
+measuring intervals (ranges :cite:t:`VIM3` or nominal values).
 Concrete instances such as CMCs, however, should specify the measuring
 intervals over which they apply. The MII SoA structure
-[DZ:SoAUpdate]_ includes this element, which
+:cite:t:`DZ:SoAUpdate` includes this element, which
 human-readable SoAs should show with every CMC [10]_. Besides their
 contribution to CMC uncertainties, this allows intelligent searches for
 useful calibration services, whether a quantity at a single point or an
@@ -438,7 +438,7 @@ information. The uncertainty element takes the form of TBD…
 .. [4]
    Regardless of whether the measurement process uses a direct, common
    source, or comparator measurement method
-   [NCSLI:RP12]_. A token to capture both options might
+   :cite:t:`NCSLI:RP12`. A token to capture both options might
    seem useful, but source and measure uncertainties usually if not
    always differ and therefore require separate CMCs.
 

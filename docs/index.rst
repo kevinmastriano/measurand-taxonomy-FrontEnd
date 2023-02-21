@@ -11,9 +11,7 @@ Welcome to mii-taxonomy's documentation!
    :caption: Contents:
    
    specification
-   approved
-   auv
-   photometry_radiometry
+   taxonomy
    references
 
 Indices and tables

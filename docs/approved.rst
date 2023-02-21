@@ -1,3 +1,5 @@
+Approved Taxons
+---------------
 .. container::
    :name: tab:approved
 
