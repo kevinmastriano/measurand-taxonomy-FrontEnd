@@ -18,11 +18,6 @@ jobs:
       with:
         pre-build-command: "pip install sphinxcontrib-bibtex"
         docs-folder: "docs/"
-    # Example of using a custom build-command.
-    - uses: ammaraskar/sphinx-action@master
-      with:
-        build-command: "make html"
-        docs-folder: "docs/"
     # Grabbing custom dependencies and building as a pdf.
     - uses: ammaraskar/sphinx-action@master
       with:
