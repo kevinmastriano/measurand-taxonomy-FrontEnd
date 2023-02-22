@@ -3,8 +3,8 @@ Digital CMC Construction
 
 Digital CMCs [1]_ should unambiguously describe laboratory services for
 machine consumption. A CMC comprises a measurand specification together
-with a measurement uncertainty. Sections `1.1 <#sec:structure>`__ and
-`1.2 <#sec:CMCUncertainty>`__, adapted from
+with a measurement uncertainty. Sections :ref:`sec:structure` and
+:ref:`sec:CMCUncertainty`, adapted from
 :cite:t:`CMCDev2` respectively detail the measurand
 construction and the CMC uncertainty. The approved CMC taxonomy,
 comprising uniquely identified CMCs together with templates of their
@@ -96,7 +96,7 @@ rules:
    #. The ``Model`` token after a quantity introduces a standard
       instrument model. [ModelTokenRule]
 
-Table TaxonomyExamples_ lists some taxonomy examples and
+Table TaxonomyExamples_ :cite:t:`MJK:MII4IoT` lists some taxonomy examples and
 their KCDB equivalents that illustrate the MII measurand structure and
 typical qualifier detail. Note that the taxon *as a whole* serves as a
 metadata tag to identify MII measurands. Other than distinguishing
@@ -107,7 +107,7 @@ organization.
 
 .. _TaxonomyExamples:
 
-    .. table:: Taxon examples :cite:t:`MJK:MII4IoT`.
+    .. table:: Taxon examples
 
       +-------------------------------------+-------------------------------+
       | **MII Taxon**                       | **Closest KCDB Alias**        |
