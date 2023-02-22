@@ -9,8 +9,8 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
-
+    #runs-on: ubuntu-latest
+    runs-on: sphnixdoc/sphinx-latexpdf
     steps:
     - uses: actions/checkout@v1
     # Standard drop-in approach that should work for most people.
@@ -19,9 +19,10 @@ jobs:
         pre-build-command: "pip install sphinxcontrib-bibtex"
         docs-folder: "docs/"
     # Grabbing custom dependencies and building as a pdf.
-    - uses: ammaraskar/sphinx-action@master
+    - uses: ammaraskar/sphinx-action@v3
       with:
-        pre-build-command: "pip install sphinxcontrib-bibtex && apt-get update -y && apt-get install -y latexmk texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended" 
+        #pre-build-command: "pip install sphinxcontrib-bibtex && apt-get update -y && apt-get install -y latexmk texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended" 
+        pre-build-command: "pip install sphinxcontrib-bibtex"
         build-command: "make latexpdf"
         docs-folder: "docs/"
     # Great extra actions to compose with:
@@ -34,4 +35,4 @@ jobs:
     - uses: actions/upload-artifact@v1
       with:
         name: Documentation
-        path: docs/_build/latex/pdfexample.pdf
+        path: docs/_build/latex/mii-taxonomy.pdf
