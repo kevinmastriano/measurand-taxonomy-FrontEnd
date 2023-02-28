@@ -1,0 +1,38 @@
+name: CI
+# Example Sphinx build workflow
+# github.com/marketplace/actions/sphinx-build
+# latex-build broken
+on:
+  push:
+    branches:    
+      - docs
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    #runs-on: sphinxdoc/sphinx-latexpdf
+    steps:
+    - uses: actions/checkout@v1
+    # Standard drop-in approach that should work for most people.
+    - uses: ammaraskar/sphinx-action@master
+      with:
+        pre-build-command: "pip install sphinxcontrib-bibtex"
+        docs-folder: "docs/"
+    # Grabbing custom dependencies and building as a pdf.
+    #- uses: ammaraskar/sphinx-action@v3
+    #  with:
+        #pre-build-command: "pip install sphinxcontrib-bibtex && apt-get update -y && apt-get install -y latexmk texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended" 
+        #    pre-build-command: "pip install sphinxcontrib-bibtex"
+        #build-command: "make latexpdf"
+        #docs-folder: "docs/"
+    # Create an artifact of the html output.
+    - uses: actions/upload-artifact@v1
+      with:
+        name: DocumentationHTML
+        path: docs/_build/html/
+    # Create an artifact out of the previously built pdf.
+    #- uses: actions/upload-artifact@v1
+    #  with:
+    #    name: Documentation
+    #    path: docs/_build/latex/mii-taxonomy.pdf
