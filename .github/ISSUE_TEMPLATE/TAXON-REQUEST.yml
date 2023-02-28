@@ -17,23 +17,6 @@ body:
       placeholder: ex. email@example.com
     validations:
       required: false
-  - type: textarea
-    id: measurand
-    attributes:
-      label: Measurand Description
-      description: Provide a detailed description of the measurand?
-      placeholder: Tell us what you measure!
-    validations:
-      required: false
- - type: textarea
-    id: quantitykind
-    attributes:
-      label: Kind of quantity
-      description: Provide a kind of quantity for the measurand?
-      placeholder: Tell us what you measure!
-      value: "Length"
-    validations:
-      required: false
  - type: textarea
     id: name
     attributes:
