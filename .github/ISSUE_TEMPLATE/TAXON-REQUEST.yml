@@ -25,14 +25,6 @@ body:
       placeholder: Tell us what you measure!
     validations:
       required: false
- - type: dropdown
-    id: process
-    attributes:
-      label: What is the process type?
-      multiple: false
-      options:
-        - Measure
-        - Source
  - type: textarea
     id: quantitykind
     attributes:
@@ -42,16 +34,6 @@ body:
       value: "Length"
     validations:
       required: false
- - type: dropdown
-    id: special
-    attributes:
-      label: Does the measurand require a special token?
-      multiple: false
-      options:
-        - Ratio
-        - Coefficient
-        - Delta
-        - Model
  - type: textarea
     id: name
     attributes:
