@@ -17,6 +17,42 @@ body:
       placeholder: ex. email@example.com
     validations:
       required: false
+      - type: dropdown
+    id: process
+    attributes:
+      label: What is the process type?
+      multiple: false
+      options:
+        - Measure
+        - Source
+        - type: textarea
+  - type: textarea
+    id: measurand
+    attributes:
+      label: Measurand
+      description: Provide a description of the measurand?
+      placeholder: Tell us what you measure!
+    validations:
+      required: false
+ - type: textarea
+    id: quantitykind
+    attributes:
+      label: Kind of quantity
+      description: Provide a kind of quantity for the measurand?
+      placeholder: Tell us what you measure!
+      value: "Length"
+    validations:
+      required: false
+ - type: dropdown
+    id: special
+    attributes:
+      label: Does the measurand require a special token?
+      multiple: false
+      options:
+        - Ratio
+        - Coefficient
+        - Delta
+        - Model
  - type: textarea
     id: name
     attributes:
