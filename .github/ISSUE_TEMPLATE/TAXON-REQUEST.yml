@@ -38,8 +38,7 @@ body:
     attributes:
       label: Kind of quantity
       description: Provide a kind of quantity for the measurand?
-      placeholder: Tell us what you measure!
-      value: "Length"
+      placeholder: Length
     validations:
       required: false
   - type: dropdown
@@ -57,8 +56,7 @@ body:
     attributes:
       label: Taxon Name
       description: Propose a name?
-      placeholder: Tell us what you measure!
-      value: "Measure.Taxon"
+      placeholder: Measure.Taxon
     validations:
       required: false
   
