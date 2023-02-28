@@ -25,7 +25,6 @@ body:
       options:
         - Measure
         - Source
-        - type: textarea
   - type: textarea
     id: measurand
     attributes:
