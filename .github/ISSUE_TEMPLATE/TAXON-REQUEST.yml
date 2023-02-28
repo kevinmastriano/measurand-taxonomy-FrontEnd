@@ -1,0 +1,29 @@
+name: Taxon Request
+description: Request a new taxon
+title: "[Taxon]: "
+labels: ["feature", "taxon"]
+assignees:
+  - ryanmwhitephd
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this taxon request!
+  - type: input
+    id: contact
+    attributes:
+      label: Contact Details
+      description: How can we get in touch with you if we need more info?
+      placeholder: ex. email@example.com
+    validations:
+      required: false
+  - type: textarea
+    id: name
+    attributes:
+      label: Proposed taxon name?
+      description: Provide a detailed description of the measurand?
+      placeholder: Tell us what you see!
+      value: "Measure.Taxon"
+    validations:
+      required: false
+  
