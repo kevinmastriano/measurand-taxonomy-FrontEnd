@@ -18,11 +18,46 @@ body:
     validations:
       required: false
   - type: textarea
+    id: measurand
+    attributes:
+      label: Measurand Description
+      description: Provide a detailed description of the measurand?
+      placeholder: Tell us what you measure!
+    validations:
+      required: false
+ - type: dropdown
+    id: process
+    attributes:
+      label: What is the process type?
+      multiple: false
+      options:
+        - Measure
+        - Source
+ - type: textarea
+    id: quantitykind
+    attributes:
+      label: Kind of quantity
+      description: Provide a kind of quantity for the measurand?
+      placeholder: Tell us what you measure!
+      value: "Length"
+    validations:
+      required: false
+ - type: dropdown
+    id: special
+    attributes:
+      label: Does the measurand require a special token?
+      multiple: false
+      options:
+        - Ratio
+        - Coefficient
+        - Delta
+        - Model
+ - type: textarea
     id: name
     attributes:
-      label: Proposed taxon name?
-      description: Provide a detailed description of the measurand?
-      placeholder: Tell us what you see!
+      label: Taxon Name
+      description: Propose a name?
+      placeholder: Tell us what you measure!
       value: "Measure.Taxon"
     validations:
       required: false
