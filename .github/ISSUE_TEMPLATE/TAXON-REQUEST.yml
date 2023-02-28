@@ -34,7 +34,7 @@ body:
       placeholder: Tell us what you measure!
     validations:
       required: false
- - type: textarea
+  - type: textarea
     id: quantitykind
     attributes:
       label: Kind of quantity
@@ -43,7 +43,7 @@ body:
       value: "Length"
     validations:
       required: false
- - type: dropdown
+  - type: dropdown
     id: special
     attributes:
       label: Does the measurand require a special token?
@@ -53,7 +53,7 @@ body:
         - Coefficient
         - Delta
         - Model
- - type: textarea
+  - type: textarea
     id: name
     attributes:
       label: Taxon Name
