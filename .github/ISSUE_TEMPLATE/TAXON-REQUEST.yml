@@ -17,7 +17,6 @@ body:
       placeholder: ex. email@example.com
     validations:
       required: false
-      - type: dropdown
   - type: dropdown
     id: process
     attributes:
