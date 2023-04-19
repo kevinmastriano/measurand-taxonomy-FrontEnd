@@ -1,5 +1,6 @@
-# mii-taxonomy
-MII Taxonomy Catalog
+# Measurand Taxonomy
+NCSLI MII Measurand Taxonomy Catalog
+Copyright © 2023 by NCSL International. All rights reserved
 
 Shield: [![CC BY 4.0][cc-by-shield]][cc-by]
 
