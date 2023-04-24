@@ -71,13 +71,14 @@ rules:
    recognized acronyms, e.g., ``DC``, ``RF``, ``PRT``, ``CMM``.
    [AcronymRule]
 
-#. Parameters substitute for additional tokens to distinguish details
-   within the same measurement process. [ParameterRule]
-   ``Source.Temperature.Simulated.Thermocouple``, for example, covers
-   all thermocouple types via a type parameter, whereas a separate taxon
-   (``Source.Temperature.Simulated.PRT``) covers platinum resistance
-   thermometers (PRTs) because the measurement process changes (sourcing
-   resistance instead of voltage).
+#. Add tokens only when required to distinguish measurands with 
+   different parameter sets.For simulated temperature sources, for 
+   example, (``Source.Temperature.Simulated``) we add ``.Thermocouple`` 
+   or ``.PRT`` to distinguish thermocouple parameters (temperature, 
+   voltage, type) from PRT parameters (temperature, resistance, type). 
+   We do not add a token for thermocouple types because we may use a 
+   key-value parameter (e.g., 'ThermocoupleType'='T') and all types 
+   then use the same parameter set.
 
 #. Special tokens with their own syntax identify common measurement
    scenarios. [SpecialTokenRule]
