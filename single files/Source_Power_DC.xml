@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Taxon xmlns:mtc="https://cls-schemas.s3.us-west-1.amazonaws.com/MetrologyTaxonomyCatalog" xmlns:uom="https://cls-schemas.s3.us-west-1.amazonaws.com/UOM_Database" name="Source.Power.DC" deprecated="false" replacement="">
+  <mtc:Result name="Watts">
+    <uom:Quantity name="power" />
+  </mtc:Result>
+  <mtc:Parameter name="Volts" optional="false">
+    <uom:Quantity name="voltage" />
+    <mtc:Definition />
+  </mtc:Parameter>
+  <mtc:Parameter name="Amps" optional="false">
+    <uom:Quantity name="current" />
+    <mtc:Definition />
+  </mtc:Parameter>
+  <mtc:Discipline name="Electical" />
+  <mtc:Definition>The process of sourcing DC Power signal from a device and measuring the value on the UUT. This test process can be used by any device that measures absolute DC power.</mtc:Definition>
+</Taxon>

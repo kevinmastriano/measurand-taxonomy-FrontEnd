@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Taxon xmlns:mtc="https://cls-schemas.s3.us-west-1.amazonaws.com/MetrologyTaxonomyCatalog" xmlns:uom="https://cls-schemas.s3.us-west-1.amazonaws.com/UOM_Database" name="Source.Voltage.Shorted" deprecated="false" replacement="">
+  <mtc:Result name="Voltage">
+    <uom:Quantity name="voltage" />
+  </mtc:Result>
+  <mtc:Parameter name="Volts" optional="false">
+    <uom:Quantity name="voltage" />
+    <mtc:Definition />
+  </mtc:Parameter>
+  <mtc:Discipline name="Electrical" />
+  <mtc:Definition>This process connects a Short to the input of a measurement device and measures the no signal applied Voltage.  This is The test process is typically used to measure the UUT?s Zero Volts DC  floor values.</mtc:Definition>
+</Taxon>

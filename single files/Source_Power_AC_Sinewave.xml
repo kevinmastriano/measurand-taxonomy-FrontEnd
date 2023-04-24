@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Taxon xmlns:mtc="https://cls-schemas.s3.us-west-1.amazonaws.com/MetrologyTaxonomyCatalog" xmlns:uom="https://cls-schemas.s3.us-west-1.amazonaws.com/UOM_Database" name="Source.Power.AC.Sinewave" deprecated="false" replacement="">
+  <mtc:Result name="Watts">
+    <uom:Quantity name="power" />
+  </mtc:Result>
+  <mtc:Parameter name="Volts" optional="false">
+    <uom:Quantity name="voltage" />
+    <mtc:Definition />
+  </mtc:Parameter>
+  <mtc:Parameter name="Amps" optional="false">
+    <uom:Quantity name="current" />
+    <mtc:Definition />
+  </mtc:Parameter>
+  <mtc:Parameter name="Frequency" optional="false">
+    <uom:Quantity name="frequency" />
+    <mtc:Definition />
+  </mtc:Parameter>
+  <mtc:Discipline name="Electrical" />
+  <mtc:Definition>The process of sourcing a sinusoidal AC Power signal from a device and measuring the value on the UUT. This test process can be used by any device that measures absolute AC power.</mtc:Definition>
+</Taxon>

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Taxon xmlns:mtc="https://cls-schemas.s3.us-west-1.amazonaws.com/MetrologyTaxonomyCatalog" xmlns:uom="https://cls-schemas.s3.us-west-1.amazonaws.com/UOM_Database" name="Source.Conductivity" deprecated="false" replacement="">
+  <mtc:Result name="Conductivity">
+    <uom:Quantity name="conductivity" />
+  </mtc:Result>
+  <mtc:Parameter name="Conductivity" optional="false">
+    <uom:Quantity name="conductivity" />
+    <mtc:Definition />
+  </mtc:Parameter>
+  <mtc:Parameter name="Solution" optional="true">
+    <mtc:Definition />
+  </mtc:Parameter>
+  <mtc:Parameter name="Ohms" optional="true">
+    <uom:Quantity name="resistance" />
+    <mtc:Definition />
+  </mtc:Parameter>
+  <mtc:Discipline name="Electrical" />
+  <mtc:Definition>The process of sourcing Electrical Conductivity either from a fixed device or simulated.</mtc:Definition>
+</Taxon>

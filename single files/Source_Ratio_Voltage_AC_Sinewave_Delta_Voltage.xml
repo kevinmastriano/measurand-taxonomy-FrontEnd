@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Taxon xmlns:mtc="https://cls-schemas.s3.us-west-1.amazonaws.com/MetrologyTaxonomyCatalog" xmlns:uom="https://cls-schemas.s3.us-west-1.amazonaws.com/UOM_Database" name="Source.Ratio.Voltage.AC.Sinewave.Delta.Voltage" deprecated="false" replacement="">
+  <mtc:Result name="DeltaVolts">
+    <uom:Quantity name="ratio" />
+  </mtc:Result>
+  <mtc:Parameter name="Volts" optional="false">
+    <uom:Quantity name="voltage" />
+    <mtc:Definition />
+  </mtc:Parameter>
+  <mtc:Parameter name="VoltsRef" optional="false">
+    <uom:Quantity name="voltage" />
+    <mtc:Definition>Reference Voltage</mtc:Definition>
+  </mtc:Parameter>
+  <mtc:Parameter name="Frequency" optional="false">
+    <uom:Quantity name="frequency" />
+    <mtc:Definition />
+  </mtc:Parameter>
+  <mtc:Parameter name="Impedance" optional="true">
+    <uom:Quantity name="impedance" />
+    <mtc:Definition>Ouptut Impedance</mtc:Definition>
+  </mtc:Parameter>
+  <mtc:Discipline name="Electrical" />
+  <mtc:Definition>A test process that sources 2 sinusoidal AC Voltage signals at different voltage levels keeping the frequency constant. TheVoltageRef signal is sourced and the voltage is measured by the UUT and saved as the Reference value.  Then the voltage level is changed and the Test value is measured on the UUT.  The two measured values are compared, the results can be expressed as Delta Volts, dB or percent of change. These two sinusoidal signals are often used when calibrating linearity of a device.</mtc:Definition>
+</Taxon>

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Taxon xmlns:mtc="https://cls-schemas.s3.us-west-1.amazonaws.com/MetrologyTaxonomyCatalog" xmlns:uom="https://cls-schemas.s3.us-west-1.amazonaws.com/UOM_Database" name="Measure.Conductivity" deprecated="false" replacement="">
+  <mtc:Result name="Conductivity">
+    <uom:Quantity name="conductivity" />
+  </mtc:Result>
+  <mtc:Parameter name="Conductivity" optional="false">
+    <uom:Quantity name="conductivity" />
+    <mtc:Definition>Conductivity to be measured</mtc:Definition>
+  </mtc:Parameter>
+  <mtc:Parameter name="Distance" optional="true">
+    <uom:Quantity name="length" />
+    <mtc:Definition>Length between nodes</mtc:Definition>
+  </mtc:Parameter>
+  <mtc:Parameter name="Volts" optional="true">
+    <uom:Quantity name="voltage" />
+    <mtc:Definition>Voltage between the probes</mtc:Definition>
+  </mtc:Parameter>
+  <mtc:Parameter name="Amps" optional="true">
+    <uom:Quantity name="current" />
+    <mtc:Definition>Electrical Current Expected</mtc:Definition>
+  </mtc:Parameter>
+  <mtc:Parameter name="Temperature " optional="true">
+    <uom:Quantity name="temperature" />
+    <mtc:Definition>usually 20 ?C</mtc:Definition>
+  </mtc:Parameter>
+  <mtc:Discipline name="Chemical" />
+  <mtc:Definition>The process of measuring the Electrical Conductivity of a Solution or a device.</mtc:Definition>
+</Taxon>

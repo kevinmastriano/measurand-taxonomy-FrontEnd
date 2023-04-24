@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Taxon xmlns:mtc="https://cls-schemas.s3.us-west-1.amazonaws.com/MetrologyTaxonomyCatalog" xmlns:uom="https://cls-schemas.s3.us-west-1.amazonaws.com/UOM_Database" name="Source.Voltage.DC.Delta.Voltage" deprecated="false" replacement="">
+  <mtc:Result name="DeltaVolts">
+    <uom:Quantity name="voltage" />
+  </mtc:Result>
+  <mtc:Parameter name="Volts" optional="false">
+    <uom:Quantity name="voltage" />
+    <mtc:Definition />
+  </mtc:Parameter>
+  <mtc:Parameter name="VoltsRef" optional="false">
+    <uom:Quantity name="voltage" />
+    <mtc:Definition>Reference Voltage</mtc:Definition>
+  </mtc:Parameter>
+  <mtc:Parameter name="Impedance" optional="true">
+    <uom:Quantity name="impedance" />
+    <mtc:Definition>Output Impedance</mtc:Definition>
+  </mtc:Parameter>
+  <mtc:Discipline name="Electrical" />
+  <mtc:Definition>The process of sourcing 2 DC (Direct Current) voltage signals.  First the VoltsRef signal is sourced and measured on the UUT, that value is stored as reference.  Then the test Volts signal is sourced and measured on the UUT and stored as reading.  The test result is returned as (reading ? reference). These two voltage signals are often used when calibrating the DC gain of a device such as an Oscilloscope.</mtc:Definition>
+</Taxon>

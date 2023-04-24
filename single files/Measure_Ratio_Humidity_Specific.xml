@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Taxon xmlns:mtc="https://cls-schemas.s3.us-west-1.amazonaws.com/MetrologyTaxonomyCatalog" xmlns:uom="https://cls-schemas.s3.us-west-1.amazonaws.com/UOM_Database" name="Measure.Ratio.Humidity.Specific" deprecated="false" replacement="">
+  <mtc:Result name="Humidity">
+    <uom:Quantity name="ratio" />
+  </mtc:Result>
+  <mtc:Parameter name="Humidity" optional="false">
+    <uom:Quantity name="ratio" />
+    <mtc:Definition />
+  </mtc:Parameter>
+  <mtc:Parameter name="DryAirMass" optional="true">
+    <uom:Quantity name="mass" />
+    <mtc:Definition />
+  </mtc:Parameter>
+  <mtc:Parameter name="WaterVaporMass" optional="true">
+    <uom:Quantity name="mass" />
+    <mtc:Definition />
+  </mtc:Parameter>
+  <mtc:Discipline name="Thermodynamics" />
+  <mtc:Definition>Measuring the ratio of the mass of water vapor to the total mass of the dry air. The gravimetric method of calibration determines the specific humidity, with pressure and temperature having no effect on the masses. Also referred to as moisture content</mtc:Definition>
+</Taxon>

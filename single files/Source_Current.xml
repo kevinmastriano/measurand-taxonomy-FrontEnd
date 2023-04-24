@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Taxon xmlns:mtc="https://cls-schemas.s3.us-west-1.amazonaws.com/MetrologyTaxonomyCatalog" xmlns:uom="https://cls-schemas.s3.us-west-1.amazonaws.com/UOM_Database" name="Source.Current" deprecated="false" replacement="">
+  <mtc:Result name="Amps">
+    <uom:Quantity name="current" />
+  </mtc:Result>
+  <mtc:Parameter name="Amps" optional="false">
+    <uom:Quantity name="current" />
+    <mtc:Definition />
+  </mtc:Parameter>
+  <mtc:Discipline name="Electrical" />
+  <mtc:Definition>The process of sourcing a Direct Current) voltage from a device and measuring the value on the UUT.</mtc:Definition>
+</Taxon>

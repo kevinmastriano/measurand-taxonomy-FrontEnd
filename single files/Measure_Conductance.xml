@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Taxon xmlns:mtc="https://cls-schemas.s3.us-west-1.amazonaws.com/MetrologyTaxonomyCatalog" xmlns:uom="https://cls-schemas.s3.us-west-1.amazonaws.com/UOM_Database" name="Measure.Conductance" deprecated="false" replacement="">
+  <mtc:Result name="Conductance">
+    <uom:Quantity name="conductance" />
+  </mtc:Result>
+  <mtc:Parameter name="Conductance" optional="false">
+    <uom:Quantity name="conductance" />
+    <mtc:Definition>Conductance measured</mtc:Definition>
+  </mtc:Parameter>
+  <mtc:Discipline name="Electrical" />
+  <mtc:Definition>The process of measuring the Electrical Conductance of a device.</mtc:Definition>
+</Taxon>

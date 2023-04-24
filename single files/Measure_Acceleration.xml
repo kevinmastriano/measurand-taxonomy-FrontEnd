@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Taxon xmlns:mtc="https://cls-schemas.s3.us-west-1.amazonaws.com/MetrologyTaxonomyCatalog" xmlns:uom="https://cls-schemas.s3.us-west-1.amazonaws.com/UOM_Database" name="Measure.Acceleration" deprecated="false" replacement="">
+  <mtc:Result name="Acceleration">
+    <uom:Quantity name="acceleration" />
+  </mtc:Result>
+  <mtc:Parameter name="Acceleration" optional="false">
+    <uom:Quantity name="acceleration" />
+    <mtc:Definition />
+  </mtc:Parameter>
+  <mtc:Parameter name="Time" optional="false">
+    <uom:Quantity name="time" />
+    <mtc:Definition>Measurement time</mtc:Definition>
+  </mtc:Parameter>
+  <mtc:Parameter name="Distance" optional="false">
+    <uom:Quantity name="length" />
+    <mtc:Definition>Measurement Distance</mtc:Definition>
+  </mtc:Parameter>
+  <mtc:Parameter name="TimeInterval" optional="true">
+    <uom:Quantity name="time" />
+    <mtc:Definition>Time between Measurements</mtc:Definition>
+  </mtc:Parameter>
+  <mtc:Parameter name="DistanceInterval" optional="true">
+    <uom:Quantity name="length" />
+    <mtc:Definition>Distaince between Measurements</mtc:Definition>
+  </mtc:Parameter>
+  <mtc:Discipline name="Vibration" />
+  <mtc:Definition>To measure the acceleration or deceleration / the change in velocity of a body. (m/s?)</mtc:Definition>
+</Taxon>

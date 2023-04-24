@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Taxon xmlns:mtc="https://cls-schemas.s3.us-west-1.amazonaws.com/MetrologyTaxonomyCatalog" xmlns:uom="https://cls-schemas.s3.us-west-1.amazonaws.com/UOM_Database" name="Source.Mass.Apparent" deprecated="true" replacement="TestProcess.Source.Mass.Conventional">
+  <mtc:Result name="mass">
+    <uom:Quantity name="mass" />
+  </mtc:Result>
+  <mtc:Parameter name="Mass" optional="false">
+    <uom:Quantity name="mass" />
+    <mtc:Definition />
+  </mtc:Parameter>
+  <mtc:Discipline name="" />
+  <mtc:Definition />
+</Taxon>

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Taxon xmlns:mtc="https://cls-schemas.s3.us-west-1.amazonaws.com/MetrologyTaxonomyCatalog" xmlns:uom="https://cls-schemas.s3.us-west-1.amazonaws.com/UOM_Database" name="Measure.Phase.ReflectionFactor.RF" deprecated="false" replacement="">
+  <mtc:Result name="Phase">
+    <uom:Quantity name="phase" />
+  </mtc:Result>
+  <mtc:Parameter name="Frequency" optional="false">
+    <uom:Quantity name="frequency" />
+    <mtc:Definition />
+  </mtc:Parameter>
+  <mtc:Parameter name="Power" optional="false">
+    <uom:Quantity name="power" />
+    <mtc:Definition />
+  </mtc:Parameter>
+  <mtc:Parameter name="Port" optional="true">
+    <mtc:Definition>Port Name</mtc:Definition>
+  </mtc:Parameter>
+  <mtc:Parameter name="Bandwidth" optional="true">
+    <uom:Quantity name="frequency" />
+    <mtc:Definition>Bandwidth Measurement</mtc:Definition>
+  </mtc:Parameter>
+  <mtc:Discipline name="Electrical" />
+  <mtc:Definition>The process of measuring the Reflection Coefficient Phase of an RF signal that is reflected back to the transmitting port.</mtc:Definition>
+</Taxon>

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Taxon xmlns:mtc="https://cls-schemas.s3.us-west-1.amazonaws.com/MetrologyTaxonomyCatalog" xmlns:uom="https://cls-schemas.s3.us-west-1.amazonaws.com/UOM_Database" name="Measure.Ratio.Humidity.Relative" deprecated="false" replacement="">
+  <mtc:Result name="Relative Humidity">
+    <uom:Quantity name="ratio" />
+  </mtc:Result>
+  <mtc:Parameter name="Relative Humidity" optional="false">
+    <uom:Quantity name="ratio" />
+    <mtc:Definition />
+  </mtc:Parameter>
+  <mtc:Parameter name="Temperature" optional="true">
+    <uom:Quantity name="temperature" />
+    <mtc:Definition />
+  </mtc:Parameter>
+  <mtc:Parameter name="Pressure" optional="true">
+    <uom:Quantity name="pressure" />
+    <mtc:Definition />
+  </mtc:Parameter>
+  <mtc:Discipline name="Thermodynamics" />
+  <mtc:Definition>Measuring the ratio of the water vapor?s partial pressure divided by the saturation water vapor pressure allowed at a given temperature.</mtc:Definition>
+</Taxon>

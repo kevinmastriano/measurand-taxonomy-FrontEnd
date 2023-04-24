@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Taxon xmlns:mtc="https://cls-schemas.s3.us-west-1.amazonaws.com/MetrologyTaxonomyCatalog" xmlns:uom="https://cls-schemas.s3.us-west-1.amazonaws.com/UOM_Database" name="Measure.Temperature" deprecated="false" replacement="">
+  <mtc:Result name="Temperature">
+    <uom:Quantity name="temperature" />
+  </mtc:Result>
+  <mtc:Parameter name="Temperture" optional="false">
+    <uom:Quantity name="temperature" />
+    <mtc:Definition />
+  </mtc:Parameter>
+  <mtc:Discipline name="Thermodynamics" />
+  <mtc:Definition>The process of measuring the physical temperature of a device.</mtc:Definition>
+</Taxon>
