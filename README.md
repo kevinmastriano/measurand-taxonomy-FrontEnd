@@ -1,6 +1,11 @@
 # Measurand Taxonomy
 NCSLI MII Measurand Taxonomy Catalog
 
+To generate a html from the xml source, use xsltproc
+```
+xsltproc -o MeasurandTaxonomyCatalog.html MeasurandTaxonomyCatalog.xsl MeasurandTaxonomyCatalog.xml
+```
+
 Copyright © 2023 by NCSL International. All rights reserved
 
 Shield: [![CC BY 4.0][cc-by-shield]][cc-by]
