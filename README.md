@@ -1,10 +1,22 @@
 # Measurand Taxonomy
-NCSLI MII Measurand Taxonomy Catalog
+
+## NCSLI MII Measurand Taxonomy Catalog
 
 To generate a html from the xml source, use xsltproc
 ```
 xsltproc -o MeasurandTaxonomyCatalog.html MeasurandTaxonomyCatalog.xsl MeasurandTaxonomyCatalog.xml
 ```
+
+## Documentation
+Documentation can be generated using Sphinx. To get started, create a conda environment with sphinx and build the docs.
+
+```
+conda create -n <environment_name> --file requirements.txt
+sphinx-build -M html docs docs/build
+```
+Open the documentation, `docs/build/html/index.html`, in your browser 
+
+## Copyright and License
 
 Copyright © 2023 by NCSL International. All rights reserved
 
