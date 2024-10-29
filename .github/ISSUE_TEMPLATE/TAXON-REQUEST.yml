@@ -20,7 +20,7 @@ body:
   - type: dropdown
     id: process
     attributes:
-      label: What is the process type?
+      label: What is the process type? A taxon’s first token represents the process type, taking either the value Measure or Source to identify an input-quanity or output-quantity measurement, respectively.
       multiple: false
       options:
         - Measure
@@ -29,8 +29,8 @@ body:
     id: measurand
     attributes:
       label: Measurand
-      description: Provide a description of the measurand?
-      placeholder: Tell us what you measure!
+      description: Provide a description of the measurand. Simply stated, the measurand identifies what we intend to measure [VIM3](https://jcgm.bipm.org/vim/en/2.3.html). A measurement will fit its purpose to the degree that the measurand specification unambiguously and accurately describes the intent. Provide as many details to describe the measurand as possible, including links to references. 
+      placeholder: Tell us what you measure! For example, Microphone Sensivity: the measurand quantity is pressure sensitivity (ratio of dynamic output voltage to dynamic pressure), typically expressed as a logarithmic level quantity to 1 V/Pa. The primary calibration method is reciprocity that entail reciprocal measurements between a pair of microphones under controlled conditions per IEC 61094-2.
     validations:
       required: false
   - type: textarea
