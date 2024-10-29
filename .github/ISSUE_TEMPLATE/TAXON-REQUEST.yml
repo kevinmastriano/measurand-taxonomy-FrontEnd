@@ -45,12 +45,19 @@ body:
     id: special
     attributes:
       label: Does the measurand require a special token?
+      description: Special tokens with their own syntax identify common measurement scenarios. The Ratio quantity token precedes the quantity-kind token to identify a quotient of two like-kind quantities. The Coefficient quantity token precedes two successive and differing quantity-kind tokens to identify a quotient of two unlike quantity kinds. The Delta token follows the quantity(ies) to identify a further quantity that differs when measuring the quotient’s numerator and denominator. The Model token after a quantity introduces a standard instrument model.
       multiple: false
       options:
         - Ratio
         - Coefficient
         - Delta
         - Model
+  - type: textarea
+    id: parameters
+    attributes:
+      label: Parameters
+      description: Specify the measurand's full state to restrict its definitional uncertainty such that definitional uncertainty. The measurand state includes input quantities, influence quantities, and instrument operating conditions. Define these as parameters in this section.
+      placeholder: 
   - type: textarea
     id: name
     attributes:
