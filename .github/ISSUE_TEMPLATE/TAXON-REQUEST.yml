@@ -20,7 +20,8 @@ body:
   - type: dropdown
     id: process
     attributes:
-      label: What is the process type? A taxon’s first token represents the process type, taking either the value Measure or Source to identify an input-quanity or output-quantity measurement, respectively.
+      label: What is the process type? 
+      description: A taxon’s first token represents the process type, taking either the value Measure or Source to identify an input-quanity or output-quantity measurement, respectively.
       multiple: false
       options:
         - Measure
