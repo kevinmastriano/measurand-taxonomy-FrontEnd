@@ -57,13 +57,13 @@ body:
     id: parameters
     attributes:
       label: Parameters
-      description: Specify the measurand's full state to restrict its definitional uncertainty such that definitional uncertainty. The measurand state includes input quantities, influence quantities, and instrument operating conditions. Define these as parameters in this section.
+      description: Specify the measurand's full state to restrict its definitional uncertainty such that definitional uncertainty. The measurand state includes input quantities, influence quantities, and instrument operating conditions. Define these as parameters in this section. For further details refer to the [parameters specification](https://measurand-taxonomy.readthedocs.io/en/latest/specification.html#parameters).
       placeholder: 
   - type: textarea
     id: name
     attributes:
       label: Taxon Name
-      description: Propose a name?
+      description: Propose a name following the [specification rules](https://measurand-taxonomy.readthedocs.io/en/latest/specification.html#measurand-name). This field is not required and can be left to the reviewer or expert to provide the unique taxon name.
       placeholder: Measure.Taxon
     validations:
       required: false
