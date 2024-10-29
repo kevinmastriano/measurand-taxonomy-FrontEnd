@@ -8,7 +8,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to fill out this taxon request!
+        Thanks for taking the time to fill out this taxon request! Please refer to the [specification](https://measurand-taxonomy.readthedocs.io/en/latest/specification.html) for further details and guidance.
   - type: input
     id: contact
     attributes:
