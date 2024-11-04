@@ -57,7 +57,7 @@ body:
     id: parameters
     attributes:
       label: Parameters
-      description: Specify the measurand's full state to restrict its definitional uncertainty such that definitional uncertainty. The measurand state includes input quantities, influence quantities, and instrument operating conditions. Define these as parameters in this section. For further details refer to the [parameters specification](https://measurand-taxonomy.readthedocs.io/en/latest/specification.html#parameters).
+      description: Specify the measurand's full state such that its definitional uncertainty is insignificant to other uncertainty components. The measurand state includes input quantities, influence quantities, and instrument operating conditions. Define these as parameters in this section. For further details refer to the [parameters specification](https://measurand-taxonomy.readthedocs.io/en/latest/specification.html#parameters).
       placeholder: 
   - type: textarea
     id: name
