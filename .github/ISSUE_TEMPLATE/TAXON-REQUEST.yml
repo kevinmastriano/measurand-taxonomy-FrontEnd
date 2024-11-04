@@ -39,7 +39,7 @@ body:
     attributes:
       label: Kind of quantity
       description: Provide a kind of quantity for the measurand. The measure quantity's first token identifies the [kind of quantity](https://jcgm.bipm.org/vim/en/1.2.html) such as length, or in some cases a particular aspect of a kind of quantity such as thermodynamic temparture or ITS-90 temperature.
-      placeholder: Length
+      placeholder: Voltage and Pressure
     validations:
       required: false
   - type: dropdown
