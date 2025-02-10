@@ -21,14 +21,14 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" vc:minVersion="1.0" vc:maxVersion="1.1"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:uom="https://cls-schemas.s3.us-west-1.amazonaws.com/UOM_Database"
-    xmlns:mtc="https://cls-schemas.s3.us-west-1.amazonaws.com/MetrologyTaxonomyCatalog"
+    xmlns:uom="https://raw.githubusercontent.com/NCSLI-MII/measurand-taxonomy/main/UOM_Database.xml"
+    xmlns:mtc="https://raw.githubusercontent.com/NCSLI-MII/measurand-taxonomy/main/MetrologyTaxonomyCatalog.xml"
     elementFormDefault="qualified" attributeFormDefault="unqualified"
-    targetNamespace="https://cls-schemas.s3.us-west-1.amazonaws.com/MetrologyTaxonomyCatalog"
+    targetNamespace="https://raw.githubusercontent.com/NCSLI-MII/measurand-taxonomy/main/MetrologyTaxonomyCatalog"
     >
     
-    <xs:import namespace="https://cls-schemas.s3.us-west-1.amazonaws.com/UOM_Database"
-        schemaLocation="https://cls-schemas.s3.us-west-1.amazonaws.com/UOM_Database.xsd"/>
+    <xs:import namespace="https://raw.githubusercontent.com/NCSLI-MII/measurand-taxonomy/main/UOM_Database"
+        schemaLocation="https://raw.githubusercontent.com/NCSLI-MII/measurand-taxonomy/main/UOM_Database.xsd"/>
     
     <xs:element name="Taxonomy">
         <xs:complexType>
