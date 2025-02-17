@@ -37,11 +37,17 @@
             </xs:sequence>           
         </xs:complexType>
     </xs:element>
+
+    <xs:element name="mLayer">
+        <xs:attribute name="aspect" type="xs:Name" use="required"/>
+        <xs:attribute name="id" type="xs:Name" use="required"/>
+    </xs:element>
     
     <xs:element name="Result">
         <xs:complexType>
             <xs:sequence>
-                <xs:element maxOccurs="1" ref="uom:Quantity" />
+                <xs:element ref="uom:Quantity" maxOccurs="1" minOccurs="0"/>
+				<xs:element ref="mLayer" maxOccurs="1" minOccurs="0"/>
             </xs:sequence>
             <xs:attribute name="name" type="xs:Name" use="optional"/>
         </xs:complexType>
@@ -50,8 +56,9 @@
     <xs:element name="Parameter">
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="uom:Quantity" minOccurs="0"/>
-                <xs:element minOccurs="0" name="Definition" type="xs:string" />
+                <xs:element name="Definition" type="xs:string" minOccurs="0"/>
+                <xs:element ref="uom:Quantity" maxOccurs="1" minOccurs="0"/>
+				<xs:element ref="mLayer" maxOccurs="1" minOccurs="0" />
             </xs:sequence>            
             <xs:attribute name="name" type="xs:Name" use="required"/>
             <xs:attribute default="false" name="optional" type="xs:boolean"/>
