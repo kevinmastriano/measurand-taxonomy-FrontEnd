@@ -28,8 +28,9 @@
     >
     
     <xs:import namespace="https://raw.githubusercontent.com/NCSLI-MII/measurand-taxonomy/main/UOM_Database"
-        schemaLocation="https://raw.githubusercontent.com/NCSLI-MII/measurand-taxonomy/main/UOM_Database.xsd"/>
-    
+        schemaLocation="https://raw.githubusercontent.com/NCSLI-MII/measurand-taxonomy/main/UOM_Database.xsd"
+		/>
+
     <xs:element name="Taxonomy">
         <xs:complexType>
             <xs:sequence>
@@ -43,11 +44,40 @@
         <xs:attribute name="id" type="xs:Name" use="required"/>
     </xs:element>
     
+	<!-- The "quantityCodeSystemType" is from the 
+	     https://github.com/TC-IM-1448/DCC-Tables/blob/main/dcx.xsd
+		 When this library is complete Reference should be syncronized with the 
+		 work done by DCC-Tables (DCX)
+	-->
+    <xs:simpleType name="quantityCodeSystemType">
+        <xs:annotation>
+            <xs:documentation>
+            </xs:documentation>
+        </xs:annotation>
+            <xs:restriction base="xs:string">
+                <xs:enumeration value="ISO/IEC 80000" /> 
+                <xs:enumeration value="si-digital-framework.org" /> 
+                <xs:enumeration value="electropedia.org"/>
+                <xs:enumeration value="mlayer.org" /> 
+                <xs:enumeration value="qudt.org" /> 
+                <xs:enumeration value="ucum.org" /> 
+                <xs:enumeration value="ptb.de" /> 
+                <xs:enumeration value="other" /> 
+            </xs:restriction>
+    </xs:simpleType>
+	
+    <xs:element name="ExternalQuantityType">
+        <xs:attribute name="quantityName" type="xs:string" minOccurs="0" maxOccurs="0"/>
+        <xs:attribute name="quantityCode" type="xs:string" use="required"/>
+        <xs:element name="quantityCodeSystem" type="quantityCodeSystemType" />
+    </xs:element>
+    
     <xs:element name="Result">
         <xs:complexType>
             <xs:sequence>
                 <xs:element ref="uom:Quantity" maxOccurs="1" minOccurs="0"/>
 				<xs:element ref="mLayer" maxOccurs="1" minOccurs="0"/>
+				<xs:element ref="ExternalQuantityType" maxOccurs="1" minOccurs="0"/>
             </xs:sequence>
             <xs:attribute name="name" type="xs:Name" use="optional"/>
         </xs:complexType>
@@ -59,6 +89,7 @@
                 <xs:element name="Definition" type="xs:string" minOccurs="0"/>
                 <xs:element ref="uom:Quantity" maxOccurs="1" minOccurs="0"/>
 				<xs:element ref="mLayer" maxOccurs="1" minOccurs="0" />
+				<xs:element ref="ExternalQuantityType" maxOccurs="1" minOccurs="0"/>
             </xs:sequence>            
             <xs:attribute name="name" type="xs:Name" use="required"/>
             <xs:attribute default="false" name="optional" type="xs:boolean"/>
