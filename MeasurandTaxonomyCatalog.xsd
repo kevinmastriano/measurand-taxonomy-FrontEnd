@@ -22,9 +22,9 @@
     xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" vc:minVersion="1.0" vc:maxVersion="1.1"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:uom="https://raw.githubusercontent.com/NCSLI-MII/measurand-taxonomy/main/UOM_Database.xml"
-    xmlns:mtc="https://raw.githubusercontent.com/NCSLI-MII/measurand-taxonomy/main/MetrologyTaxonomyCatalog.xml"
+    xmlns:mtc="https://raw.githubusercontent.com/NCSLI-MII/measurand-taxonomy/main/MeasurandTaxonomyCatalog.xml"
     elementFormDefault="qualified" attributeFormDefault="unqualified"
-    targetNamespace="https://raw.githubusercontent.com/NCSLI-MII/measurand-taxonomy/main/MetrologyTaxonomyCatalog"
+    targetNamespace="https://raw.githubusercontent.com/NCSLI-MII/measurand-taxonomy/main/MeasurandTaxonomyCatalog"
     >
     
     <xs:import namespace="https://raw.githubusercontent.com/NCSLI-MII/measurand-taxonomy/main/UOM_Database"
@@ -77,7 +77,7 @@
             <xs:sequence>
                 <xs:element ref="uom:Quantity" maxOccurs="1" minOccurs="0"/>
 				<xs:element ref="mLayer" maxOccurs="1" minOccurs="0"/>
-				<xs:element ref="ExternalQuantityType" />
+				<xs:element ref="ExternalQuantityType"  minOccurs="0"/>
             </xs:sequence>
             <xs:attribute name="name" type="xs:Name" use="optional"/>
         </xs:complexType>
