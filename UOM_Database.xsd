@@ -3,7 +3,7 @@
 xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" 
 xmlns:mml="http://www.w3.org/1998/Math/MathML" 
 xmlns:uom="https://raw.githubusercontent.com/NCSLI-MII/measurand-taxonomy/main/UOM_Database" vc:minVersion="1.0" vc:maxVersion="1.1" 
-targetNamespace="hhttps://raw.githubusercontent.com/NCSLI-MII/measurand-taxonomy/main/UOM_Database" elementFormDefault="qualified" attributeFormDefault="unqualified">
+targetNamespace="https://raw.githubusercontent.com/NCSLI-MII/measurand-taxonomy/main/UOM_Database" elementFormDefault="qualified" attributeFormDefault="unqualified">
 <xs:annotation>
 <xs:documentation>Copyright Cal Lab Solutions 2015 all rights reserved</xs:documentation>
 </xs:annotation>
