@@ -73,7 +73,7 @@
 		<xs:sequence>
 			<xs:element name="quantityCodeSystem" type="mtc:quantityCodeSystemType" />
 		</xs:sequence>
-        	<xs:attribute name="quantityName" type="xs:string" minOccurs="0" maxOccurs="0"/>
+        	<xs:attribute name="quantityName" type="xs:string" use="required"/>
         	<xs:attribute name="quantityCode" type="xs:string" use="required"/>
 	</xs:complexType>
     </xs:element>
