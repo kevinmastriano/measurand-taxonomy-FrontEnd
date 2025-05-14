@@ -40,8 +40,10 @@
     </xs:element>
 
     <xs:element name="mLayer">
-        <xs:attribute name="aspect" type="xs:Name" use="required"/>
-        <xs:attribute name="id" type="xs:Name" use="required"/>
+	<xs:complexType>
+            <xs:attribute name="aspect" type="xs:Name" use="required"/>
+            <xs:attribute name="id" type="xs:Name" use="required"/>
+	</xs:complexType>
     </xs:element>
     
 	<!-- The "quantityCodeSystemType" is from the 
