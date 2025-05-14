@@ -82,8 +82,8 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element ref="uom:Quantity" maxOccurs="1" minOccurs="0"/>
-				<xs:element ref="mLayer" maxOccurs="1" minOccurs="0"/>
-				<xs:element ref="ExternalQuantityType"  minOccurs="0"/>
+				<xs:element ref="mtc:mLayer" maxOccurs="1" minOccurs="0"/>
+				<xs:element ref="mtc:ExternalQuantityType"  minOccurs="0"/>
             </xs:sequence>
             <xs:attribute name="name" type="xs:Name" use="optional"/>
         </xs:complexType>
@@ -94,8 +94,8 @@
             <xs:sequence>
                 <xs:element name="Definition" type="xs:string" minOccurs="0"/>
                 <xs:element ref="uom:Quantity" maxOccurs="1" minOccurs="0"/>
-				<xs:element ref="mLayer" maxOccurs="1" minOccurs="0" />
-				<xs:element ref="ExternalQuantityType" maxOccurs="1" minOccurs="0"/>
+				<xs:element ref="mtc:mLayer" maxOccurs="1" minOccurs="0" />
+				<xs:element ref="mtc:ExternalQuantityType" maxOccurs="1" minOccurs="0"/>
             </xs:sequence>            
             <xs:attribute name="name" type="xs:Name" use="required"/>
             <xs:attribute default="false" name="optional" type="xs:boolean"/>
