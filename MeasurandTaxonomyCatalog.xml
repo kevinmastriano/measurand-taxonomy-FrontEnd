@@ -5,27 +5,27 @@
 			<uom:Quantity name="acceleration"></uom:Quantity>
 			<mtc:mLayer aspect="acceleration" id="AS39"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="acceleration" optional="false">
+		<mtc:Parameter name="Acceleration" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="acceleration"></uom:Quantity>
 			<mtc:mLayer aspect="acceleration" id="AS39"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="time" optional="false">
+		<mtc:Parameter name="Time" optional="false">
 			<mtc:Definition>Measurement time</mtc:Definition>
 			<uom:Quantity name="time"></uom:Quantity>
 			<mtc:mLayer aspect="time" id="AS4"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="distance" optional="false">
+		<mtc:Parameter name="Distance" optional="false">
 			<mtc:Definition>Measurement Distance</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="timeinterval" optional="true">
+		<mtc:Parameter name="TimeInterval" optional="true">
 			<mtc:Definition>Time between Measurements</mtc:Definition>
 			<uom:Quantity name="time"></uom:Quantity>
 			<mtc:mLayer aspect="time" id="AS4"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="distanceinterval" optional="true">
+		<mtc:Parameter name="DistanceInterval" optional="true">
 			<mtc:Definition>Distaince between Measurements</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
@@ -38,17 +38,17 @@
 			<uom:Quantity name="capacitance"></uom:Quantity>
 			<mtc:mLayer aspect="capacitance" id="AS23"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="capacitance" optional="false">
+		<mtc:Parameter name="Capacitance" optional="false">
 			<mtc:Definition>Capacitance Value measured</mtc:Definition>
 			<uom:Quantity name="capacitance"></uom:Quantity>
 			<mtc:mLayer aspect="capacitance" id="AS23"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="frequency" optional="true">
+		<mtc:Parameter name="Frequency" optional="true">
 			<mtc:Definition>Measurement Frequency</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="volts" optional="true">
+		<mtc:Parameter name="Volts" optional="true">
 			<mtc:Definition>Measurement Voltage</mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
@@ -59,12 +59,12 @@
 	<mtc:Taxon name="Measure.Conductance" deprecated="false" replacement="">
 		<mtc:Result>
 			<uom:Quantity name="conductance"></uom:Quantity>
-			<mtc:mLayer aspect="electric_conductance" id="AS25"></mtc:mLayer>
+			<mtc:mLayer aspect="electric-conductance" id="AS25"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="conductance" optional="false">
+		<mtc:Parameter name="Conductance" optional="false">
 			<mtc:Definition>Conductance measured</mtc:Definition>
 			<uom:Quantity name="conductance"></uom:Quantity>
-			<mtc:mLayer aspect="electric_conductance" id="AS25"></mtc:mLayer>
+			<mtc:mLayer aspect="electric-conductance" id="AS25"></mtc:mLayer>
 		</mtc:Parameter>
 		<mtc:Discipline name="Electrical"></mtc:Discipline>
 		<mtc:Definition>The process of measuring the Electrical Conductance of a device.</mtc:Definition>
@@ -74,30 +74,30 @@
 			<uom:Quantity name="conductivity"></uom:Quantity>
 			<mtc:mLayer aspect="conductivity" id="AS91"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="conductivity" optional="false">
+		<mtc:Parameter name="Conductivity" optional="false">
 			<mtc:Definition>Conductivity to be measured</mtc:Definition>
 			<uom:Quantity name="conductivity"></uom:Quantity>
 			<mtc:mLayer aspect="conductivity" id="AS91"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="distance" optional="true">
+		<mtc:Parameter name="Distance" optional="true">
 			<mtc:Definition>Length between nodes</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="volts" optional="true">
+		<mtc:Parameter name="Volts" optional="true">
 			<mtc:Definition>Voltage between the probes</mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="amps" optional="true">
+		<mtc:Parameter name="Amps" optional="true">
 			<mtc:Definition>Electrical Current Expected</mtc:Definition>
 			<uom:Quantity name="current"></uom:Quantity>
-			<mtc:mLayer aspect="electric_current" id="AS5"></mtc:mLayer>
+			<mtc:mLayer aspect="electric-current" id="AS5"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="temperature" optional="true">
+		<mtc:Parameter name="Temperature" optional="true">
 			<mtc:Definition>usually 20 °C</mtc:Definition>
 			<uom:Quantity name="temperature"></uom:Quantity>
-			<mtc:mLayer aspect="thermodynamic_temperature" id="AS6"></mtc:mLayer>
+			<mtc:mLayer aspect="thermodynamic-temperature" id="AS6"></mtc:mLayer>
 		</mtc:Parameter>
 		<mtc:Discipline name="Chemical"></mtc:Discipline>
 		<mtc:Definition>The process of measuring the Electrical Conductivity of a Solution or a device.</mtc:Definition>
@@ -105,12 +105,12 @@
 	<mtc:Taxon name="Measure.Current.AC" deprecated="false" replacement="">
 		<mtc:Result>
 			<uom:Quantity name="current"></uom:Quantity>
-			<mtc:mLayer aspect="electric_current" id="AS5"></mtc:mLayer>
+			<mtc:mLayer aspect="electric-current" id="AS5"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="amps" optional="false">
+		<mtc:Parameter name="Amps" optional="false">
 			<mtc:Definition>Current Measured</mtc:Definition>
 			<uom:Quantity name="current"></uom:Quantity>
-			<mtc:mLayer aspect="electric_current" id="AS5"></mtc:mLayer>
+			<mtc:mLayer aspect="electric-current" id="AS5"></mtc:mLayer>
 		</mtc:Parameter>
 		<mtc:Discipline name="Electrical"></mtc:Discipline>
 		<mtc:Definition>The process measures the AC Current sourced by a device without knowing the shape of the signal. Values can only be tested in RMS because the shape of the signal is unknown.</mtc:Definition>
@@ -118,19 +118,19 @@
 	<mtc:Taxon name="Measure.Current.AC.Sinewave" deprecated="false" replacement="">
 		<mtc:Result>
 			<uom:Quantity name="current"></uom:Quantity>
-			<mtc:mLayer aspect="electric_current" id="AS5"></mtc:mLayer>
+			<mtc:mLayer aspect="electric-current" id="AS5"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="amps" optional="false">
+		<mtc:Parameter name="Amps" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="current"></uom:Quantity>
-			<mtc:mLayer aspect="electric_current" id="AS5"></mtc:mLayer>
+			<mtc:mLayer aspect="electric-current" id="AS5"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="frequency" optional="false">
+		<mtc:Parameter name="Frequency" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="uut.output" optional="true">
+		<mtc:Parameter name="UUT.Output" optional="true">
 			<mtc:Definition>Output Name of the UUT Connecting Point</mtc:Definition>
 		</mtc:Parameter>
 		<mtc:Discipline name="Electrical"></mtc:Discipline>
@@ -139,14 +139,14 @@
 	<mtc:Taxon name="Measure.Current.AC.Squarewave" deprecated="false" replacement="">
 		<mtc:Result>
 			<uom:Quantity name="current"></uom:Quantity>
-			<mtc:mLayer aspect="electric_current" id="AS5"></mtc:mLayer>
+			<mtc:mLayer aspect="electric-current" id="AS5"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="amps" optional="false">
+		<mtc:Parameter name="Amps" optional="false">
 			<mtc:Definition>Current measured</mtc:Definition>
 			<uom:Quantity name="current"></uom:Quantity>
-			<mtc:mLayer aspect="electric_current" id="AS5"></mtc:mLayer>
+			<mtc:mLayer aspect="electric-current" id="AS5"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="frequency" optional="false">
+		<mtc:Parameter name="Frequency" optional="false">
 			<mtc:Definition>Current Frequency</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
@@ -157,14 +157,14 @@
 	<mtc:Taxon name="Measure.Current.AC.Trianglewave" deprecated="false" replacement="">
 		<mtc:Result>
 			<uom:Quantity name="current"></uom:Quantity>
-			<mtc:mLayer aspect="electric_current" id="AS5"></mtc:mLayer>
+			<mtc:mLayer aspect="electric-current" id="AS5"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="amps" optional="false">
+		<mtc:Parameter name="Amps" optional="false">
 			<mtc:Definition>Measured Current</mtc:Definition>
 			<uom:Quantity name="current"></uom:Quantity>
-			<mtc:mLayer aspect="electric_current" id="AS5"></mtc:mLayer>
+			<mtc:mLayer aspect="electric-current" id="AS5"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="frequency" optional="false">
+		<mtc:Parameter name="Frequency" optional="false">
 			<mtc:Definition>Current Frequency</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
@@ -175,14 +175,14 @@
 	<mtc:Taxon name="Measure.Current.DC" deprecated="false" replacement="">
 		<mtc:Result>
 			<uom:Quantity name="current"></uom:Quantity>
-			<mtc:mLayer aspect="electric_current" id="AS5"></mtc:mLayer>
+			<mtc:mLayer aspect="electric-current" id="AS5"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="amps" optional="false">
+		<mtc:Parameter name="Amps" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="current"></uom:Quantity>
-			<mtc:mLayer aspect="electric_current" id="AS5"></mtc:mLayer>
+			<mtc:mLayer aspect="electric-current" id="AS5"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="uut.output" optional="true">
+		<mtc:Parameter name="UUT.Output" optional="true">
 			<mtc:Definition>Output Name of the UUT Connecting Point</mtc:Definition>
 		</mtc:Parameter>
 		<mtc:Discipline name="Electrical"></mtc:Discipline>
@@ -192,20 +192,21 @@
 		<mtc:Result>
 			<uom:Quantity name="density-mass"></uom:Quantity>
 		</mtc:Result>
-		<mtc:Parameter name="density" optional="false">
+		<mtc:Parameter name="Density" optional="false">
 			<mtc:Definition>Density of the Gas</mtc:Definition>
+			<uom:Quantity name="density-mass"></uom:Quantity>
 		</mtc:Parameter>
-		<mtc:Parameter name="pressure" optional="false">
+		<mtc:Parameter name="Pressure" optional="false">
 			<mtc:Definition>Pressure of the Gas</mtc:Definition>
 			<uom:Quantity name="pressure"></uom:Quantity>
 			<mtc:mLayer aspect="pressure" id="AS14"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="temperature" optional="false">
+		<mtc:Parameter name="Temperature" optional="false">
 			<mtc:Definition>Temperature of the Gas</mtc:Definition>
 			<uom:Quantity name="temperature"></uom:Quantity>
-			<mtc:mLayer aspect="thermodynamic_temperature" id="AS6"></mtc:mLayer>
+			<mtc:mLayer aspect="thermodynamic-temperature" id="AS6"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="volume" optional="true">
+		<mtc:Parameter name="Volume" optional="true">
 			<mtc:Definition>Volume of the Gas</mtc:Definition>
 			<uom:Quantity name="volume"></uom:Quantity>
 			<mtc:mLayer aspect="volume" id="AS37"></mtc:mLayer>
@@ -217,15 +218,16 @@
 		<mtc:Result>
 			<uom:Quantity name="density-mass"></uom:Quantity>
 		</mtc:Result>
-		<mtc:Parameter name="density" optional="false">
+		<mtc:Parameter name="Density" optional="false">
 			<mtc:Definition>Density measured</mtc:Definition>
+			<uom:Quantity name="density-mass"></uom:Quantity>
 		</mtc:Parameter>
-		<mtc:Parameter name="temperature" optional="false">
+		<mtc:Parameter name="Temperature" optional="false">
 			<mtc:Definition>Temperature of the Liquid</mtc:Definition>
 			<uom:Quantity name="temperature"></uom:Quantity>
-			<mtc:mLayer aspect="thermodynamic_temperature" id="AS6"></mtc:mLayer>
+			<mtc:mLayer aspect="thermodynamic-temperature" id="AS6"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="pressure" optional="true">
+		<mtc:Parameter name="Pressure" optional="true">
 			<mtc:Definition>Pressure of the Liquid</mtc:Definition>
 			<uom:Quantity name="pressure"></uom:Quantity>
 			<mtc:mLayer aspect="pressure" id="AS14"></mtc:mLayer>
@@ -237,35 +239,36 @@
 		<mtc:Result>
 			<uom:Quantity name="density-mass"></uom:Quantity>
 		</mtc:Result>
-		<mtc:Parameter name="density" optional="false">
+		<mtc:Parameter name="Density" optional="false">
 			<mtc:Definition>Density measured</mtc:Definition>
+			<uom:Quantity name="density-mass"></uom:Quantity>
 		</mtc:Parameter>
-		<mtc:Parameter name="temperature" optional="false">
+		<mtc:Parameter name="Temperature" optional="false">
 			<mtc:Definition>Temperature of the solid</mtc:Definition>
 			<uom:Quantity name="temperature"></uom:Quantity>
-			<mtc:mLayer aspect="thermodynamic_temperature" id="AS6"></mtc:mLayer>
+			<mtc:mLayer aspect="thermodynamic-temperature" id="AS6"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="nominal_height" optional="true">
+		<mtc:Parameter name="NominalHeight" optional="true">
 			<mtc:Definition>Height</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="nominal_length" optional="true">
+		<mtc:Parameter name="NominalLength" optional="true">
 			<mtc:Definition>Length</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="nominal_width" optional="true">
+		<mtc:Parameter name="NominalWidth" optional="true">
 			<mtc:Definition>Width</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="nominal_volume" optional="true">
+		<mtc:Parameter name="NominalVolume" optional="true">
 			<mtc:Definition>Volume</mtc:Definition>
 			<uom:Quantity name="volume"></uom:Quantity>
 			<mtc:mLayer aspect="volume" id="AS37"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="mass" optional="true">
+		<mtc:Parameter name="Mass" optional="true">
 			<mtc:Definition>Mass</mtc:Definition>
 			<uom:Quantity name="mass"></uom:Quantity>
 			<mtc:mLayer aspect="mass" id="AS2"></mtc:mLayer>
@@ -278,24 +281,24 @@
 			<uom:Quantity name="force"></uom:Quantity>
 			<mtc:mLayer aspect="force" id="AS13"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="force" optional="false">
+		<mtc:Parameter name="Force" optional="false">
 			<mtc:Definition>Force Measured</mtc:Definition>
 			<uom:Quantity name="force"></uom:Quantity>
 			<mtc:mLayer aspect="force" id="AS13"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="mode" optional="false">
+		<mtc:Parameter name="Mode" optional="false">
 			<mtc:Definition>{Compression or Tension}</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="direction" optional="true">
+		<mtc:Parameter name="Direction" optional="true">
 			<mtc:Definition>{Ascending or Descending}</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="output_sensitivity" optional="true">
+		<mtc:Parameter name="OutputSensitivity" optional="true">
 			<mtc:Definition>Output sensitivity</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="adapter" optional="true">
+		<mtc:Parameter name="Adapter" optional="true">
 			<mtc:Definition>Required Adapter</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="bridge" optional="true">
+		<mtc:Parameter name="Bridge" optional="true">
 			<mtc:Definition>Bridge Type</mtc:Definition>
 		</mtc:Parameter>
 		<mtc:Discipline name="Mass"></mtc:Discipline>
@@ -306,25 +309,25 @@
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="frequency" optional="false">
+		<mtc:Parameter name="Frequency" optional="false">
 			<mtc:Definition>Frequency Measured</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="volts" optional="true">
+		<mtc:Parameter name="Volts" optional="true">
 			<mtc:Definition>Signal Voltage</mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="power" optional="true">
+		<mtc:Parameter name="Power" optional="true">
 			<mtc:Definition>Signal Power</mtc:Definition>
 			<uom:Quantity name="power"></uom:Quantity>
 			<mtc:mLayer aspect="power" id="AS19"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="impedance" optional="true">
+		<mtc:Parameter name="Impedance" optional="true">
 			<mtc:Definition>Expected Input Impedance</mtc:Definition>
 			<uom:Quantity name="resistance"></uom:Quantity>
-			<mtc:mLayer aspect="electric_resistance" id="AS24"></mtc:mLayer>
+			<mtc:mLayer aspect="electric-resistance" id="AS24"></mtc:mLayer>
 		</mtc:Parameter>
 		<mtc:Discipline name="Electrical"></mtc:Discipline>
 		<mtc:Definition>The process of measuring the frequency of a signal.</mtc:Definition>
@@ -334,45 +337,45 @@
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="frequency" optional="false">
+		<mtc:Parameter name="Frequency" optional="false">
 			<mtc:Definition>Carrier Frequency</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="rate" optional="false">
+		<mtc:Parameter name="Rate" optional="false">
 			<mtc:Definition>FM Modulation Rate</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="power" optional="true">
+		<mtc:Parameter name="Power" optional="true">
 			<mtc:Definition>Carrier Power</mtc:Definition>
 			<uom:Quantity name="power"></uom:Quantity>
 			<mtc:mLayer aspect="power" id="AS19"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="deviation" optional="true">
+		<mtc:Parameter name="Deviation" optional="true">
 			<mtc:Definition>Deviation Frequency</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="detector" optional="true">
+		<mtc:Parameter name="Detector" optional="true">
 			<mtc:Definition>{+Peak, -Peak, Average, PeakToPeak, RMS}</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="highpassfilter" optional="true">
+		<mtc:Parameter name="HighPassFilter" optional="true">
 			<mtc:Definition>HighPassFilter</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="highpassfilter" optional="true">
+		<mtc:Parameter name="HighPassFilter" optional="true">
 			<mtc:Definition>High Pass Filter Frequency</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="lowpassfilter" optional="true">
+		<mtc:Parameter name="LowPassFilter" optional="true">
 			<mtc:Definition>Low Pass Filter Frequency</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="bandpassfilter" optional="true">
+		<mtc:Parameter name="BandPassFilter" optional="true">
 			<mtc:Definition>Band Pass Filter Frequency or CCIT</mtc:Definition>
 		</mtc:Parameter>
 		<mtc:Discipline name="Electrical"></mtc:Discipline>
@@ -383,40 +386,39 @@
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="frequency" optional="false">
+		<mtc:Parameter name="Frequency" optional="false">
 			<mtc:Definition>Carrier Frequency</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="rate" optional="false">
+		<mtc:Parameter name="Rate" optional="false">
 			<mtc:Definition>Modulation Rate Frequency</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="power" optional="true">
+		<mtc:Parameter name="Power" optional="true">
 			<mtc:Definition>Power of the Carrier Frequency</mtc:Definition>
 			<uom:Quantity name="power"></uom:Quantity>
 			<mtc:mLayer aspect="power" id="AS19"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="modulation" optional="true">
+		<mtc:Parameter name="Modulation" optional="true">
 			<mtc:Definition>Percent of Amplitude Modulation</mtc:Definition>
 			<uom:Quantity name="ratio"></uom:Quantity>
-			<mtc:mLayer aspect="catalytic_activity_concentration" id="AS78"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="detector" optional="true">
+		<mtc:Parameter name="Detector" optional="true">
 			<mtc:Definition>{+Peak, -Peak, Average, PeakToPeak, RMS}</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="highpassfilter" optional="true">
+		<mtc:Parameter name="HighPassFilter" optional="true">
 			<mtc:Definition>Frequency of High Pass Filter</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="lowpassfilter" optional="true">
+		<mtc:Parameter name="LowPassFilter" optional="true">
 			<mtc:Definition>Low of High Pass Filter</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="bandpassfilter" optional="true">
+		<mtc:Parameter name="BandPassFilter" optional="true">
 			<mtc:Definition>Frequency of CCIT</mtc:Definition>
 		</mtc:Parameter>
 		<mtc:Discipline name="Electrical"></mtc:Discipline>
@@ -427,12 +429,12 @@
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="frequency" optional="false">
+		<mtc:Parameter name="Frequency" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="volts" optional="true">
+		<mtc:Parameter name="Volts" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
@@ -445,40 +447,40 @@
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="frequency" optional="false">
+		<mtc:Parameter name="Frequency" optional="false">
 			<mtc:Definition>Carrier of the Carries</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="deviation" optional="false">
+		<mtc:Parameter name="Deviation" optional="false">
 			<mtc:Definition>Frequency Deviation</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="power" optional="true">
+		<mtc:Parameter name="Power" optional="true">
 			<mtc:Definition>Power of the Carrier Signal</mtc:Definition>
 			<uom:Quantity name="power"></uom:Quantity>
 			<mtc:mLayer aspect="power" id="AS19"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="rate" optional="true">
+		<mtc:Parameter name="Rate" optional="true">
 			<mtc:Definition>Modulation Rate Frequency</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="detector" optional="true">
+		<mtc:Parameter name="Detector" optional="true">
 			<mtc:Definition>{+Peak, -Peak, Average, PeakToPeak, RMS}</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="highpassfilter" optional="true">
+		<mtc:Parameter name="HighPassFilter" optional="true">
 			<mtc:Definition>High Pass Freqyency</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="lowpassfilter" optional="true">
+		<mtc:Parameter name="LowPassFilter" optional="true">
 			<mtc:Definition>Low Pass Freqyency</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="bandpassfilter" optional="true">
+		<mtc:Parameter name="BandPassFilter" optional="true">
 			<mtc:Definition>Band Pass Freqyency of CCIT</mtc:Definition>
 		</mtc:Parameter>
 		<mtc:Discipline name="Electrical"></mtc:Discipline>
@@ -489,35 +491,35 @@
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="frequency" optional="false">
+		<mtc:Parameter name="Frequency" optional="false">
 			<mtc:Definition>Carrier Frequency</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="rate" optional="false">
+		<mtc:Parameter name="Rate" optional="false">
 			<mtc:Definition>Phase Modulation Rate</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="power" optional="true">
+		<mtc:Parameter name="Power" optional="true">
 			<mtc:Definition>Carrier Power Level</mtc:Definition>
 			<uom:Quantity name="power"></uom:Quantity>
 			<mtc:mLayer aspect="power" id="AS19"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="detector" optional="true">
+		<mtc:Parameter name="Detector" optional="true">
 			<mtc:Definition>{+Peak, -Peak, Average, PeakToPeak, RMS}</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="highpassfilter" optional="true">
+		<mtc:Parameter name="HighPassFilter" optional="true">
 			<mtc:Definition>High Pass Filter Frequency</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="lowpassfilter" optional="true">
+		<mtc:Parameter name="LowPassFilter" optional="true">
 			<mtc:Definition>Low Pass Filter Frequency</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="bandpassfilter" optional="true">
+		<mtc:Parameter name="BandPassFilter" optional="true">
 			<mtc:Definition>Band Pass Filter Frequency Or CCIT</mtc:Definition>
 		</mtc:Parameter>
 		<mtc:Discipline name="Electrical"></mtc:Discipline>
@@ -527,15 +529,16 @@
 		<mtc:Result>
 			<uom:Quantity name="impedance"></uom:Quantity>
 		</mtc:Result>
-		<mtc:Parameter name="impedance" optional="false">
+		<mtc:Parameter name="Impedance" optional="false">
 			<mtc:Definition>Impedance Measured</mtc:Definition>
+			<uom:Quantity name="impedance"></uom:Quantity>
 		</mtc:Parameter>
-		<mtc:Parameter name="frequency" optional="true">
+		<mtc:Parameter name="Frequency" optional="true">
 			<mtc:Definition>Frequency</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="volts" optional="true">
+		<mtc:Parameter name="Volts" optional="true">
 			<mtc:Definition>Voltage</mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
@@ -548,17 +551,17 @@
 			<uom:Quantity name="inductance"></uom:Quantity>
 			<mtc:mLayer aspect="inductance" id="AS28"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="inductance" optional="false">
+		<mtc:Parameter name="Inductance" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="inductance"></uom:Quantity>
 			<mtc:mLayer aspect="inductance" id="AS28"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="frequency" optional="true">
+		<mtc:Parameter name="Frequency" optional="true">
 			<mtc:Definition>Frequency</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="volts" optional="true">
+		<mtc:Parameter name="Volts" optional="true">
 			<mtc:Definition>Voltage</mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
@@ -571,37 +574,37 @@
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="length" optional="false">
+		<mtc:Parameter name="Length" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="startpointx" optional="true">
+		<mtc:Parameter name="StartPointX" optional="true">
 			<mtc:Definition>Start Point on the X-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="startpointy" optional="true">
+		<mtc:Parameter name="StartPointY" optional="true">
 			<mtc:Definition>Start Point on the Y-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="startpointz" optional="true">
+		<mtc:Parameter name="StartPointZ" optional="true">
 			<mtc:Definition>Start Point on the Z-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="endpointx" optional="true">
+		<mtc:Parameter name="EndPointX" optional="true">
 			<mtc:Definition>Start Point on the X-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="endpointy" optional="true">
+		<mtc:Parameter name="EndPointY" optional="true">
 			<mtc:Definition>Start Point on the Y-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="endpointz" optional="true">
+		<mtc:Parameter name="EndPointZ" optional="true">
 			<mtc:Definition>Start Point on the Z-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
@@ -614,16 +617,16 @@
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="type" optional="true">
+		<mtc:Parameter name="Type" optional="true">
 			<mtc:Definition>{Inside, Outside}</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="position" optional="true">
+		<mtc:Parameter name="Position" optional="true">
 			<mtc:Definition>Where is it being measured? [plain text]</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="reference" optional="true">
+		<mtc:Parameter name="Reference" optional="true">
 			<mtc:Definition>DIN, ISO, ASTM, ASME, or Federal G-Series Measurement Specifications  [plain text]</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="length" optional="false">
+		<mtc:Parameter name="Length" optional="false">
 			<mtc:Definition>Measured Circumference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
@@ -636,18 +639,18 @@
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="length" optional="false">
+		<mtc:Parameter name="Length" optional="false">
 			<mtc:Definition>Diameter Measured</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="type" optional="true">
+		<mtc:Parameter name="Type" optional="true">
 			<mtc:Definition>{Inside, Outside}</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="position" optional="true">
+		<mtc:Parameter name="Position" optional="true">
 			<mtc:Definition>Where is it being measured? [plain text]</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="reference" optional="true">
+		<mtc:Parameter name="Reference" optional="true">
 			<mtc:Definition>DIN, ISO, ASTM, ASME, or Federal G-Series Measurement Specifications  [plain text]</mtc:Definition>
 		</mtc:Parameter>
 		<mtc:Discipline name="Dimensional"></mtc:Discipline>
@@ -658,40 +661,40 @@
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="length" optional="false">
+		<mtc:Parameter name="Length" optional="false">
 			<mtc:Definition>Longest dimension in the surface of interest</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="startpointx" optional="true">
+		<mtc:Parameter name="StartPointX" optional="true">
 			<mtc:Definition>Start Point on the X-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="startpointy" optional="true">
+		<mtc:Parameter name="StartPointY" optional="true">
 			<mtc:Definition>Start Point on the Y-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="endpointx" optional="true">
+		<mtc:Parameter name="EndPointX" optional="true">
 			<mtc:Definition>End Point on the X-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="endpointy" optional="true">
+		<mtc:Parameter name="EndPointY" optional="true">
 			<mtc:Definition>End Point on the Y-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="resolution" optional="true">
+		<mtc:Parameter name="Resolution" optional="true">
 			<mtc:Definition>x-y distance between points</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="measurementdescription" optional="true">
+		<mtc:Parameter name="MeasurementDescription" optional="true">
 			<mtc:Definition>DIN, ISO, ASTM, ASME, or Federal G-Series Measurement Specifications  [plain text]</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="reference" optional="true">
+		<mtc:Parameter name="Reference" optional="true">
 			<mtc:Definition>DIN, ISO, ASTM, ASME, or Federal G-Series Measurement Specifications  [plain text]</mtc:Definition>
 		</mtc:Parameter>
 		<mtc:Discipline name="Dimensional"></mtc:Discipline>
@@ -702,53 +705,53 @@
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="length" optional="false">
+		<mtc:Parameter name="Length" optional="false">
 			<mtc:Definition>Distance – Nominal distance between parallel planes</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="type" optional="true">
+		<mtc:Parameter name="Type" optional="true">
 			<mtc:Definition>{Axis or surface}</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="dimension" optional="true">
+		<mtc:Parameter name="Dimension" optional="true">
 			<mtc:Definition>Largest dimension of the plane being measured</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="startpointx" optional="true">
+		<mtc:Parameter name="StartPointX" optional="true">
 			<mtc:Definition>Start Point on the X-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="startpointy" optional="true">
+		<mtc:Parameter name="StartPointY" optional="true">
 			<mtc:Definition>Start Point on the Y-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="startpointz" optional="true">
+		<mtc:Parameter name="StartPointZ" optional="true">
 			<mtc:Definition>Start Point on the Z-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="endpointx" optional="true">
+		<mtc:Parameter name="EndPointX" optional="true">
 			<mtc:Definition>End Point on the X-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="endpointy" optional="true">
+		<mtc:Parameter name="EndPointY" optional="true">
 			<mtc:Definition>End Point on the Y-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="endpointz" optional="true">
+		<mtc:Parameter name="EndPointZ" optional="true">
 			<mtc:Definition>End Point on the Z-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="resolution" optional="true">
+		<mtc:Parameter name="Resolution" optional="true">
 			<mtc:Definition>Distance between points</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="reference" optional="true">
+		<mtc:Parameter name="Reference" optional="true">
 			<mtc:Definition>DIN, ISO, ASTM, ASME, or Federal G-Series Measurement Specifications  [plain text]</mtc:Definition>
 		</mtc:Parameter>
 		<mtc:Discipline name="Dimensional"></mtc:Discipline>
@@ -759,40 +762,40 @@
 			<uom:Quantity name="force"></uom:Quantity>
 			<mtc:mLayer aspect="force" id="AS13"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="lenght" optional="false">
+		<mtc:Parameter name="Lenght" optional="false">
 			<mtc:Definition>Distance – Maximum dimension of surface or axis</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="axis" optional="true">
+		<mtc:Parameter name="Axis" optional="true">
 			<mtc:Definition>The Surface</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="startpointx" optional="true">
+		<mtc:Parameter name="StartPointX" optional="true">
 			<mtc:Definition>Start Point on the X-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="startpointy" optional="true">
+		<mtc:Parameter name="StartPointY" optional="true">
 			<mtc:Definition>Start Point on the Y-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="endpointx" optional="true">
+		<mtc:Parameter name="EndPointX" optional="true">
 			<mtc:Definition>End Point on the X-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="endpointy" optional="true">
+		<mtc:Parameter name="EndPointY" optional="true">
 			<mtc:Definition>End Point on the Y-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="resolution" optional="true">
+		<mtc:Parameter name="Resolution" optional="true">
 			<mtc:Definition>Distance between Points</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="reference" optional="true">
+		<mtc:Parameter name="Reference" optional="true">
 			<mtc:Definition>DIN, ISO, ASTM, ASME, or Federal G-Series Measurement Specifications  [plain text]</mtc:Definition>
 		</mtc:Parameter>
 		<mtc:Discipline name="Dimensional"></mtc:Discipline>
@@ -803,38 +806,38 @@
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="roughness" optional="false">
+		<mtc:Parameter name="Roughness" optional="false">
 			<mtc:Definition>{Ra, Rq (RMS), Rv, Rp, Rz}</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="startpointx" optional="true">
+		<mtc:Parameter name="StartPointX" optional="true">
 			<mtc:Definition>Start Point on the X-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="startpointy" optional="true">
+		<mtc:Parameter name="StartPointY" optional="true">
 			<mtc:Definition>Start Point on the Y-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="endpointy" optional="true">
+		<mtc:Parameter name="EndPointY" optional="true">
 			<mtc:Definition>End Point on the Y-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="endpointx" optional="true">
+		<mtc:Parameter name="EndPointX" optional="true">
 			<mtc:Definition>End Point on the X-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="evaluation_method" optional="true">
+		<mtc:Parameter name="EvaluationMethod" optional="true">
 			<mtc:Definition>({Ra, Rq (RMS), Rv, Rp, Rz})</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="resolution" optional="true">
+		<mtc:Parameter name="Resolution" optional="true">
 			<mtc:Definition>x-y distance between points</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="reference" optional="true">
+		<mtc:Parameter name="Reference" optional="true">
 			<mtc:Definition>DIN, ISO, ASTM, ASME, or Federal G-Series Measurement Specifications  [plain text]</mtc:Definition>
 		</mtc:Parameter>
 		<mtc:Discipline name="Dimensional"></mtc:Discipline>
@@ -845,26 +848,30 @@
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="diameter" optional="false">
+		<mtc:Parameter name="Diameter" optional="false">
 			<mtc:Definition>Diameter measured</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="height" optional="true">
+		<mtc:Parameter name="Height" optional="true">
 			<mtc:Definition>Above turnable</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="numberofpoints" optional="true">
+		<mtc:Parameter name="NumberOfPoints" optional="true">
 			<mtc:Definition>Measurement Points</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="startangle" optional="true">
+		<mtc:Parameter name="StartAngle" optional="true">
 			<mtc:Definition>Rotational Angle from reference</mtc:Definition>
+			<uom:Quantity name="plane-angle"></uom:Quantity>
+			<mtc:mLayer aspect="plane-angle" id="AS10"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="stopangle" optional="true">
+		<mtc:Parameter name="StopAngle" optional="true">
 			<mtc:Definition>Rotational Angle from reference</mtc:Definition>
+			<uom:Quantity name="plane-angle"></uom:Quantity>
+			<mtc:mLayer aspect="plane-angle" id="AS10"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="reference" optional="true">
+		<mtc:Parameter name="Reference" optional="true">
 			<mtc:Definition>DIN, ISO, ASTM, ASME, or Federal G-Series Measurement Specifications  [plain text]</mtc:Definition>
 		</mtc:Parameter>
 		<mtc:Discipline name="Dimensional"></mtc:Discipline>
@@ -875,26 +882,30 @@
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="sphericity" optional="false">
+		<mtc:Parameter name="Sphericity" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="height" optional="true">
+		<mtc:Parameter name="Height" optional="true">
 			<mtc:Definition>above turntable</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="numberofpoints" optional="true">
+		<mtc:Parameter name="NumberOfPoints" optional="true">
 			<mtc:Definition>Number of Measurment Points</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="startangle" optional="true">
+		<mtc:Parameter name="StartAngle" optional="true">
 			<mtc:Definition>Rotational Angle from reference</mtc:Definition>
+			<uom:Quantity name="plane-angle"></uom:Quantity>
+			<mtc:mLayer aspect="plane-angle" id="AS10"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="stopangle" optional="true">
+		<mtc:Parameter name="StopAngle" optional="true">
 			<mtc:Definition>Rotational Angle from reference</mtc:Definition>
+			<uom:Quantity name="plane-angle"></uom:Quantity>
+			<mtc:mLayer aspect="plane-angle" id="AS10"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="reference" optional="true">
+		<mtc:Parameter name="Reference" optional="true">
 			<mtc:Definition>DIN, ISO, ASTM, ASME, or Federal G-Series Measurement Specifications  [plain text]</mtc:Definition>
 		</mtc:Parameter>
 		<mtc:Discipline name="Dimensional"></mtc:Discipline>
@@ -905,35 +916,35 @@
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="linelength" optional="false">
+		<mtc:Parameter name="LineLength" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="startpointx" optional="true">
+		<mtc:Parameter name="StartPointX" optional="true">
 			<mtc:Definition>Start Point on the X-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="startpointy" optional="true">
+		<mtc:Parameter name="StartPointY" optional="true">
 			<mtc:Definition>Start Point on the Y-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="endpointx" optional="true">
+		<mtc:Parameter name="EndPointX" optional="true">
 			<mtc:Definition>End Point on the X-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="endpointy" optional="true">
+		<mtc:Parameter name="EndPointY" optional="true">
 			<mtc:Definition>End Point on the Y-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="numberofpoints" optional="true">
+		<mtc:Parameter name="NumberOfPoints" optional="true">
 			<mtc:Definition>Number of Measurement Points</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="reference" optional="true">
+		<mtc:Parameter name="Reference" optional="true">
 			<mtc:Definition>DIN, ISO, ASTM, ASME, or Federal G-Series Measurement Specifications  [plain text]</mtc:Definition>
 		</mtc:Parameter>
 		<mtc:Discipline name="Dimensional"></mtc:Discipline>
@@ -944,35 +955,35 @@
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="line_lenght" optional="false">
+		<mtc:Parameter name="LineLenght" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="startpointx" optional="true">
+		<mtc:Parameter name="StartPointX" optional="true">
 			<mtc:Definition>Start Point on the X-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="startpointy" optional="true">
+		<mtc:Parameter name="StartPointY" optional="true">
 			<mtc:Definition>Start Point on the Y-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="endpointx" optional="true">
+		<mtc:Parameter name="EndPointX" optional="true">
 			<mtc:Definition>End Point on the X-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="endpointy" optional="true">
+		<mtc:Parameter name="EndPointY" optional="true">
 			<mtc:Definition>End Point on the Y-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="numberofpoints" optional="true">
+		<mtc:Parameter name="NumberOfPoints" optional="true">
 			<mtc:Definition>Number of Points measured</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="reference" optional="true">
+		<mtc:Parameter name="Reference" optional="true">
 			<mtc:Definition>DIN, ISO, ASTM, ASME, or Federal G-Series Measurement Specifications  [plain text]</mtc:Definition>
 		</mtc:Parameter>
 		<mtc:Discipline name="Dimensional"></mtc:Discipline>
@@ -983,18 +994,18 @@
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="length" optional="false">
+		<mtc:Parameter name="Length" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="type" optional="true">
+		<mtc:Parameter name="Type" optional="true">
 			<mtc:Definition>{Inside, Outside}</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="position" optional="true">
+		<mtc:Parameter name="Position" optional="true">
 			<mtc:Definition>Where is it being measured? [plain text]</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="reference" optional="true">
+		<mtc:Parameter name="Reference" optional="true">
 			<mtc:Definition>DIN, ISO, ASTM, ASME, or Federal G-Series Measurement Specifications  [plain text]</mtc:Definition>
 		</mtc:Parameter>
 		<mtc:Discipline name="Dimensional"></mtc:Discipline>
@@ -1005,13 +1016,14 @@
 			<uom:Quantity name="mass"></uom:Quantity>
 			<mtc:mLayer aspect="mass" id="AS2"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="mass" optional="false">
+		<mtc:Parameter name="Mass" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="mass"></uom:Quantity>
 			<mtc:mLayer aspect="mass" id="AS2"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="density" optional="true">
+		<mtc:Parameter name="Density" optional="true">
 			<mtc:Definition></mtc:Definition>
+			<uom:Quantity name="density-mass"></uom:Quantity>
 		</mtc:Parameter>
 		<mtc:Discipline name="Mass"></mtc:Discipline>
 		<mtc:Definition>Test Process that measures the conventional value of the result of weighing a body in air equals the mass of a standard that balances this body under the following conventionally chosen conditions: ambient temperature 20 °C air density 1.2 mg/cm³ mass density 8.000 g/cm³ Conventional mass has the same unit as mass (the kilogram), because the multiplication of a mass by a dimensionless quantity defines its values. Labs typically measure mass and correct the results from actual to conventional conditions. “Apparent Mass versus 8.0 g/cm³” formerly equated to conventional mass in the United States. References: NISTIR 6969 (2019) https://www.nist.gov/publications/nistir-6969-selected-laboratory-and-measurement-practices-and-procedures-support-1 OIML D28 (2004)  https://www.oiml.org/en/files/pdf_d/d028-e04.pdf NIST Handbook 44: https://www.nist.gov/pml/weights-and-measures/publications/nist-handbooks/other-nist-handbooks/other-nist-handbooks-2-3</mtc:Definition>
@@ -1021,13 +1033,14 @@
 			<uom:Quantity name="mass"></uom:Quantity>
 			<mtc:mLayer aspect="mass" id="AS2"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="mass" optional="false">
+		<mtc:Parameter name="Mass" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="mass"></uom:Quantity>
 			<mtc:mLayer aspect="mass" id="AS2"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="density" optional="true">
+		<mtc:Parameter name="Density" optional="true">
 			<mtc:Definition></mtc:Definition>
+			<uom:Quantity name="density-mass"></uom:Quantity>
 		</mtc:Parameter>
 		<mtc:Discipline name="Mass"></mtc:Discipline>
 		<mtc:Definition>Test Process that measures the quantity of matter which a body contains, as measured by its acceleration under a given force or by the force exerted on it by a gravitational field. The term “mass” is always used in the strict Newtonian sense as a property intrinsic to matter. Mass is the proportionality constant between a force on a material object and its resulting acceleration. This property is sometimes referred to as “true mass”, “vacuum mass”, or “mass in a vacuum” to distinguish it from conventional [apparent] mass. The true quantity of matter represented in a vacuum with no gravitational force.</mtc:Definition>
@@ -1036,35 +1049,36 @@
 		<mtc:Result>
 			<uom:Quantity name="phase"></uom:Quantity>
 		</mtc:Result>
-		<mtc:Parameter name="frequency" optional="false">
+		<mtc:Parameter name="Frequency" optional="false">
 			<mtc:Definition>Carrier Frequency</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="phase" optional="false">
+		<mtc:Parameter name="Phase" optional="false">
 			<mtc:Definition>Phase Modulation Phase</mtc:Definition>
+			<uom:Quantity name="phase"></uom:Quantity>
 		</mtc:Parameter>
-		<mtc:Parameter name="power" optional="true">
+		<mtc:Parameter name="Power" optional="true">
 			<mtc:Definition>Power of Carrier Signal</mtc:Definition>
 			<uom:Quantity name="power"></uom:Quantity>
 			<mtc:mLayer aspect="power" id="AS19"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="rate" optional="true">
+		<mtc:Parameter name="Rate" optional="true">
 			<mtc:Definition>Freqeuency Rate of phase modulated signal</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="highpassfilter" optional="true">
+		<mtc:Parameter name="HighPassFilter" optional="true">
 			<mtc:Definition>High Pass Filter Frequency</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="lowpassfilter" optional="true">
+		<mtc:Parameter name="LowPassFilter" optional="true">
 			<mtc:Definition>Low Pass Filter Frequency</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="bandpassfilter" optional="true">
+		<mtc:Parameter name="BandPassFilter" optional="true">
 			<mtc:Definition>Band Pass Filter Frequency of CCIT</mtc:Definition>
 		</mtc:Parameter>
 		<mtc:Discipline name="Electrical"></mtc:Discipline>
@@ -1074,20 +1088,20 @@
 		<mtc:Result>
 			<uom:Quantity name="phase"></uom:Quantity>
 		</mtc:Result>
-		<mtc:Parameter name="frequency" optional="false">
+		<mtc:Parameter name="Frequency" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="power" optional="false">
+		<mtc:Parameter name="Power" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="power"></uom:Quantity>
 			<mtc:mLayer aspect="power" id="AS19"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="port" optional="true">
+		<mtc:Parameter name="Port" optional="true">
 			<mtc:Definition>Port Name</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="bandwidth" optional="true">
+		<mtc:Parameter name="Bandwidth" optional="true">
 			<mtc:Definition>Bandwidth Measurement</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
@@ -1099,20 +1113,20 @@
 		<mtc:Result>
 			<uom:Quantity name="phase"></uom:Quantity>
 		</mtc:Result>
-		<mtc:Parameter name="frequency" optional="false">
+		<mtc:Parameter name="Frequency" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="power" optional="false">
+		<mtc:Parameter name="Power" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="power"></uom:Quantity>
 			<mtc:mLayer aspect="power" id="AS19"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="port" optional="true">
+		<mtc:Parameter name="Port" optional="true">
 			<mtc:Definition>Measurement Port</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="bandwidth" optional="true">
+		<mtc:Parameter name="Bandwidth" optional="true">
 			<mtc:Definition>Measurement Bandwidth</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
@@ -1124,23 +1138,24 @@
 		<mtc:Result>
 			<uom:Quantity name="phase-noise"></uom:Quantity>
 		</mtc:Result>
-		<mtc:Parameter name="frequency" optional="false">
+		<mtc:Parameter name="Frequency" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="offsetfrequency" optional="false">
+		<mtc:Parameter name="OffsetFrequency" optional="false">
 			<mtc:Definition>Offset Frequency measured</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="power" optional="true">
+		<mtc:Parameter name="Power" optional="true">
 			<mtc:Definition>Power of CW Signal</mtc:Definition>
 			<uom:Quantity name="power"></uom:Quantity>
 			<mtc:mLayer aspect="power" id="AS19"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="impedance" optional="true">
+		<mtc:Parameter name="Impedance" optional="true">
 			<mtc:Definition>Expected</mtc:Definition>
+			<uom:Quantity name="impedance"></uom:Quantity>
 		</mtc:Parameter>
 		<mtc:Discipline name="Electrical"></mtc:Discipline>
 		<mtc:Definition>A test process of measuring power spectral density offset from the carrier as compared to the carried power.</mtc:Definition>
@@ -1158,18 +1173,19 @@
 			<uom:Quantity name="power"></uom:Quantity>
 			<mtc:mLayer aspect="power" id="AS19"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="frequency" optional="false">
+		<mtc:Parameter name="Frequency" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="power" optional="false">
+		<mtc:Parameter name="Power" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="power"></uom:Quantity>
 			<mtc:mLayer aspect="power" id="AS19"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="impedance" optional="true">
+		<mtc:Parameter name="Impedance" optional="true">
 			<mtc:Definition>Expected measurement Impedance</mtc:Definition>
+			<uom:Quantity name="impedance"></uom:Quantity>
 		</mtc:Parameter>
 		<mtc:Discipline name="Electrical"></mtc:Discipline>
 		<mtc:Definition>A test process that measures the RF power of a signal.  It can be either direct or monitored by an RF Power measurement device</mtc:Definition>
@@ -1179,17 +1195,17 @@
 			<uom:Quantity name="pressure"></uom:Quantity>
 			<mtc:mLayer aspect="pressure" id="AS14"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="pressure" optional="false">
+		<mtc:Parameter name="Pressure" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="pressure"></uom:Quantity>
 			<mtc:mLayer aspect="pressure" id="AS14"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="presureref" optional="true">
+		<mtc:Parameter name="PresureRef" optional="true">
 			<mtc:Definition>Reference Pressure</mtc:Definition>
 			<uom:Quantity name="pressure"></uom:Quantity>
 			<mtc:mLayer aspect="pressure" id="AS14"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="o2_safe" optional="true">
+		<mtc:Parameter name="O2.Safe" optional="true">
 			<mtc:Definition>{"Yes","No"}</mtc:Definition>
 		</mtc:Parameter>
 		<mtc:Discipline name="Pressure"></mtc:Discipline>
@@ -1200,12 +1216,12 @@
 			<uom:Quantity name="pressure"></uom:Quantity>
 			<mtc:mLayer aspect="pressure" id="AS14"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="pressure" optional="false">
+		<mtc:Parameter name="Pressure" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="pressure"></uom:Quantity>
 			<mtc:mLayer aspect="pressure" id="AS14"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="fluid" optional="true">
+		<mtc:Parameter name="Fluid" optional="true">
 			<mtc:Definition>{Oil, Water}</mtc:Definition>
 		</mtc:Parameter>
 		<mtc:Discipline name="Pressure"></mtc:Discipline>
@@ -1216,12 +1232,12 @@
 			<uom:Quantity name="pressure"></uom:Quantity>
 			<mtc:mLayer aspect="pressure" id="AS14"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="pressure" optional="false">
+		<mtc:Parameter name="Pressure" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="pressure"></uom:Quantity>
 			<mtc:mLayer aspect="pressure" id="AS14"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="o2_safe" optional="true">
+		<mtc:Parameter name="O2.Safe" optional="true">
 			<mtc:Definition>{"Yes", "No"}</mtc:Definition>
 		</mtc:Parameter>
 		<mtc:Discipline name="Pressure"></mtc:Discipline>
@@ -1232,12 +1248,12 @@
 			<uom:Quantity name="pressure"></uom:Quantity>
 			<mtc:mLayer aspect="pressure" id="AS14"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="pressure" optional="false">
+		<mtc:Parameter name="Pressure" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="pressure"></uom:Quantity>
 			<mtc:mLayer aspect="pressure" id="AS14"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="o2_safe" optional="true">
+		<mtc:Parameter name="O2.Safe" optional="true">
 			<mtc:Definition>{"Yes","No"}</mtc:Definition>
 		</mtc:Parameter>
 		<mtc:Discipline name="Pressure"></mtc:Discipline>
@@ -1246,42 +1262,40 @@
 	<mtc:Taxon name="Measure.Ratio.AmplitudeModulation" deprecated="false" replacement="">
 		<mtc:Result>
 			<uom:Quantity name="ratio"></uom:Quantity>
-			<mtc:mLayer aspect="catalytic_activity_concentration" id="AS78"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="frequency" optional="false">
+		<mtc:Parameter name="Frequency" optional="false">
 			<mtc:Definition>Carrier Frequency</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="depth" optional="false">
+		<mtc:Parameter name="Depth" optional="false">
 			<mtc:Definition>Amplitude Modulation Depth</mtc:Definition>
 			<uom:Quantity name="ratio"></uom:Quantity>
-			<mtc:mLayer aspect="catalytic_activity_concentration" id="AS78"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="power" optional="true">
+		<mtc:Parameter name="Power" optional="true">
 			<mtc:Definition>Carrier Power Level</mtc:Definition>
 			<uom:Quantity name="power"></uom:Quantity>
 			<mtc:mLayer aspect="power" id="AS19"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="rate" optional="true">
+		<mtc:Parameter name="Rate" optional="true">
 			<mtc:Definition>Modulation Rate Frequency</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="detector" optional="true">
+		<mtc:Parameter name="Detector" optional="true">
 			<mtc:Definition>{+Peak, -Peak, Average, PeakToPeak, RMS}</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="highpassfilter" optional="true">
+		<mtc:Parameter name="HighPassFilter" optional="true">
 			<mtc:Definition>High Pass Filter Frequency</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="lowpassfilter" optional="true">
+		<mtc:Parameter name="LowPassFilter" optional="true">
 			<mtc:Definition>Low Pass Filter Frequency</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="bandpassfilter" optional="true">
+		<mtc:Parameter name="BandPassFilter" optional="true">
 			<mtc:Definition>Band Pass Filter Frequency or CCIT</mtc:Definition>
 		</mtc:Parameter>
 		<mtc:Discipline name="Electrical"></mtc:Discipline>
@@ -1290,27 +1304,25 @@
 	<mtc:Taxon name="Measure.Ratio.Density-Mass" deprecated="false" replacement="">
 		<mtc:Result>
 			<uom:Quantity name="ratio"></uom:Quantity>
-			<mtc:mLayer aspect="catalytic_activity_concentration" id="AS78"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="densityratio" optional="false">
+		<mtc:Parameter name="DensityRatio" optional="false">
 			<mtc:Definition>{kg·m3/kg·m3 g·cm3/g·cm3, lb·ft3/lb·ft3}</mtc:Definition>
 			<uom:Quantity name="ratio"></uom:Quantity>
-			<mtc:mLayer aspect="catalytic_activity_concentration" id="AS78"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="reference_material" optional="false">
+		<mtc:Parameter name="ReferenceMaterial" optional="false">
 			<mtc:Definition>{Water , Air}</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="temperature" optional="false">
+		<mtc:Parameter name="Temperature" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="temperature"></uom:Quantity>
-			<mtc:mLayer aspect="thermodynamic_temperature" id="AS6"></mtc:mLayer>
+			<mtc:mLayer aspect="thermodynamic-temperature" id="AS6"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="pressure" optional="true">
+		<mtc:Parameter name="Pressure" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="pressure"></uom:Quantity>
 			<mtc:mLayer aspect="pressure" id="AS14"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="volume" optional="true">
+		<mtc:Parameter name="Volume" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="volume"></uom:Quantity>
 			<mtc:mLayer aspect="volume" id="AS37"></mtc:mLayer>
@@ -1321,19 +1333,17 @@
 	<mtc:Taxon name="Measure.Ratio.Humidity.Relative" deprecated="false" replacement="">
 		<mtc:Result>
 			<uom:Quantity name="ratio"></uom:Quantity>
-			<mtc:mLayer aspect="catalytic_activity_concentration" id="AS78"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="relative_humidity" optional="false">
+		<mtc:Parameter name="RelativeHumidity" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="ratio"></uom:Quantity>
-			<mtc:mLayer aspect="catalytic_activity_concentration" id="AS78"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="temperature" optional="true">
+		<mtc:Parameter name="Temperature" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="temperature"></uom:Quantity>
-			<mtc:mLayer aspect="thermodynamic_temperature" id="AS6"></mtc:mLayer>
+			<mtc:mLayer aspect="thermodynamic-temperature" id="AS6"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="pressure" optional="true">
+		<mtc:Parameter name="Pressure" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="pressure"></uom:Quantity>
 			<mtc:mLayer aspect="pressure" id="AS14"></mtc:mLayer>
@@ -1344,19 +1354,17 @@
 	<mtc:Taxon name="Measure.Ratio.Humidity.Specific" deprecated="false" replacement="">
 		<mtc:Result>
 			<uom:Quantity name="ratio"></uom:Quantity>
-			<mtc:mLayer aspect="catalytic_activity_concentration" id="AS78"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="humidity" optional="false">
+		<mtc:Parameter name="Humidity" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="ratio"></uom:Quantity>
-			<mtc:mLayer aspect="catalytic_activity_concentration" id="AS78"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="dryairmass" optional="true">
+		<mtc:Parameter name="DryAirMass" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="mass"></uom:Quantity>
 			<mtc:mLayer aspect="mass" id="AS2"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="watervapormass" optional="true">
+		<mtc:Parameter name="WaterVaporMass" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="mass"></uom:Quantity>
 			<mtc:mLayer aspect="mass" id="AS2"></mtc:mLayer>
@@ -1367,22 +1375,21 @@
 	<mtc:Taxon name="Measure.Ratio.Power.ReflectionFactor.RF" deprecated="false" replacement="">
 		<mtc:Result>
 			<uom:Quantity name="ratio"></uom:Quantity>
-			<mtc:mLayer aspect="catalytic_activity_concentration" id="AS78"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="frequency" optional="false">
+		<mtc:Parameter name="Frequency" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="power" optional="false">
+		<mtc:Parameter name="Power" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="power"></uom:Quantity>
 			<mtc:mLayer aspect="power" id="AS19"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="port" optional="true">
+		<mtc:Parameter name="Port" optional="true">
 			<mtc:Definition>Measurement Port</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="bandwidth" optional="true">
+		<mtc:Parameter name="Bandwidth" optional="true">
 			<mtc:Definition>Measurement Bandwidth</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
@@ -1395,17 +1402,17 @@
 			<uom:Quantity name="power"></uom:Quantity>
 			<mtc:mLayer aspect="power" id="AS19"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="frequency" optional="false">
+		<mtc:Parameter name="Frequency" optional="false">
 			<mtc:Definition>Measurement Frequency</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="frequencyref" optional="false">
+		<mtc:Parameter name="FrequencyRef" optional="false">
 			<mtc:Definition>Reference Frequency</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="power" optional="false">
+		<mtc:Parameter name="Power" optional="false">
 			<mtc:Definition>Measurement Power</mtc:Definition>
 			<uom:Quantity name="power"></uom:Quantity>
 			<mtc:mLayer aspect="power" id="AS19"></mtc:mLayer>
@@ -1416,25 +1423,25 @@
 	<mtc:Taxon name="Measure.Ratio.Power.RF.Sinewave.Delta.Power" deprecated="false" replacement="">
 		<mtc:Result>
 			<uom:Quantity name="ratio"></uom:Quantity>
-			<mtc:mLayer aspect="catalytic_activity_concentration" id="AS78"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="power" optional="false">
+		<mtc:Parameter name="Power" optional="false">
 			<mtc:Definition>Measurement Power</mtc:Definition>
 			<uom:Quantity name="power"></uom:Quantity>
 			<mtc:mLayer aspect="power" id="AS19"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="powerref" optional="false">
+		<mtc:Parameter name="PowerRef" optional="false">
 			<mtc:Definition>Reference Power</mtc:Definition>
 			<uom:Quantity name="power"></uom:Quantity>
 			<mtc:mLayer aspect="power" id="AS19"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="frequency" optional="false">
+		<mtc:Parameter name="Frequency" optional="false">
 			<mtc:Definition>Measurement Frequency</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="impedance" optional="true">
+		<mtc:Parameter name="Impedance" optional="true">
 			<mtc:Definition>Expected Impedance</mtc:Definition>
+			<uom:Quantity name="impedance"></uom:Quantity>
 		</mtc:Parameter>
 		<mtc:Discipline name="Electrical"></mtc:Discipline>
 		<mtc:Definition>A test process that measures the difference  2 sinusoidal RF signals at different power levels keeping the frequency constant.  The two measured values are compared, the results can be expressed as Delta dB or percent of change. These two signals are often used when calibrating the linearity of a device.</mtc:Definition>
@@ -1442,22 +1449,21 @@
 	<mtc:Taxon name="Measure.Ratio.Power.TransmissionFactor" deprecated="false" replacement="">
 		<mtc:Result>
 			<uom:Quantity name="ratio"></uom:Quantity>
-			<mtc:mLayer aspect="catalytic_activity_concentration" id="AS78"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="frequency" optional="false">
+		<mtc:Parameter name="Frequency" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="power" optional="false">
+		<mtc:Parameter name="Power" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="power"></uom:Quantity>
 			<mtc:mLayer aspect="power" id="AS19"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="port" optional="true">
+		<mtc:Parameter name="Port" optional="true">
 			<mtc:Definition>Measurement Port</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="bandwidth" optional="true">
+		<mtc:Parameter name="Bandwidth" optional="true">
 			<mtc:Definition>Measurement Bandwidth</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
@@ -1469,24 +1475,25 @@
 		<mtc:Result>
 			<uom:Quantity name="torque"></uom:Quantity>
 		</mtc:Result>
-		<mtc:Parameter name="input" optional="false">
+		<mtc:Parameter name="Input" optional="false">
 			<mtc:Definition></mtc:Definition>
+			<uom:Quantity name="torque"></uom:Quantity>
 		</mtc:Parameter>
-		<mtc:Parameter name="output" optional="false">
+		<mtc:Parameter name="Output" optional="false">
 			<mtc:Definition></mtc:Definition>
+			<uom:Quantity name="torque"></uom:Quantity>
 		</mtc:Parameter>
-		<mtc:Parameter name="ratio" optional="false">
+		<mtc:Parameter name="Ratio" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="ratio"></uom:Quantity>
-			<mtc:mLayer aspect="catalytic_activity_concentration" id="AS78"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="direction" optional="true">
+		<mtc:Parameter name="Direction" optional="true">
 			<mtc:Definition>{CW, CCW}</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="inputconnector" optional="true">
+		<mtc:Parameter name="InputConnector" optional="true">
 			<mtc:Definition>text</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="outputconnector" optional="true">
+		<mtc:Parameter name="OutputConnector" optional="true">
 			<mtc:Definition>text</mtc:Definition>
 		</mtc:Parameter>
 		<mtc:Discipline name="Torque"></mtc:Discipline>
@@ -1495,17 +1502,17 @@
 	<mtc:Taxon name="Measure.Ratio.Voltage.AC.Ripple.OnDC" deprecated="false" replacement="">
 		<mtc:Result>
 			<uom:Quantity name="ratio"></uom:Quantity>
-			<mtc:mLayer aspect="catalytic_activity_concentration" id="AS78"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="volts" optional="false">
+		<mtc:Parameter name="Volts" optional="false">
 			<mtc:Definition>DC Voltage</mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="impedance" optional="true">
+		<mtc:Parameter name="Impedance" optional="true">
 			<mtc:Definition>Input impedance of the measuring device. Expected output impedance of a source.</mtc:Definition>
+			<uom:Quantity name="impedance"></uom:Quantity>
 		</mtc:Parameter>
-		<mtc:Parameter name="bandwidth" optional="true">
+		<mtc:Parameter name="Bandwidth" optional="true">
 			<mtc:Definition>High Pass Filter Frequency</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
@@ -1518,20 +1525,20 @@
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="volts" optional="false">
+		<mtc:Parameter name="Volts" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="frequency" optional="false">
+		<mtc:Parameter name="Frequency" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="uut.input" optional="true">
+		<mtc:Parameter name="UUT.Input" optional="true">
 			<mtc:Definition>Input Name of the UUT Connecting Point</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="frequencyref" optional="false">
+		<mtc:Parameter name="FrequencyRef" optional="false">
 			<mtc:Definition>The Frequency of the Referece Voltage</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
@@ -1542,25 +1549,25 @@
 	<mtc:Taxon name="Measure.Ratio.Voltage.AC.Sinewave.Delta.Voltage" deprecated="false" replacement="">
 		<mtc:Result>
 			<uom:Quantity name="ratio"></uom:Quantity>
-			<mtc:mLayer aspect="catalytic_activity_concentration" id="AS78"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="volts" optional="false">
+		<mtc:Parameter name="Volts" optional="false">
 			<mtc:Definition>Measurement Voltage (RMS)</mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="voltsref" optional="false">
+		<mtc:Parameter name="VoltsRef" optional="false">
 			<mtc:Definition>Reference Voltage</mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="frequency" optional="false">
+		<mtc:Parameter name="Frequency" optional="false">
 			<mtc:Definition>Measurement Frequency</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="impedance" optional="false">
+		<mtc:Parameter name="Impedance" optional="false">
 			<mtc:Definition>Expected Impedance</mtc:Definition>
+			<uom:Quantity name="impedance"></uom:Quantity>
 		</mtc:Parameter>
 		<mtc:Discipline name="Electrical"></mtc:Discipline>
 		<mtc:Definition>A test process that measures the difference  2 sinusoidal AC sinewave signals at different voltage levels keeping the frequency constant.  The two measured values are compared, the results can be expressed as delta volts, dB or percent of change. These two signals are often used when calibrating linearity of a device.</mtc:Definition>
@@ -1569,15 +1576,16 @@
 		<mtc:Result>
 			<uom:Quantity name="relative-humidity"></uom:Quantity>
 		</mtc:Result>
-		<mtc:Parameter name="humidity" optional="false">
+		<mtc:Parameter name="Humidity" optional="false">
 			<mtc:Definition>Humidity Measured</mtc:Definition>
+			<uom:Quantity name="relative-humidity"></uom:Quantity>
 		</mtc:Parameter>
-		<mtc:Parameter name="dryairvolume" optional="true">
+		<mtc:Parameter name="DryAirVolume" optional="true">
 			<mtc:Definition>Dry Air Volume</mtc:Definition>
 			<uom:Quantity name="volume"></uom:Quantity>
 			<mtc:mLayer aspect="volume" id="AS37"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="watervapormass" optional="true">
+		<mtc:Parameter name="WaterVaporMass" optional="true">
 			<mtc:Definition>Water Vapor Mass</mtc:Definition>
 			<uom:Quantity name="mass"></uom:Quantity>
 			<mtc:mLayer aspect="mass" id="AS2"></mtc:mLayer>
@@ -1588,25 +1596,25 @@
 	<mtc:Taxon name="Measure.Resistance" deprecated="false" replacement="">
 		<mtc:Result>
 			<uom:Quantity name="resistance"></uom:Quantity>
-			<mtc:mLayer aspect="electric_resistance" id="AS24"></mtc:mLayer>
+			<mtc:mLayer aspect="electric-resistance" id="AS24"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="ohms" optional="false">
+		<mtc:Parameter name="Ohms" optional="false">
 			<mtc:Definition>Resistance Measured</mtc:Definition>
 			<uom:Quantity name="resistance"></uom:Quantity>
-			<mtc:mLayer aspect="electric_resistance" id="AS24"></mtc:mLayer>
+			<mtc:mLayer aspect="electric-resistance" id="AS24"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="wire" optional="false">
+		<mtc:Parameter name="Wire" optional="false">
 			<mtc:Definition>{2, 3, 4, 2Wire, 3Wire,4Wire}</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="volts" optional="true">
+		<mtc:Parameter name="Volts" optional="true">
 			<mtc:Definition>Recomended Voltage</mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="amps" optional="true">
+		<mtc:Parameter name="Amps" optional="true">
 			<mtc:Definition>Recomended Current</mtc:Definition>
 			<uom:Quantity name="current"></uom:Quantity>
-			<mtc:mLayer aspect="electric_current" id="AS5"></mtc:mLayer>
+			<mtc:mLayer aspect="electric-current" id="AS5"></mtc:mLayer>
 		</mtc:Parameter>
 		<mtc:Discipline name="Electrical"></mtc:Discipline>
 		<mtc:Definition>The process of measuring the resistance of a resister or other device.</mtc:Definition>
@@ -1614,12 +1622,12 @@
 	<mtc:Taxon name="Measure.Temperature" deprecated="false" replacement="">
 		<mtc:Result>
 			<uom:Quantity name="temperature"></uom:Quantity>
-			<mtc:mLayer aspect="thermodynamic_temperature" id="AS6"></mtc:mLayer>
+			<mtc:mLayer aspect="thermodynamic-temperature" id="AS6"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="temperture" optional="false">
+		<mtc:Parameter name="Temperture" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="temperature"></uom:Quantity>
-			<mtc:mLayer aspect="thermodynamic_temperature" id="AS6"></mtc:mLayer>
+			<mtc:mLayer aspect="thermodynamic-temperature" id="AS6"></mtc:mLayer>
 		</mtc:Parameter>
 		<mtc:Discipline name="Thermodynamics"></mtc:Discipline>
 		<mtc:Definition>The process of measuring the physical temperature of a device.</mtc:Definition>
@@ -1627,17 +1635,17 @@
 	<mtc:Taxon name="Measure.Temperature.Radiometric" deprecated="false" replacement="">
 		<mtc:Result>
 			<uom:Quantity name="temperature"></uom:Quantity>
-			<mtc:mLayer aspect="thermodynamic_temperature" id="AS6"></mtc:mLayer>
+			<mtc:mLayer aspect="thermodynamic-temperature" id="AS6"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="temperature" optional="false">
+		<mtc:Parameter name="Temperature" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="temperature"></uom:Quantity>
-			<mtc:mLayer aspect="thermodynamic_temperature" id="AS6"></mtc:mLayer>
+			<mtc:mLayer aspect="thermodynamic-temperature" id="AS6"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="emissivity" optional="true">
+		<mtc:Parameter name="Emissivity" optional="true">
 			<mtc:Definition></mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="distance" optional="true">
+		<mtc:Parameter name="Distance" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
@@ -1648,17 +1656,17 @@
 	<mtc:Taxon name="Measure.Temperature.Simulated.PRT" deprecated="false" replacement="">
 		<mtc:Result>
 			<uom:Quantity name="temperature"></uom:Quantity>
-			<mtc:mLayer aspect="thermodynamic_temperature" id="AS6"></mtc:mLayer>
+			<mtc:mLayer aspect="thermodynamic-temperature" id="AS6"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="temperature" optional="false">
+		<mtc:Parameter name="Temperature" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="temperature"></uom:Quantity>
-			<mtc:mLayer aspect="thermodynamic_temperature" id="AS6"></mtc:mLayer>
+			<mtc:mLayer aspect="thermodynamic-temperature" id="AS6"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="ohms" optional="true">
+		<mtc:Parameter name="Ohms" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="resistance"></uom:Quantity>
-			<mtc:mLayer aspect="electric_resistance" id="AS24"></mtc:mLayer>
+			<mtc:mLayer aspect="electric-resistance" id="AS24"></mtc:mLayer>
 		</mtc:Parameter>
 		<mtc:Discipline name="Thermodynamics"></mtc:Discipline>
 		<mtc:Definition>The process of measuring the simulated temperature in voltage from a PRT or SPRT device.</mtc:Definition>
@@ -1666,17 +1674,17 @@
 	<mtc:Taxon name="Measure.Temperature.Simulated.RTD" deprecated="false" replacement="">
 		<mtc:Result>
 			<uom:Quantity name="temperature"></uom:Quantity>
-			<mtc:mLayer aspect="thermodynamic_temperature" id="AS6"></mtc:mLayer>
+			<mtc:mLayer aspect="thermodynamic-temperature" id="AS6"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="temperature" optional="false">
+		<mtc:Parameter name="Temperature" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="temperature"></uom:Quantity>
-			<mtc:mLayer aspect="thermodynamic_temperature" id="AS6"></mtc:mLayer>
+			<mtc:mLayer aspect="thermodynamic-temperature" id="AS6"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="ohms" optional="true">
+		<mtc:Parameter name="Ohms" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="resistance"></uom:Quantity>
-			<mtc:mLayer aspect="electric_resistance" id="AS24"></mtc:mLayer>
+			<mtc:mLayer aspect="electric-resistance" id="AS24"></mtc:mLayer>
 		</mtc:Parameter>
 		<mtc:Discipline name="Thermodynamics"></mtc:Discipline>
 		<mtc:Definition>The process of measuring the simulated temperature in voltage from a RTD device.</mtc:Definition>
@@ -1684,17 +1692,17 @@
 	<mtc:Taxon name="Measure.Temperature.Simulated.Thermocouple" deprecated="false" replacement="">
 		<mtc:Result>
 			<uom:Quantity name="temperature"></uom:Quantity>
-			<mtc:mLayer aspect="thermodynamic_temperature" id="AS6"></mtc:mLayer>
+			<mtc:mLayer aspect="thermodynamic-temperature" id="AS6"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="temperature" optional="false">
+		<mtc:Parameter name="Temperature" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="temperature"></uom:Quantity>
-			<mtc:mLayer aspect="thermodynamic_temperature" id="AS6"></mtc:mLayer>
+			<mtc:mLayer aspect="thermodynamic-temperature" id="AS6"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="thermocoupletype" optional="false">
+		<mtc:Parameter name="ThermocoupleType" optional="false">
 			<mtc:Definition>{B, C, D, E, G, J, K, M, N, P, R, S, T}</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="volts" optional="true">
+		<mtc:Parameter name="Volts" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
@@ -1707,7 +1715,7 @@
 			<uom:Quantity name="time"></uom:Quantity>
 			<mtc:mLayer aspect="time" id="AS4"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="time" optional="false">
+		<mtc:Parameter name="Time" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="time"></uom:Quantity>
 			<mtc:mLayer aspect="time" id="AS4"></mtc:mLayer>
@@ -1720,22 +1728,23 @@
 			<uom:Quantity name="time"></uom:Quantity>
 			<mtc:mLayer aspect="time" id="AS4"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="transition" optional="false">
+		<mtc:Parameter name="Transition" optional="false">
 			<mtc:Definition>{Rise, Fall}</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="time" optional="false">
+		<mtc:Parameter name="Time" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="time"></uom:Quantity>
 			<mtc:mLayer aspect="time" id="AS4"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="type" optional="true">
+		<mtc:Parameter name="Type" optional="true">
 			<mtc:Definition>{10To90, 20To80}</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="vpp" optional="true">
+		<mtc:Parameter name="Vpp" optional="true">
 			<mtc:Definition>Volts Peak-to-Peak</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="impedance" optional="true">
+		<mtc:Parameter name="Impedance" optional="true">
 			<mtc:Definition>Expected Impedance</mtc:Definition>
+			<uom:Quantity name="impedance"></uom:Quantity>
 		</mtc:Parameter>
 		<mtc:Discipline name="Electrical"></mtc:Discipline>
 		<mtc:Definition>The process of measuring the pulse transition time of a square wave signal.  The transition can be either be in a positive direction (Risetime) or a negative direction (Fall time).</mtc:Definition>
@@ -1744,13 +1753,14 @@
 		<mtc:Result>
 			<uom:Quantity name="torque"></uom:Quantity>
 		</mtc:Result>
-		<mtc:Parameter name="torque" optional="false">
+		<mtc:Parameter name="Torque" optional="false">
 			<mtc:Definition></mtc:Definition>
+			<uom:Quantity name="torque"></uom:Quantity>
 		</mtc:Parameter>
-		<mtc:Parameter name="direction" optional="true">
+		<mtc:Parameter name="Direction" optional="true">
 			<mtc:Definition>{CW, CCW}</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="connector" optional="true">
+		<mtc:Parameter name="Connector" optional="true">
 			<mtc:Definition>Connector Name [Text]</mtc:Definition>
 		</mtc:Parameter>
 		<mtc:Discipline name="Torque"></mtc:Discipline>
@@ -1760,18 +1770,19 @@
 		<mtc:Result>
 			<uom:Quantity name="torque"></uom:Quantity>
 		</mtc:Result>
-		<mtc:Parameter name="torque" optional="false">
+		<mtc:Parameter name="Torque" optional="false">
 			<mtc:Definition>The expected torque output</mtc:Definition>
+			<uom:Quantity name="torque"></uom:Quantity>
 		</mtc:Parameter>
-		<mtc:Parameter name="pressure" optional="false">
+		<mtc:Parameter name="Pressure" optional="false">
 			<mtc:Definition>The applied hydraulic pressure</mtc:Definition>
 			<uom:Quantity name="pressure"></uom:Quantity>
 			<mtc:mLayer aspect="pressure" id="AS14"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="direction" optional="true">
+		<mtc:Parameter name="Direction" optional="true">
 			<mtc:Definition>{CW, CCW}</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="connector" optional="true">
+		<mtc:Parameter name="Connector" optional="true">
 			<mtc:Definition>Connector Name [Text]</mtc:Definition>
 		</mtc:Parameter>
 		<mtc:Discipline name="Torque"></mtc:Discipline>
@@ -1782,12 +1793,12 @@
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="volts" optional="false">
+		<mtc:Parameter name="Volts" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="frequency" optional="false">
+		<mtc:Parameter name="Frequency" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
@@ -1800,15 +1811,16 @@
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="volts" optional="false">
+		<mtc:Parameter name="Volts" optional="false">
 			<mtc:Definition>DC Voltage</mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="impedance" optional="true">
+		<mtc:Parameter name="Impedance" optional="true">
 			<mtc:Definition>Expected Impedance</mtc:Definition>
+			<uom:Quantity name="impedance"></uom:Quantity>
 		</mtc:Parameter>
-		<mtc:Parameter name="bandwidth" optional="true">
+		<mtc:Parameter name="Bandwidth" optional="true">
 			<mtc:Definition>High Pass filter</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
@@ -1821,12 +1833,12 @@
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="volts" optional="false">
+		<mtc:Parameter name="Volts" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="frequency" optional="false">
+		<mtc:Parameter name="Frequency" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
@@ -1839,12 +1851,12 @@
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="volts" optional="false">
+		<mtc:Parameter name="Volts" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="frequency" optional="false">
+		<mtc:Parameter name="Frequency" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
@@ -1857,12 +1869,12 @@
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="volts" optional="false">
+		<mtc:Parameter name="Volts" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="uut.input" optional="true">
+		<mtc:Parameter name="UUT.Input" optional="true">
 			<mtc:Definition>Input Name of the UUT Connecting Point</mtc:Definition>
 		</mtc:Parameter>
 		<mtc:Discipline name="Electrical"></mtc:Discipline>
@@ -1873,17 +1885,17 @@
 			<uom:Quantity name="acceleration"></uom:Quantity>
 			<mtc:mLayer aspect="acceleration" id="AS39"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="acceleration" optional="false">
+		<mtc:Parameter name="Acceleration" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="acceleration"></uom:Quantity>
 			<mtc:mLayer aspect="acceleration" id="AS39"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="time" optional="true">
+		<mtc:Parameter name="Time" optional="true">
 			<mtc:Definition>Measurement time</mtc:Definition>
 			<uom:Quantity name="time"></uom:Quantity>
 			<mtc:mLayer aspect="time" id="AS4"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="distance" optional="true">
+		<mtc:Parameter name="Distance" optional="true">
 			<mtc:Definition>Measurement Distance</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
@@ -1896,26 +1908,26 @@
 			<uom:Quantity name="acceleration"></uom:Quantity>
 			<mtc:mLayer aspect="acceleration" id="AS39"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="outputtype" optional="false">
+		<mtc:Parameter name="OutputType" optional="false">
 			<mtc:Definition>RMS {Voltage, IEPE, Current, Charge}</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="sensitivity" optional="false">
+		<mtc:Parameter name="Sensitivity" optional="false">
 			<mtc:Definition>(Output per m/s²)</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="acceleration" optional="false">
+		<mtc:Parameter name="Acceleration" optional="false">
 			<mtc:Definition>(m/sB2) The Test Acceleration</mtc:Definition>
 			<uom:Quantity name="acceleration"></uom:Quantity>
 			<mtc:mLayer aspect="acceleration" id="AS39"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="axis" optional="true">
+		<mtc:Parameter name="Axis" optional="true">
 			<mtc:Definition>{X,Y, Z}</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="excitationvoltage" optional="true">
+		<mtc:Parameter name="ExcitationVoltage" optional="true">
 			<mtc:Definition>Excitation Voltage</mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="position" optional="true">
+		<mtc:Parameter name="Position" optional="true">
 			<mtc:Definition>Relative to Gravity</mtc:Definition>
 		</mtc:Parameter>
 		<mtc:Discipline name="Vibration"></mtc:Discipline>
@@ -1926,29 +1938,29 @@
 			<uom:Quantity name="acceleration"></uom:Quantity>
 			<mtc:mLayer aspect="acceleration" id="AS39"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="acceleration" optional="false">
+		<mtc:Parameter name="Acceleration" optional="false">
 			<mtc:Definition>(m/s² - RMS)</mtc:Definition>
 			<uom:Quantity name="acceleration"></uom:Quantity>
 			<mtc:mLayer aspect="acceleration" id="AS39"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="frequency" optional="false">
+		<mtc:Parameter name="Frequency" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="outputtype" optional="false">
+		<mtc:Parameter name="OutputType" optional="false">
 			<mtc:Definition>{Voltage, IEPE, Current, Charge}</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="sensitivity" optional="false">
+		<mtc:Parameter name="Sensitivity" optional="false">
 			<mtc:Definition>(Output per m/s²)</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="axis" optional="true">
+		<mtc:Parameter name="Axis" optional="true">
 			<mtc:Definition>{X,Y, Z}</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="position" optional="true">
+		<mtc:Parameter name="Position" optional="true">
 			<mtc:Definition>Relative to Gravity</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="excitationvoltage" optional="true">
+		<mtc:Parameter name="ExcitationVoltage" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
@@ -1961,17 +1973,17 @@
 			<uom:Quantity name="capacitance"></uom:Quantity>
 			<mtc:mLayer aspect="capacitance" id="AS23"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="capacitance" optional="false">
+		<mtc:Parameter name="Capacitance" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="capacitance"></uom:Quantity>
 			<mtc:mLayer aspect="capacitance" id="AS23"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="voltage" optional="true">
+		<mtc:Parameter name="Voltage" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="frequency" optional="true">
+		<mtc:Parameter name="Frequency" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
@@ -1982,12 +1994,12 @@
 	<mtc:Taxon name="Source.Conductance" deprecated="false" replacement="">
 		<mtc:Result>
 			<uom:Quantity name="conductance"></uom:Quantity>
-			<mtc:mLayer aspect="electric_conductance" id="AS25"></mtc:mLayer>
+			<mtc:mLayer aspect="electric-conductance" id="AS25"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="conductance" optional="false">
+		<mtc:Parameter name="Conductance" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="conductance"></uom:Quantity>
-			<mtc:mLayer aspect="electric_conductance" id="AS25"></mtc:mLayer>
+			<mtc:mLayer aspect="electric-conductance" id="AS25"></mtc:mLayer>
 		</mtc:Parameter>
 		<mtc:Discipline name="Electrical"></mtc:Discipline>
 		<mtc:Definition>The process of sourcing Electrical Conductance either from a fixed device or simulated.</mtc:Definition>
@@ -1997,18 +2009,18 @@
 			<uom:Quantity name="conductivity"></uom:Quantity>
 			<mtc:mLayer aspect="conductivity" id="AS91"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="conductivity" optional="false">
+		<mtc:Parameter name="Conductivity" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="conductivity"></uom:Quantity>
 			<mtc:mLayer aspect="conductivity" id="AS91"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="solution" optional="true">
+		<mtc:Parameter name="Solution" optional="true">
 			<mtc:Definition></mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="ohms" optional="true">
+		<mtc:Parameter name="Ohms" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="resistance"></uom:Quantity>
-			<mtc:mLayer aspect="electric_resistance" id="AS24"></mtc:mLayer>
+			<mtc:mLayer aspect="electric-resistance" id="AS24"></mtc:mLayer>
 		</mtc:Parameter>
 		<mtc:Discipline name="Electrical"></mtc:Discipline>
 		<mtc:Definition>The process of sourcing Electrical Conductivity either from a fixed device or simulated.</mtc:Definition>
@@ -2016,12 +2028,12 @@
 	<mtc:Taxon name="Source.Current" deprecated="false" replacement="">
 		<mtc:Result>
 			<uom:Quantity name="current"></uom:Quantity>
-			<mtc:mLayer aspect="electric_current" id="AS5"></mtc:mLayer>
+			<mtc:mLayer aspect="electric-current" id="AS5"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="amps" optional="false">
+		<mtc:Parameter name="Amps" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="current"></uom:Quantity>
-			<mtc:mLayer aspect="electric_current" id="AS5"></mtc:mLayer>
+			<mtc:mLayer aspect="electric-current" id="AS5"></mtc:mLayer>
 		</mtc:Parameter>
 		<mtc:Discipline name="Electrical"></mtc:Discipline>
 		<mtc:Definition>The process of sourcing a Direct Current) voltage from a device and measuring the value on the UUT.</mtc:Definition>
@@ -2029,14 +2041,14 @@
 	<mtc:Taxon name="Source.Current.AC.Sinewave" deprecated="false" replacement="">
 		<mtc:Result>
 			<uom:Quantity name="current"></uom:Quantity>
-			<mtc:mLayer aspect="electric_current" id="AS5"></mtc:mLayer>
+			<mtc:mLayer aspect="electric-current" id="AS5"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="amps" optional="false">
+		<mtc:Parameter name="Amps" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="current"></uom:Quantity>
-			<mtc:mLayer aspect="electric_current" id="AS5"></mtc:mLayer>
+			<mtc:mLayer aspect="electric-current" id="AS5"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="frequency" optional="false">
+		<mtc:Parameter name="Frequency" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
@@ -2047,14 +2059,14 @@
 	<mtc:Taxon name="Source.Current.AC.Squarewave" deprecated="false" replacement="">
 		<mtc:Result>
 			<uom:Quantity name="current"></uom:Quantity>
-			<mtc:mLayer aspect="electric_current" id="AS5"></mtc:mLayer>
+			<mtc:mLayer aspect="electric-current" id="AS5"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="amps" optional="false">
+		<mtc:Parameter name="Amps" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="current"></uom:Quantity>
-			<mtc:mLayer aspect="electric_current" id="AS5"></mtc:mLayer>
+			<mtc:mLayer aspect="electric-current" id="AS5"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="frequency" optional="false">
+		<mtc:Parameter name="Frequency" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
@@ -2065,14 +2077,14 @@
 	<mtc:Taxon name="Source.Current.AC.Trianglewave" deprecated="false" replacement="">
 		<mtc:Result>
 			<uom:Quantity name="current"></uom:Quantity>
-			<mtc:mLayer aspect="electric_current" id="AS5"></mtc:mLayer>
+			<mtc:mLayer aspect="electric-current" id="AS5"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="amps" optional="false">
+		<mtc:Parameter name="Amps" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="current"></uom:Quantity>
-			<mtc:mLayer aspect="electric_current" id="AS5"></mtc:mLayer>
+			<mtc:mLayer aspect="electric-current" id="AS5"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="frequency" optional="false">
+		<mtc:Parameter name="Frequency" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
@@ -2084,30 +2096,31 @@
 		<mtc:Result>
 			<uom:Quantity name="density-mass"></uom:Quantity>
 		</mtc:Result>
-		<mtc:Parameter name="density" optional="false">
+		<mtc:Parameter name="Density" optional="false">
 			<mtc:Definition></mtc:Definition>
+			<uom:Quantity name="density-mass"></uom:Quantity>
 		</mtc:Parameter>
-		<mtc:Parameter name="nominal_height" optional="true">
-			<mtc:Definition></mtc:Definition>
-			<uom:Quantity name="length"></uom:Quantity>
-			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
-		</mtc:Parameter>
-		<mtc:Parameter name="nominal_lenght" optional="true">
+		<mtc:Parameter name="NominalHeight" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="nominal_width" optional="true">
+		<mtc:Parameter name="NominalLenght" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="nominal_volume" optional="true">
+		<mtc:Parameter name="NominalWidth" optional="true">
+			<mtc:Definition></mtc:Definition>
+			<uom:Quantity name="length"></uom:Quantity>
+			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
+		</mtc:Parameter>
+		<mtc:Parameter name="NominalVolume" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="volume"></uom:Quantity>
 			<mtc:mLayer aspect="volume" id="AS37"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="mass" optional="true">
+		<mtc:Parameter name="Mass" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="mass"></uom:Quantity>
 			<mtc:mLayer aspect="mass" id="AS2"></mtc:mLayer>
@@ -2119,30 +2132,31 @@
 		<mtc:Result>
 			<uom:Quantity name="density-mass"></uom:Quantity>
 		</mtc:Result>
-		<mtc:Parameter name="density" optional="false">
+		<mtc:Parameter name="Density" optional="false">
 			<mtc:Definition></mtc:Definition>
+			<uom:Quantity name="density-mass"></uom:Quantity>
 		</mtc:Parameter>
-		<mtc:Parameter name="nominal_height" optional="true">
-			<mtc:Definition></mtc:Definition>
-			<uom:Quantity name="length"></uom:Quantity>
-			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
-		</mtc:Parameter>
-		<mtc:Parameter name="nominal_lenght" optional="true">
+		<mtc:Parameter name="NominalHeight" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="nominal_width" optional="true">
+		<mtc:Parameter name="NominalLenght" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="nominal_volume" optional="true">
+		<mtc:Parameter name="NominalWidth" optional="true">
+			<mtc:Definition></mtc:Definition>
+			<uom:Quantity name="length"></uom:Quantity>
+			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
+		</mtc:Parameter>
+		<mtc:Parameter name="NominalVolume" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="mass" optional="true">
+		<mtc:Parameter name="Mass" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="mass"></uom:Quantity>
 			<mtc:mLayer aspect="mass" id="AS2"></mtc:mLayer>
@@ -2154,30 +2168,31 @@
 		<mtc:Result>
 			<uom:Quantity name="density-mass"></uom:Quantity>
 		</mtc:Result>
-		<mtc:Parameter name="density" optional="false">
+		<mtc:Parameter name="Density" optional="false">
 			<mtc:Definition></mtc:Definition>
+			<uom:Quantity name="density-mass"></uom:Quantity>
 		</mtc:Parameter>
-		<mtc:Parameter name="nominal_height" optional="true">
-			<mtc:Definition></mtc:Definition>
-			<uom:Quantity name="length"></uom:Quantity>
-			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
-		</mtc:Parameter>
-		<mtc:Parameter name="nominal_length" optional="true">
+		<mtc:Parameter name="NominalHeight" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="nominal_width" optional="true">
+		<mtc:Parameter name="NominalLength" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="nominal_volume" optional="true">
+		<mtc:Parameter name="NominalWidth" optional="true">
+			<mtc:Definition></mtc:Definition>
+			<uom:Quantity name="length"></uom:Quantity>
+			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
+		</mtc:Parameter>
+		<mtc:Parameter name="NominalVolume" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="volume"></uom:Quantity>
 			<mtc:mLayer aspect="volume" id="AS37"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="mass" optional="true">
+		<mtc:Parameter name="Mass" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="mass"></uom:Quantity>
 			<mtc:mLayer aspect="mass" id="AS2"></mtc:mLayer>
@@ -2190,34 +2205,34 @@
 			<uom:Quantity name="force"></uom:Quantity>
 			<mtc:mLayer aspect="force" id="AS13"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="force" optional="false">
+		<mtc:Parameter name="Force" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="force"></uom:Quantity>
 			<mtc:mLayer aspect="force" id="AS13"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="mode" optional="false">
+		<mtc:Parameter name="Mode" optional="false">
 			<mtc:Definition>{Compression or Tension}</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="direction" optional="true">
+		<mtc:Parameter name="Direction" optional="true">
 			<mtc:Definition>{Ascending or Descending}</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="bridge" optional="true">
+		<mtc:Parameter name="Bridge" optional="true">
 			<mtc:Definition></mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="excitationvoltage" optional="true">
+		<mtc:Parameter name="ExcitationVoltage" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="current" optional="true">
+		<mtc:Parameter name="Current" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="current"></uom:Quantity>
-			<mtc:mLayer aspect="electric_current" id="AS5"></mtc:mLayer>
+			<mtc:mLayer aspect="electric-current" id="AS5"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="outputsensitivity" optional="true">
+		<mtc:Parameter name="OutputSensitivity" optional="true">
 			<mtc:Definition></mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="adapters" optional="true">
+		<mtc:Parameter name="Adapters" optional="true">
 			<mtc:Definition>Adapter Name [Text]</mtc:Definition>
 		</mtc:Parameter>
 		<mtc:Discipline name="Mass"></mtc:Discipline>
@@ -2228,18 +2243,19 @@
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="frequency" optional="false">
+		<mtc:Parameter name="Frequency" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="volts" optional="false">
+		<mtc:Parameter name="Volts" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="impedance" optional="true">
+		<mtc:Parameter name="Impedance" optional="true">
 			<mtc:Definition>Output Impedance</mtc:Definition>
+			<uom:Quantity name="impedance"></uom:Quantity>
 		</mtc:Parameter>
 		<mtc:Discipline name="Electrical"></mtc:Discipline>
 		<mtc:Definition>The process of generating a frequency-stable sinewave waveform.</mtc:Definition>
@@ -2249,20 +2265,21 @@
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="frequency" optional="false">
+		<mtc:Parameter name="Frequency" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="volts" optional="false">
+		<mtc:Parameter name="Volts" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="impedance" optional="true">
+		<mtc:Parameter name="Impedance" optional="true">
 			<mtc:Definition>Output Impedance</mtc:Definition>
+			<uom:Quantity name="impedance"></uom:Quantity>
 		</mtc:Parameter>
-		<mtc:Parameter name="offset" optional="true">
+		<mtc:Parameter name="Offset" optional="true">
 			<mtc:Definition>DC Offset</mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
@@ -2275,18 +2292,19 @@
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="frequency" optional="false">
+		<mtc:Parameter name="Frequency" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="power" optional="false">
+		<mtc:Parameter name="Power" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="power"></uom:Quantity>
 			<mtc:mLayer aspect="power" id="AS19"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="impedance" optional="true">
+		<mtc:Parameter name="Impedance" optional="true">
 			<mtc:Definition>Expected impedance</mtc:Definition>
+			<uom:Quantity name="impedance"></uom:Quantity>
 		</mtc:Parameter>
 		<mtc:Discipline name="Electrical"></mtc:Discipline>
 		<mtc:Definition>The process of generating a frequency-stable RF Sinewave waveform.</mtc:Definition>
@@ -2295,8 +2313,9 @@
 		<mtc:Result>
 			<uom:Quantity name="impedance"></uom:Quantity>
 		</mtc:Result>
-		<mtc:Parameter name="impedance" optional="false">
+		<mtc:Parameter name="Impedance" optional="false">
 			<mtc:Definition></mtc:Definition>
+			<uom:Quantity name="impedance"></uom:Quantity>
 		</mtc:Parameter>
 		<mtc:Discipline name="Electrical"></mtc:Discipline>
 		<mtc:Definition>The process of measuring the impedance of a device.</mtc:Definition>
@@ -2306,7 +2325,7 @@
 			<uom:Quantity name="inductance"></uom:Quantity>
 			<mtc:mLayer aspect="inductance" id="AS28"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="inductance" optional="false">
+		<mtc:Parameter name="Inductance" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="inductance"></uom:Quantity>
 			<mtc:mLayer aspect="inductance" id="AS28"></mtc:mLayer>
@@ -2319,42 +2338,42 @@
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="length" optional="false">
+		<mtc:Parameter name="Length" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="startpointx" optional="true">
+		<mtc:Parameter name="StartPointX" optional="true">
 			<mtc:Definition>Start Point on the X-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="startpointy" optional="true">
+		<mtc:Parameter name="StartPointY" optional="true">
 			<mtc:Definition>Start Point on the Y-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="startpointz" optional="true">
+		<mtc:Parameter name="StartPointZ" optional="true">
 			<mtc:Definition>Start Point on the Z-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="endpointx" optional="true">
+		<mtc:Parameter name="EndPointX" optional="true">
 			<mtc:Definition>End Point on the X-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="endpointy" optional="true">
+		<mtc:Parameter name="EndPointY" optional="true">
 			<mtc:Definition>End Point on the Y-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="endpointz" optional="true">
+		<mtc:Parameter name="EndPointZ" optional="true">
 			<mtc:Definition>End Point on the Z-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="reference" optional="true">
+		<mtc:Parameter name="Reference" optional="true">
 			<mtc:Definition>ISO- or ASME-compliant datum drawing specification (or equivalent unambiguous specification) [plain text]</mtc:Definition>
 		</mtc:Parameter>
 		<mtc:Discipline name="Dimensional"></mtc:Discipline>
@@ -2365,18 +2384,18 @@
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="length" optional="false">
+		<mtc:Parameter name="Length" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="type" optional="true">
+		<mtc:Parameter name="Type" optional="true">
 			<mtc:Definition>{Inside, Outside}</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="position" optional="true">
+		<mtc:Parameter name="Position" optional="true">
 			<mtc:Definition>Where is it being measured? [plain text]</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="reference" optional="true">
+		<mtc:Parameter name="Reference" optional="true">
 			<mtc:Definition>DIN, ISO, ASTM, ASME, or Federal G-Series Measurement Specifications  [plain text]</mtc:Definition>
 		</mtc:Parameter>
 		<mtc:Discipline name="Dimensional"></mtc:Discipline>
@@ -2387,18 +2406,18 @@
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="length" optional="false">
+		<mtc:Parameter name="Length" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="type" optional="true">
+		<mtc:Parameter name="Type" optional="true">
 			<mtc:Definition>{Inside, Outside}</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="position" optional="true">
+		<mtc:Parameter name="Position" optional="true">
 			<mtc:Definition>Where is it being measured? [plain text]</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="reference" optional="true">
+		<mtc:Parameter name="Reference" optional="true">
 			<mtc:Definition>DIN, ISO, ASTM, ASME, or Federal G-Series Measurement Specifications  [plain text]</mtc:Definition>
 		</mtc:Parameter>
 		<mtc:Discipline name="Dimensional"></mtc:Discipline>
@@ -2409,40 +2428,40 @@
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="distance" optional="false">
+		<mtc:Parameter name="Distance" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="surface" optional="true">
+		<mtc:Parameter name="Surface" optional="true">
 			<mtc:Definition>Name [Text]</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="startpointx" optional="true">
+		<mtc:Parameter name="StartPointX" optional="true">
 			<mtc:Definition>Start Point on the X-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="startpointy" optional="true">
+		<mtc:Parameter name="StartPointY" optional="true">
 			<mtc:Definition>Start Point on the Y-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="endpointx" optional="true">
+		<mtc:Parameter name="EndPointX" optional="true">
 			<mtc:Definition>End Point on the X-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="endpointy" optional="true">
+		<mtc:Parameter name="EndPointY" optional="true">
 			<mtc:Definition>End Point on the Y-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="resolution" optional="true">
+		<mtc:Parameter name="Resolution" optional="true">
 			<mtc:Definition>Distance between points</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="reference" optional="true">
+		<mtc:Parameter name="Reference" optional="true">
 			<mtc:Definition>DIN, ISO, ASTM, ASME, or Federal G-Series Measurement Specifications  [plain text]</mtc:Definition>
 		</mtc:Parameter>
 		<mtc:Discipline name="Dimensional"></mtc:Discipline>
@@ -2453,26 +2472,30 @@
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="diameter" optional="false">
+		<mtc:Parameter name="Diameter" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="height" optional="true">
+		<mtc:Parameter name="Height" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="numberofpoints" optional="true">
+		<mtc:Parameter name="NumberOfPoints" optional="true">
 			<mtc:Definition></mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="startangle" optional="true">
+		<mtc:Parameter name="StartAngle" optional="true">
 			<mtc:Definition>Rotational Angle from reference</mtc:Definition>
+			<uom:Quantity name="plane-angle"></uom:Quantity>
+			<mtc:mLayer aspect="plane-angle" id="AS10"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="stopangle" optional="true">
+		<mtc:Parameter name="StopAngle" optional="true">
 			<mtc:Definition>Rotational Angle from reference</mtc:Definition>
+			<uom:Quantity name="plane-angle"></uom:Quantity>
+			<mtc:mLayer aspect="plane-angle" id="AS10"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="reference" optional="true">
+		<mtc:Parameter name="Reference" optional="true">
 			<mtc:Definition>DIN, ISO, ASTM, ASME, or Federal G-Series Measurement Specifications  [plain text]</mtc:Definition>
 		</mtc:Parameter>
 		<mtc:Discipline name="Dimensional"></mtc:Discipline>
@@ -2483,27 +2506,33 @@
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="sphericity" optional="false">
+		<mtc:Parameter name="Sphericity" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="height" optional="true">
+		<mtc:Parameter name="Height" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="numberofpoints" optional="true">
+		<mtc:Parameter name="NumberOfPoints" optional="true">
 			<mtc:Definition></mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="startangle" optional="true">
+		<mtc:Parameter name="StartAngle" optional="true">
 			<mtc:Definition>Rotational Angle from reference</mtc:Definition>
+			<uom:Quantity name="plane-angle"></uom:Quantity>
+			<mtc:mLayer aspect="plane-angle" id="AS10"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="stopangle" optional="true">
+		<mtc:Parameter name="StopAngle" optional="true">
 			<mtc:Definition>Rotational Angle from reference</mtc:Definition>
+			<uom:Quantity name="plane-angle"></uom:Quantity>
+			<mtc:mLayer aspect="plane-angle" id="AS10"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="reference" optional="true">
+		<mtc:Parameter name="Reference" optional="true">
 			<mtc:Definition>DIN, ISO, ASTM, ASME, or Federal G-Series Measurement Specifications  [plain text]</mtc:Definition>
+			<uom:Quantity name="plane-angle"></uom:Quantity>
+			<mtc:mLayer aspect="plane-angle" id="AS10"></mtc:mLayer>
 		</mtc:Parameter>
 		<mtc:Discipline name="Dimensional"></mtc:Discipline>
 		<mtc:Definition>Sphericity is a measure of how closely the shape of an object resembles that of a perfect sphere. For example, the sphericity of the balls inside a ball bearing determines the quality of the bearing, such as the load it can bear or the speed at which it can turn without failing. Sphericity is a specific example of a compactness measure of a shape. Defined by Wadell in 1935,[1] the sphericity, {\displaystyle \Psi }\Psi , of a particle is the ratio of the surface area of a sphere with the same volume as the given particle to the surface area of the particle: where {\displaystyle V_{p}}V_p is volume of the particle and {\displaystyle A_{p}}A_p is the surface area of the particle. The sphericity of a sphere is unity by definition and, by the isoperimetric inequality, any particle which is not a sphere will have sphericity less than 1. Sphericity applies in three dimensions; its analogue in two dimensions, such as the cross sectional circles along a cylindrical object such as a shaft, is called roundness.</mtc:Definition>
@@ -2513,35 +2542,35 @@
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="length" optional="false">
+		<mtc:Parameter name="Length" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="startpointx" optional="true">
+		<mtc:Parameter name="StartPointX" optional="true">
 			<mtc:Definition>Start Point on the X-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="startpointy" optional="true">
+		<mtc:Parameter name="StartPointY" optional="true">
 			<mtc:Definition>Start Point on the Y-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="endpointx" optional="true">
+		<mtc:Parameter name="EndPointX" optional="true">
 			<mtc:Definition>End Point on the X-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="endpointy" optional="true">
+		<mtc:Parameter name="EndPointY" optional="true">
 			<mtc:Definition>End Point on the Y-Axis distance from the reference</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="numberofpoints" optional="true">
+		<mtc:Parameter name="NumberOfPoints" optional="true">
 			<mtc:Definition></mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="reference" optional="true">
+		<mtc:Parameter name="Reference" optional="true">
 			<mtc:Definition>DIN, ISO, ASTM, ASME, or Federal G-Series Measurement Specifications  [plain text]</mtc:Definition>
 		</mtc:Parameter>
 		<mtc:Discipline name="Dimensional"></mtc:Discipline>
@@ -2552,18 +2581,18 @@
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="length" optional="false">
+		<mtc:Parameter name="Length" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="type" optional="true">
+		<mtc:Parameter name="Type" optional="true">
 			<mtc:Definition>{Inside, Outside}</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="position" optional="true">
+		<mtc:Parameter name="Position" optional="true">
 			<mtc:Definition>Where is it being measured? [plain text]</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="reference" optional="true">
+		<mtc:Parameter name="Reference" optional="true">
 			<mtc:Definition>DIN, ISO, ASTM, ASME, or Federal G-Series Measurement Specifications  [plain text]</mtc:Definition>
 		</mtc:Parameter>
 		<mtc:Discipline name="Dimensional"></mtc:Discipline>
@@ -2574,7 +2603,7 @@
 			<uom:Quantity name="mass"></uom:Quantity>
 			<mtc:mLayer aspect="mass" id="AS2"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="mass" optional="false">
+		<mtc:Parameter name="Mass" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="mass"></uom:Quantity>
 			<mtc:mLayer aspect="mass" id="AS2"></mtc:mLayer>
@@ -2587,13 +2616,14 @@
 			<uom:Quantity name="mass"></uom:Quantity>
 			<mtc:mLayer aspect="mass" id="AS2"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="mass" optional="false">
+		<mtc:Parameter name="Mass" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="mass"></uom:Quantity>
 			<mtc:mLayer aspect="mass" id="AS2"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="density" optional="true">
+		<mtc:Parameter name="Density" optional="true">
 			<mtc:Definition></mtc:Definition>
+			<uom:Quantity name="density-mass"></uom:Quantity>
 		</mtc:Parameter>
 		<mtc:Discipline name="Mass"></mtc:Discipline>
 		<mtc:Definition>Test Process that sources a conventional value of the result of weighing a body in air equals the mass of a standard that balances this body under the following conventionally chosen conditions: ambient temperature 20 °C air density 1.2 mg/cm³ mass density 8.000 g/cm³ Conventional mass has the same unit as mass (the kilogram), because the multiplication of a mass by a dimensionless quantity defines its values. Labs typically measure mass and correct the results from actual to conventional conditions. “Apparent Mass versus 8.0 g/cm³” formerly equated to conventional mass in the United States. References: NISTIR 6969 (2019) https://www.nist.gov/publications/nistir-6969-selected-laboratory-and-measurement-practices-and-procedures-support-1 OIML D28 (2004)  https://www.oiml.org/en/files/pdf_d/d028-e04.pdf NIST Handbook 44: https://www.nist.gov/pml/weights-and-measures/publications/nist-handbooks/other-nist-handbooks/other-nist-handbooks-2-3</mtc:Definition>
@@ -2603,13 +2633,14 @@
 			<uom:Quantity name="mass"></uom:Quantity>
 			<mtc:mLayer aspect="mass" id="AS2"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="mass" optional="false">
+		<mtc:Parameter name="Mass" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="mass"></uom:Quantity>
 			<mtc:mLayer aspect="mass" id="AS2"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="density" optional="true">
+		<mtc:Parameter name="Density" optional="true">
 			<mtc:Definition></mtc:Definition>
+			<uom:Quantity name="density-mass"></uom:Quantity>
 		</mtc:Parameter>
 		<mtc:Discipline name="Mass"></mtc:Discipline>
 		<mtc:Definition>Test Process that sources a quantity of matter which a body contains, as measured by its acceleration under a given force or by the force exerted on it by a gravitational field. The term “mass” is always used in the strict Newtonian sense as a property intrinsic to matter. Mass is the proportionality constant between a force on a material object and its resulting acceleration. This property is sometimes referred to as “true mass”, “vacuum mass”, or “mass in a vacuum” to distinguish it from conventional [apparent] mass. The true quantity of matter represented in a vacuum with no gravitational force.</mtc:Definition>
@@ -2619,17 +2650,17 @@
 			<uom:Quantity name="power"></uom:Quantity>
 			<mtc:mLayer aspect="power" id="AS19"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="volts" optional="false">
+		<mtc:Parameter name="Volts" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="amps" optional="false">
+		<mtc:Parameter name="Amps" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="current"></uom:Quantity>
-			<mtc:mLayer aspect="electric_current" id="AS5"></mtc:mLayer>
+			<mtc:mLayer aspect="electric-current" id="AS5"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="frequency" optional="false">
+		<mtc:Parameter name="Frequency" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
@@ -2642,28 +2673,28 @@
 			<uom:Quantity name="power"></uom:Quantity>
 			<mtc:mLayer aspect="power" id="AS19"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="volts" optional="false">
+		<mtc:Parameter name="Volts" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="amps" optional="false">
+		<mtc:Parameter name="Amps" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="current"></uom:Quantity>
-			<mtc:mLayer aspect="electric_current" id="AS5"></mtc:mLayer>
+			<mtc:mLayer aspect="electric-current" id="AS5"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="frequency" optional="false">
+		<mtc:Parameter name="Frequency" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="phase" optional="true">
+		<mtc:Parameter name="Phase" optional="true">
 			<mtc:Definition></mtc:Definition>
+			<uom:Quantity name="phase"></uom:Quantity>
 		</mtc:Parameter>
-		<mtc:Parameter name="powerfactor" optional="true">
+		<mtc:Parameter name="PowerFactor" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="ratio"></uom:Quantity>
-			<mtc:mLayer aspect="catalytic_activity_concentration" id="AS78"></mtc:mLayer>
 		</mtc:Parameter>
 		<mtc:Discipline name="Electrical"></mtc:Discipline>
 		<mtc:Definition>The process of sourcing a sinusoidal AC Power signal from a device where the Volts and Amps are provided on two different outputs and measured by the UUT as Watts / Power. This test process can be used by any device that measures AC power with separate voltage and current inputs.</mtc:Definition>
@@ -2673,15 +2704,15 @@
 			<uom:Quantity name="power"></uom:Quantity>
 			<mtc:mLayer aspect="power" id="AS19"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="volts" optional="false">
+		<mtc:Parameter name="Volts" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="amps" optional="false">
+		<mtc:Parameter name="Amps" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="current"></uom:Quantity>
-			<mtc:mLayer aspect="electric_current" id="AS5"></mtc:mLayer>
+			<mtc:mLayer aspect="electric-current" id="AS5"></mtc:mLayer>
 		</mtc:Parameter>
 		<mtc:Discipline name="Electrical"></mtc:Discipline>
 		<mtc:Definition>The process of sourcing DC Power signal from a device and measuring the value on the UUT. This test process can be used by any device that measures absolute DC power.</mtc:Definition>
@@ -2691,15 +2722,15 @@
 			<uom:Quantity name="power"></uom:Quantity>
 			<mtc:mLayer aspect="power" id="AS19"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="volts" optional="false">
+		<mtc:Parameter name="Volts" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="amps" optional="false">
+		<mtc:Parameter name="Amps" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="current"></uom:Quantity>
-			<mtc:mLayer aspect="electric_current" id="AS5"></mtc:mLayer>
+			<mtc:mLayer aspect="electric-current" id="AS5"></mtc:mLayer>
 		</mtc:Parameter>
 		<mtc:Discipline name="Electrical"></mtc:Discipline>
 		<mtc:Definition>The process of sourcing a sinusoidal DC Power signal from a device where the Volts and Amps are provided on two different outputs and measured by the UUT as Watts / Power. This test process can be used by any device that measures AC power with separate voltage and current inputs.</mtc:Definition>
@@ -2709,13 +2740,14 @@
 			<uom:Quantity name="power"></uom:Quantity>
 			<mtc:mLayer aspect="power" id="AS19"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="frequency" optional="false">
+		<mtc:Parameter name="Frequency" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="impedance" optional="true">
+		<mtc:Parameter name="Impedance" optional="true">
 			<mtc:Definition></mtc:Definition>
+			<uom:Quantity name="impedance"></uom:Quantity>
 		</mtc:Parameter>
 		<mtc:Discipline name="Electrical"></mtc:Discipline>
 		<mtc:Definition>This process connects a Termination to the input of a measurement device to reduce the noise and outside electrical signals. The test process is typically used to measure the UUT’s internal noise and offsets.  And can be expressed in watts or dBm.</mtc:Definition>
@@ -2725,18 +2757,19 @@
 			<uom:Quantity name="power"></uom:Quantity>
 			<mtc:mLayer aspect="power" id="AS19"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="power" optional="false">
+		<mtc:Parameter name="Power" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="power"></uom:Quantity>
 			<mtc:mLayer aspect="power" id="AS19"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="frequency" optional="false">
+		<mtc:Parameter name="Frequency" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="impedance" optional="true">
+		<mtc:Parameter name="Impedance" optional="true">
 			<mtc:Definition>Ouptut Impedacne</mtc:Definition>
+			<uom:Quantity name="impedance"></uom:Quantity>
 		</mtc:Parameter>
 		<mtc:Discipline name="Electrical"></mtc:Discipline>
 		<mtc:Definition></mtc:Definition>
@@ -2746,12 +2779,12 @@
 			<uom:Quantity name="pressure"></uom:Quantity>
 			<mtc:mLayer aspect="pressure" id="AS14"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="presure" optional="false">
+		<mtc:Parameter name="Presure" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="pressure"></uom:Quantity>
 			<mtc:mLayer aspect="pressure" id="AS14"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="fluid" optional="true">
+		<mtc:Parameter name="Fluid" optional="true">
 			<mtc:Definition>{Oil, Water}</mtc:Definition>
 		</mtc:Parameter>
 		<mtc:Discipline name="Pressure"></mtc:Discipline>
@@ -2762,12 +2795,12 @@
 			<uom:Quantity name="pressure"></uom:Quantity>
 			<mtc:mLayer aspect="pressure" id="AS14"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="pressure" optional="false">
+		<mtc:Parameter name="Pressure" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="pressure"></uom:Quantity>
 			<mtc:mLayer aspect="pressure" id="AS14"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="o2_safe" optional="true">
+		<mtc:Parameter name="O2.Safe" optional="true">
 			<mtc:Definition>Yes</mtc:Definition>
 		</mtc:Parameter>
 		<mtc:Discipline name="Pressure"></mtc:Discipline>
@@ -2778,12 +2811,12 @@
 			<uom:Quantity name="pressure"></uom:Quantity>
 			<mtc:mLayer aspect="pressure" id="AS14"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="pressure" optional="false">
+		<mtc:Parameter name="Pressure" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="pressure"></uom:Quantity>
 			<mtc:mLayer aspect="pressure" id="AS14"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="o2_safe" optional="true">
+		<mtc:Parameter name="O2.Safe" optional="true">
 			<mtc:Definition>Yes</mtc:Definition>
 		</mtc:Parameter>
 		<mtc:Discipline name="Pressure"></mtc:Discipline>
@@ -2794,12 +2827,12 @@
 			<uom:Quantity name="pressure"></uom:Quantity>
 			<mtc:mLayer aspect="pressure" id="AS14"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="pressure" optional="false">
+		<mtc:Parameter name="Pressure" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="pressure"></uom:Quantity>
 			<mtc:mLayer aspect="pressure" id="AS14"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="o2_safe" optional="true">
+		<mtc:Parameter name="O2.Safe" optional="true">
 			<mtc:Definition>Yes</mtc:Definition>
 		</mtc:Parameter>
 		<mtc:Discipline name="Pressure"></mtc:Discipline>
@@ -2808,43 +2841,42 @@
 	<mtc:Taxon name="Source.Ratio.Acceleration.Delta.Amplitude" deprecated="false" replacement="">
 		<mtc:Result>
 			<uom:Quantity name="ratio"></uom:Quantity>
-			<mtc:mLayer aspect="catalytic_activity_concentration" id="AS78"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="outputtype" optional="false">
+		<mtc:Parameter name="OutputType" optional="false">
 			<mtc:Definition>RMS {Voltage, IEPE, Current, Charge}</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="sensitivity" optional="false">
+		<mtc:Parameter name="Sensitivity" optional="false">
 			<mtc:Definition>(Output per m/s²)</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="frequency" optional="false">
+		<mtc:Parameter name="Frequency" optional="false">
 			<mtc:Definition>Test Frequency</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="acceleration" optional="false">
+		<mtc:Parameter name="Acceleration" optional="false">
 			<mtc:Definition>Test Acceleration</mtc:Definition>
 			<uom:Quantity name="acceleration"></uom:Quantity>
 			<mtc:mLayer aspect="acceleration" id="AS39"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="accelerationref" optional="false">
+		<mtc:Parameter name="AccelerationRef" optional="false">
 			<mtc:Definition>Reference Acceleration</mtc:Definition>
 			<uom:Quantity name="acceleration"></uom:Quantity>
 			<mtc:mLayer aspect="acceleration" id="AS39"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="axis" optional="true">
+		<mtc:Parameter name="Axis" optional="true">
 			<mtc:Definition>{X,Y,Z}</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="displacement" optional="true">
+		<mtc:Parameter name="Displacement" optional="true">
 			<mtc:Definition>Test Displacement</mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="excitationvoltage" optional="true">
+		<mtc:Parameter name="ExcitationVoltage" optional="true">
 			<mtc:Definition>Excitation Voltage</mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="position" optional="true">
+		<mtc:Parameter name="Position" optional="true">
 			<mtc:Definition>Position Relative to Gravity</mtc:Definition>
 		</mtc:Parameter>
 		<mtc:Discipline name="Vibration"></mtc:Discipline>
@@ -2853,33 +2885,32 @@
 	<mtc:Taxon name="Source.Ratio.Acceleration.Delta.Frequency" deprecated="false" replacement="">
 		<mtc:Result>
 			<uom:Quantity name="ratio"></uom:Quantity>
-			<mtc:mLayer aspect="catalytic_activity_concentration" id="AS78"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="outputquantity" optional="false">
+		<mtc:Parameter name="OutputQuantity" optional="false">
 			<mtc:Definition>{charge, resistance, capacitance, voltage}</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="sensitivity" optional="false">
+		<mtc:Parameter name="Sensitivity" optional="false">
 			<mtc:Definition>Output quantity divided by the input acceleration</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="frequencyref" optional="false">
+		<mtc:Parameter name="FrequencyRef" optional="false">
 			<mtc:Definition>Reference Frequency</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="frequency" optional="false">
+		<mtc:Parameter name="Frequency" optional="false">
 			<mtc:Definition>Test Frequency</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="axis" optional="true">
+		<mtc:Parameter name="Axis" optional="true">
 			<mtc:Definition>{X,Y, Z}</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="acceleration" optional="true">
+		<mtc:Parameter name="Acceleration" optional="true">
 			<mtc:Definition>Acceleration (m/s²)</mtc:Definition>
 			<uom:Quantity name="acceleration"></uom:Quantity>
 			<mtc:mLayer aspect="acceleration" id="AS39"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="excitationvoltage" optional="true">
+		<mtc:Parameter name="ExcitationVoltage" optional="true">
 			<mtc:Definition>Excitation Voltage</mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
@@ -2890,19 +2921,17 @@
 	<mtc:Taxon name="Source.Ratio.Humidity" deprecated="false" replacement="">
 		<mtc:Result>
 			<uom:Quantity name="ratio"></uom:Quantity>
-			<mtc:mLayer aspect="catalytic_activity_concentration" id="AS78"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="humidity" optional="false">
+		<mtc:Parameter name="Humidity" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="ratio"></uom:Quantity>
-			<mtc:mLayer aspect="catalytic_activity_concentration" id="AS78"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="dryairvolume" optional="true">
+		<mtc:Parameter name="DryAirVolume" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="volume"></uom:Quantity>
 			<mtc:mLayer aspect="volume" id="AS37"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="watervapormass" optional="true">
+		<mtc:Parameter name="WaterVaporMass" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="mass"></uom:Quantity>
 			<mtc:mLayer aspect="mass" id="AS2"></mtc:mLayer>
@@ -2913,25 +2942,25 @@
 	<mtc:Taxon name="Source.Ratio.Power.RF.Sinewave.Delta.Frequency" deprecated="false" replacement="">
 		<mtc:Result>
 			<uom:Quantity name="ratio"></uom:Quantity>
-			<mtc:mLayer aspect="catalytic_activity_concentration" id="AS78"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="power" optional="false">
+		<mtc:Parameter name="Power" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="power"></uom:Quantity>
 			<mtc:mLayer aspect="power" id="AS19"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="frequency" optional="false">
+		<mtc:Parameter name="Frequency" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="frequencyref" optional="false">
+		<mtc:Parameter name="FrequencyRef" optional="false">
 			<mtc:Definition>Reference Frequency</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="impedance" optional="true">
+		<mtc:Parameter name="Impedance" optional="true">
 			<mtc:Definition>Output Impedance</mtc:Definition>
+			<uom:Quantity name="impedance"></uom:Quantity>
 		</mtc:Parameter>
 		<mtc:Discipline name="Electrical"></mtc:Discipline>
 		<mtc:Definition>A test process the sources 2 sinusoidal RF  signals at different frequencies keeping the power levels constant between the two frequencies. The FrequencyRef signal is sourced and the voltage is measured by the UUT and saved as the Reference value.  Then the signal is changed to the test Frequency signal and the test value is measured on the UUT.  The two measured values are compared, the results can be expressed as dB or percent of change. These two sinusoidal signals are often used when calibrating bandwidth or frequency response on an Oscilloscope or similar device.</mtc:Definition>
@@ -2939,25 +2968,25 @@
 	<mtc:Taxon name="Source.Ratio.Power.RF.Sinewave.Delte.Power" deprecated="false" replacement="">
 		<mtc:Result>
 			<uom:Quantity name="ratio"></uom:Quantity>
-			<mtc:mLayer aspect="catalytic_activity_concentration" id="AS78"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="power" optional="false">
+		<mtc:Parameter name="Power" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="power"></uom:Quantity>
 			<mtc:mLayer aspect="power" id="AS19"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="powerref" optional="false">
+		<mtc:Parameter name="PowerRef" optional="false">
 			<mtc:Definition>Reference Power</mtc:Definition>
 			<uom:Quantity name="power"></uom:Quantity>
 			<mtc:mLayer aspect="power" id="AS19"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="frequency" optional="false">
+		<mtc:Parameter name="Frequency" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="impecance" optional="true">
+		<mtc:Parameter name="Impecance" optional="true">
 			<mtc:Definition>Output Impedance</mtc:Definition>
+			<uom:Quantity name="impedance"></uom:Quantity>
 		</mtc:Parameter>
 		<mtc:Discipline name="Electrical"></mtc:Discipline>
 		<mtc:Definition></mtc:Definition>
@@ -2965,25 +2994,25 @@
 	<mtc:Taxon name="Source.Ratio.Voltage.AC.Sinewave.Delta.Frequency" deprecated="false" replacement="">
 		<mtc:Result>
 			<uom:Quantity name="ratio"></uom:Quantity>
-			<mtc:mLayer aspect="catalytic_activity_concentration" id="AS78"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="volts" optional="false">
+		<mtc:Parameter name="Volts" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="frequency" optional="false">
+		<mtc:Parameter name="Frequency" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="frequencyref" optional="false">
+		<mtc:Parameter name="FrequencyRef" optional="false">
 			<mtc:Definition>RefFrequency</mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="impedance" optional="true">
+		<mtc:Parameter name="Impedance" optional="true">
 			<mtc:Definition>Output Impedance</mtc:Definition>
+			<uom:Quantity name="impedance"></uom:Quantity>
 		</mtc:Parameter>
 		<mtc:Discipline name="Electrical"></mtc:Discipline>
 		<mtc:Definition>A test process the sources 2 sinusoidal AC Voltage signals at different frequencies keeping the voltage levels constant between the two frequencies. The FrequencyRef signal is sourced and the voltage is measured by the UUT and saved as the Reference value.  Then the signal is changed to the test Frequency signal and the Test value is measured on the UUT.  The two measured values are compared, the results can be expressed as Delta Volts, dB or percent of change. These two sinusoidal signals are often used when calibrating bandwidth or frequency response on an Oscilloscope or similar device.</mtc:Definition>
@@ -2991,25 +3020,25 @@
 	<mtc:Taxon name="Source.Ratio.Voltage.AC.Sinewave.Delta.Voltage" deprecated="false" replacement="">
 		<mtc:Result>
 			<uom:Quantity name="ratio"></uom:Quantity>
-			<mtc:mLayer aspect="catalytic_activity_concentration" id="AS78"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="volts" optional="false">
+		<mtc:Parameter name="Volts" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="voltsref" optional="false">
+		<mtc:Parameter name="VoltsRef" optional="false">
 			<mtc:Definition>Reference Voltage</mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="frequency" optional="false">
+		<mtc:Parameter name="Frequency" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="impedance" optional="true">
+		<mtc:Parameter name="Impedance" optional="true">
 			<mtc:Definition>Ouptut Impedance</mtc:Definition>
+			<uom:Quantity name="impedance"></uom:Quantity>
 		</mtc:Parameter>
 		<mtc:Discipline name="Electrical"></mtc:Discipline>
 		<mtc:Definition>A test process that sources 2 sinusoidal AC Voltage signals at different voltage levels keeping the frequency constant. TheVoltageRef signal is sourced and the voltage is measured by the UUT and saved as the Reference value.  Then the voltage level is changed and the Test value is measured on the UUT.  The two measured values are compared, the results can be expressed as Delta Volts, dB or percent of change. These two sinusoidal signals are often used when calibrating linearity of a device.</mtc:Definition>
@@ -3017,25 +3046,25 @@
 	<mtc:Taxon name="Source.Resistance" deprecated="false" replacement="">
 		<mtc:Result>
 			<uom:Quantity name="resistance"></uom:Quantity>
-			<mtc:mLayer aspect="electric_resistance" id="AS24"></mtc:mLayer>
+			<mtc:mLayer aspect="electric-resistance" id="AS24"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="ohms" optional="false">
+		<mtc:Parameter name="Ohms" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="resistance"></uom:Quantity>
-			<mtc:mLayer aspect="electric_resistance" id="AS24"></mtc:mLayer>
+			<mtc:mLayer aspect="electric-resistance" id="AS24"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="wire" optional="false">
+		<mtc:Parameter name="Wire" optional="false">
 			<mtc:Definition>{2, 3, 4, 2Wire, 3Wire, 4Wire} – The UUT connection can be a 2-Wire, 3-Wire, of 4-Wire Connection</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="volts" optional="true">
+		<mtc:Parameter name="Volts" optional="true">
 			<mtc:Definition>Volts Setting</mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="amps" optional="true">
+		<mtc:Parameter name="Amps" optional="true">
 			<mtc:Definition>Current Setting</mtc:Definition>
 			<uom:Quantity name="current"></uom:Quantity>
-			<mtc:mLayer aspect="electric_current" id="AS5"></mtc:mLayer>
+			<mtc:mLayer aspect="electric-current" id="AS5"></mtc:mLayer>
 		</mtc:Parameter>
 		<mtc:Discipline name="Electrical"></mtc:Discipline>
 		<mtc:Definition>The process of sourcing electrical Resistance of a device either fixed or simulated.</mtc:Definition>
@@ -3043,12 +3072,12 @@
 	<mtc:Taxon name="Source.Temperature" deprecated="false" replacement="">
 		<mtc:Result>
 			<uom:Quantity name="temperature"></uom:Quantity>
-			<mtc:mLayer aspect="thermodynamic_temperature" id="AS6"></mtc:mLayer>
+			<mtc:mLayer aspect="thermodynamic-temperature" id="AS6"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="temperature" optional="false">
+		<mtc:Parameter name="Temperature" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="temperature"></uom:Quantity>
-			<mtc:mLayer aspect="thermodynamic_temperature" id="AS6"></mtc:mLayer>
+			<mtc:mLayer aspect="thermodynamic-temperature" id="AS6"></mtc:mLayer>
 		</mtc:Parameter>
 		<mtc:Discipline name="Thermodynamics"></mtc:Discipline>
 		<mtc:Definition>The process of generating a physical temperature to be measured by a device.</mtc:Definition>
@@ -3056,17 +3085,17 @@
 	<mtc:Taxon name="Source.Temperature.FixedPoint" deprecated="false" replacement="">
 		<mtc:Result>
 			<uom:Quantity name="temperature"></uom:Quantity>
-			<mtc:mLayer aspect="thermodynamic_temperature" id="AS6"></mtc:mLayer>
+			<mtc:mLayer aspect="thermodynamic-temperature" id="AS6"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="substance" optional="false">
+		<mtc:Parameter name="Substance" optional="false">
 			<mtc:Definition></mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="temperature" optional="true">
+		<mtc:Parameter name="Temperature" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="temperature"></uom:Quantity>
-			<mtc:mLayer aspect="thermodynamic_temperature" id="AS6"></mtc:mLayer>
+			<mtc:mLayer aspect="thermodynamic-temperature" id="AS6"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="pressure" optional="true">
+		<mtc:Parameter name="Pressure" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="pressure"></uom:Quantity>
 			<mtc:mLayer aspect="pressure" id="AS14"></mtc:mLayer>
@@ -3077,19 +3106,19 @@
 	<mtc:Taxon name="Source.Temperature.Radiometric" deprecated="false" replacement="">
 		<mtc:Result>
 			<uom:Quantity name="temperature"></uom:Quantity>
-			<mtc:mLayer aspect="thermodynamic_temperature" id="AS6"></mtc:mLayer>
+			<mtc:mLayer aspect="thermodynamic-temperature" id="AS6"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="temperature" optional="false">
+		<mtc:Parameter name="Temperature" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="temperature"></uom:Quantity>
-			<mtc:mLayer aspect="thermodynamic_temperature" id="AS6"></mtc:mLayer>
+			<mtc:mLayer aspect="thermodynamic-temperature" id="AS6"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="distance" optional="true">
+		<mtc:Parameter name="Distance" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="diameter" optional="true">
+		<mtc:Parameter name="Diameter" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="length"></uom:Quantity>
 			<mtc:mLayer aspect="length" id="AS3"></mtc:mLayer>
@@ -3100,17 +3129,17 @@
 	<mtc:Taxon name="Source.Temperature.Simulated.PRT" deprecated="false" replacement="">
 		<mtc:Result>
 			<uom:Quantity name="temperature"></uom:Quantity>
-			<mtc:mLayer aspect="thermodynamic_temperature" id="AS6"></mtc:mLayer>
+			<mtc:mLayer aspect="thermodynamic-temperature" id="AS6"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="temperature" optional="false">
+		<mtc:Parameter name="Temperature" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="temperature"></uom:Quantity>
-			<mtc:mLayer aspect="thermodynamic_temperature" id="AS6"></mtc:mLayer>
+			<mtc:mLayer aspect="thermodynamic-temperature" id="AS6"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="ohms" optional="true">
+		<mtc:Parameter name="Ohms" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="resistance"></uom:Quantity>
-			<mtc:mLayer aspect="electric_resistance" id="AS24"></mtc:mLayer>
+			<mtc:mLayer aspect="electric-resistance" id="AS24"></mtc:mLayer>
 		</mtc:Parameter>
 		<mtc:Discipline name="Thermodynamics"></mtc:Discipline>
 		<mtc:Definition>The process of generating resistance simulating temperature to be measured by a PRT or SPRT temperature measuring device.</mtc:Definition>
@@ -3118,17 +3147,17 @@
 	<mtc:Taxon name="Source.Temperature.Simulated.RTD" deprecated="false" replacement="">
 		<mtc:Result>
 			<uom:Quantity name="temperature"></uom:Quantity>
-			<mtc:mLayer aspect="thermodynamic_temperature" id="AS6"></mtc:mLayer>
+			<mtc:mLayer aspect="thermodynamic-temperature" id="AS6"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="temperature" optional="false">
+		<mtc:Parameter name="Temperature" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="temperature"></uom:Quantity>
-			<mtc:mLayer aspect="thermodynamic_temperature" id="AS6"></mtc:mLayer>
+			<mtc:mLayer aspect="thermodynamic-temperature" id="AS6"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="ohms" optional="true">
+		<mtc:Parameter name="Ohms" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="resistance"></uom:Quantity>
-			<mtc:mLayer aspect="electric_resistance" id="AS24"></mtc:mLayer>
+			<mtc:mLayer aspect="electric-resistance" id="AS24"></mtc:mLayer>
 		</mtc:Parameter>
 		<mtc:Discipline name="Thermodynamics"></mtc:Discipline>
 		<mtc:Definition>The process of generating resistance simulating temperature to be measured by an RTD temperature measuring device.</mtc:Definition>
@@ -3136,17 +3165,17 @@
 	<mtc:Taxon name="Source.Temperature.Simulated.Thermocouple" deprecated="false" replacement="">
 		<mtc:Result>
 			<uom:Quantity name="temperature"></uom:Quantity>
-			<mtc:mLayer aspect="thermodynamic_temperature" id="AS6"></mtc:mLayer>
+			<mtc:mLayer aspect="thermodynamic-temperature" id="AS6"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="temperature" optional="false">
+		<mtc:Parameter name="Temperature" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="temperature"></uom:Quantity>
-			<mtc:mLayer aspect="thermodynamic_temperature" id="AS6"></mtc:mLayer>
+			<mtc:mLayer aspect="thermodynamic-temperature" id="AS6"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="thermocoupletype" optional="false">
+		<mtc:Parameter name="ThermocoupleType" optional="false">
 			<mtc:Definition>{B, C, D, E, G, J, K, M, N, P, R, S, T}</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="volts" optional="true">
+		<mtc:Parameter name="Volts" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
@@ -3159,18 +3188,19 @@
 			<uom:Quantity name="time"></uom:Quantity>
 			<mtc:mLayer aspect="time" id="AS4"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="period" optional="false">
+		<mtc:Parameter name="Period" optional="false">
 			<mtc:Definition>Time / Period Marker</mtc:Definition>
 			<uom:Quantity name="time"></uom:Quantity>
 			<mtc:mLayer aspect="time" id="AS4"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="volts" optional="true">
+		<mtc:Parameter name="Volts" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="impedance" optional="true">
+		<mtc:Parameter name="Impedance" optional="true">
 			<mtc:Definition>Output Impedance</mtc:Definition>
+			<uom:Quantity name="impedance"></uom:Quantity>
 		</mtc:Parameter>
 		<mtc:Discipline name="Time and Frequency"></mtc:Discipline>
 		<mtc:Definition>The process of generating a period-stable pulsed marker waveform.</mtc:Definition>
@@ -3180,18 +3210,19 @@
 			<uom:Quantity name="time"></uom:Quantity>
 			<mtc:mLayer aspect="time" id="AS4"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="period" optional="false">
+		<mtc:Parameter name="Period" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="time"></uom:Quantity>
 			<mtc:mLayer aspect="time" id="AS4"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="volts" optional="true">
+		<mtc:Parameter name="Volts" optional="true">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="impedance" optional="true">
+		<mtc:Parameter name="Impedance" optional="true">
 			<mtc:Definition>Output Impedance</mtc:Definition>
+			<uom:Quantity name="impedance"></uom:Quantity>
 		</mtc:Parameter>
 		<mtc:Discipline name="Time and Frequency"></mtc:Discipline>
 		<mtc:Definition>The process of generating a period-stable square waveform.</mtc:Definition>
@@ -3200,13 +3231,14 @@
 		<mtc:Result>
 			<uom:Quantity name="torque"></uom:Quantity>
 		</mtc:Result>
-		<mtc:Parameter name="torque" optional="false">
+		<mtc:Parameter name="Torque" optional="false">
 			<mtc:Definition></mtc:Definition>
+			<uom:Quantity name="torque"></uom:Quantity>
 		</mtc:Parameter>
-		<mtc:Parameter name="direction" optional="true">
+		<mtc:Parameter name="Direction" optional="true">
 			<mtc:Definition>{CW, CCW}</mtc:Definition>
 		</mtc:Parameter>
-		<mtc:Parameter name="connector" optional="true">
+		<mtc:Parameter name="Connector" optional="true">
 			<mtc:Definition>Connector Name [Text]</mtc:Definition>
 		</mtc:Parameter>
 		<mtc:Discipline name="Torque"></mtc:Discipline>
@@ -3217,18 +3249,19 @@
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="volts" optional="false">
+		<mtc:Parameter name="Volts" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="frequency" optional="false">
+		<mtc:Parameter name="Frequency" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="frequency" id="AS12"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="impedance" optional="true">
+		<mtc:Parameter name="Impedance" optional="true">
 			<mtc:Definition>Output Impedance</mtc:Definition>
+			<uom:Quantity name="impedance"></uom:Quantity>
 		</mtc:Parameter>
 		<mtc:Discipline name="Electrical"></mtc:Discipline>
 		<mtc:Definition>The process of sourcing a sinusoidal AC Voltage signal from a device and measuring the value on the UUT. This test process can be used by any device that measures absolute AC Voltage.</mtc:Definition>
@@ -3238,13 +3271,14 @@
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="volts" optional="false">
+		<mtc:Parameter name="Volts" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="impedance" optional="true">
+		<mtc:Parameter name="Impedance" optional="true">
 			<mtc:Definition>Output Impedance</mtc:Definition>
+			<uom:Quantity name="impedance"></uom:Quantity>
 		</mtc:Parameter>
 		<mtc:Discipline name="Electrical"></mtc:Discipline>
 		<mtc:Definition>The process of sourcing a DC (Direct Current) voltage from a device and measuring the value on the UUT.</mtc:Definition>
@@ -3254,18 +3288,19 @@
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="volts" optional="false">
+		<mtc:Parameter name="Volts" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="voltsref" optional="false">
+		<mtc:Parameter name="VoltsRef" optional="false">
 			<mtc:Definition>Reference Voltage</mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="impedance" optional="true">
+		<mtc:Parameter name="Impedance" optional="true">
 			<mtc:Definition>Output Impedance</mtc:Definition>
+			<uom:Quantity name="impedance"></uom:Quantity>
 		</mtc:Parameter>
 		<mtc:Discipline name="Electrical"></mtc:Discipline>
 		<mtc:Definition>The process of sourcing 2 DC (Direct Current) voltage signals.  First the VoltsRef signal is sourced and measured on the UUT, that value is stored as reference.  Then the test Volts signal is sourced and measured on the UUT and stored as reading.  The test result is returned as (reading – reference). These two voltage signals are often used when calibrating the DC gain of a device such as an Oscilloscope.</mtc:Definition>
@@ -3275,13 +3310,14 @@
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="volts" optional="false">
+		<mtc:Parameter name="Volts" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Parameter>
-		<mtc:Parameter name="impedance" optional="true">
+		<mtc:Parameter name="Impedance" optional="true">
 			<mtc:Definition>Output Impedance</mtc:Definition>
+			<uom:Quantity name="impedance"></uom:Quantity>
 		</mtc:Parameter>
 		<mtc:Discipline name="Electrical"></mtc:Discipline>
 		<mtc:Definition>This process connects a Termination to the input of a measurement device to measure the no signal applied voltage  /noise at the inpu. The test process is typically used to measure the UUT’s internal noise and offsets.</mtc:Definition>
@@ -3291,7 +3327,7 @@
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
 		</mtc:Result>
-		<mtc:Parameter name="volts" optional="false">
+		<mtc:Parameter name="Volts" optional="false">
 			<mtc:Definition></mtc:Definition>
 			<uom:Quantity name="voltage"></uom:Quantity>
 			<mtc:mLayer aspect="voltage" id="AS22"></mtc:mLayer>
