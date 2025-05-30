@@ -332,7 +332,7 @@
 		<mtc:Discipline name="Electrical"></mtc:Discipline>
 		<mtc:Definition>The process of measuring the frequency of a signal.</mtc:Definition>
 	</mtc:Taxon>
-	<mtc:Taxon name="Measure.Frequency..FrequencyModulation.Rate" deprecated="false" replacement="">
+	<mtc:Taxon name="Measure.Frequency.FrequencyModulation.Rate" deprecated="false" replacement="">
 		<mtc:Result>
 			<uom:Quantity name="frequency"></uom:Quantity>
 			<mtc:mLayer aspect="as_frequency" id="AS12"></mtc:mLayer>
@@ -1359,7 +1359,7 @@
 		<mtc:Parameter name="Humidity" optional="false">
 			<mtc:Definition></mtc:Definition>
                         <uom:Quantity name="ratio"></uom:Quantity>
-                        <mtc:mLayer name="as_mass_concentration" id="AS47"/>
+                        <mtc:mLayer aspect="as_mass_concentration" id="AS47"/>
 		</mtc:Parameter>
 		<mtc:Parameter name="DryAirMass" optional="true">
 			<mtc:Definition></mtc:Definition>
