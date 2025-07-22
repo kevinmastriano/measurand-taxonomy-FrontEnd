@@ -71,14 +71,12 @@ export function parseTaxonomyXML(xmlContent: string): Taxonomy {
   }
 
   return {
-    taxons,
-    version: '1.0',
-    lastModified: new Date().toISOString()
+    taxons
   };
 }
 
-function parseTaxon(taxonData: XMLTaxonData): Taxon | null {
-  if (!taxonData['@_name']) return null;
+function parseTaxon(taxonData: XMLTaxonData): Taxon | undefined {
+  if (!taxonData['@_name']) return undefined;
 
   const result = parseResult(taxonData['mtc:Result']);
   const parameters = parseParameters(taxonData['mtc:Parameter']);
@@ -95,8 +93,8 @@ function parseTaxon(taxonData: XMLTaxonData): Taxon | null {
   };
 }
 
-function parseResult(resultData: XMLResultData | undefined): Result | null {
-  if (!resultData || !resultData['uom:Quantity']) return null;
+function parseResult(resultData: XMLResultData | undefined): Result | undefined {
+  if (!resultData || !resultData['uom:Quantity']) return undefined;
 
   return {
     quantity: { name: resultData['uom:Quantity']['@_name'] },
@@ -124,11 +122,11 @@ function parseParameters(parametersData: XMLParameterData | XMLParameterData[] |
     ? parametersData 
     : [parametersData];
 
-  return parameters.map(paramData => parseParameter(paramData)).filter(Boolean) as Parameter[];
+  return parameters.map(paramData => parseParameter(paramData)).filter((param): param is Parameter => param !== undefined);
 }
 
-function parseParameter(paramData: XMLParameterData): Parameter | null {
-  if (!paramData['@_name']) return null;
+function parseParameter(paramData: XMLParameterData): Parameter | undefined {
+  if (!paramData['@_name']) return undefined;
 
   return {
     name: paramData['@_name'],
@@ -152,7 +150,9 @@ export function generateTaxonXML(taxon: Taxon): string {
   
   if (taxon.result) {
     xml += `  <mtc:Result>\n`;
-    xml += `    <uom:Quantity name="${taxon.result.quantity.name}"></uom:Quantity>\n`;
+    if (taxon.result.quantity?.name) {
+      xml += `    <uom:Quantity name="${taxon.result.quantity.name}"></uom:Quantity>\n`;
+    }
     if (taxon.result.mLayer) {
       xml += `    <mtc:mLayer aspect="${taxon.result.mLayer.aspect}" id="${taxon.result.mLayer.id}"></mtc:mLayer>\n`;
     }
