@@ -59,11 +59,11 @@ export default function SpecificationPage() {
     if (currentSection.title || currentSection.content.trim()) {
       sections.push(currentSection);
     }
-
+    
     return sections;
   };
 
-  const sections = specContent ? parseMarkdownSections(specContent) : [];
+  const sections = parseMarkdownSections(specContent);
 
   if (loading) {
     return (
@@ -225,7 +225,7 @@ export default function SpecificationPage() {
                   <div className="w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xs font-bold">2</div>
                   <div>
                     <h5 className="font-medium">Process Token Rule</h5>
-                    <p className="text-sm text-muted-foreground">First token represents process type: 'Measure' or 'Source'</p>
+                    <p className="text-sm text-muted-foreground">First token represents process type: &apos;Measure&apos; or &apos;Source&apos;</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
@@ -358,7 +358,7 @@ export default function SpecificationPage() {
                   <div className="bg-muted p-4 rounded-lg">
                     <code className="text-sm">Measure.Ratio.Voltage.AC.Sinewave.Delta.Frequency</code>
                     <p className="text-xs text-muted-foreground mt-2">
-                      Ratio measurement using special 'Ratio' token
+                      Ratio measurement using special &apos;Ratio&apos; token
                     </p>
                     <div className="mt-3 text-xs">
                       <strong>Process:</strong> Measure<br/>

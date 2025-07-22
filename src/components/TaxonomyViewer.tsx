@@ -1,13 +1,12 @@
 'use client';
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
-import { Search, Filter, RotateCcw, TreePine, List } from 'lucide-react';
-import { Taxonomy, Taxon, FilterOptions } from '@/types/taxonomy';
+import { Search, RotateCcw, TreePine, List } from 'lucide-react';
+import { Taxonomy, FilterOptions } from '@/types/taxonomy';
 import { loadTaxonomyData, getUniqueDisciplines } from '@/lib/taxonomy-data';
 import { toast } from 'sonner';
 import TaxonomyTree from './TaxonomyTree';
@@ -15,11 +14,7 @@ import TaxonomyList from './TaxonomyList';
 
 type ViewType = 'tree' | 'list';
 
-interface TaxonomyViewerProps {
-  onAddNew?: () => void;
-}
-
-export default function TaxonomyViewer({ onAddNew }: TaxonomyViewerProps) {
+export default function TaxonomyViewer() {
   const [taxonomy, setTaxonomy] = useState<Taxonomy | null>(null);
   const [loading, setLoading] = useState(true);
   const [viewType, setViewType] = useState<ViewType>('tree');

@@ -9,8 +9,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Badge } from '@/components/ui/badge';
-import { Plus, Trash2, ArrowLeft, Save } from 'lucide-react';
-import { Taxon, Parameter, Discipline } from '@/types/taxonomy';
+import { Plus, ArrowLeft, Save } from 'lucide-react';
+import { Taxon, Parameter } from '@/types/taxonomy';
 import { generateTaxonXML } from '@/lib/xml-parser';
 import { toast } from 'sonner';
 import Link from 'next/link';
@@ -62,28 +62,6 @@ export default function AddMeasurandPage() {
       ...prev,
       parameters: [...(prev.parameters || []), newParameter]
     }));
-  };
-
-  const updateParameter = (index: number, field: string, value: any) => {
-    setTaxon(prev => {
-      const newParameters = [...(prev.parameters || [])];
-      if (field.includes('.')) {
-        const [parent, child] = field.split('.');
-        newParameters[index] = {
-          ...newParameters[index],
-          [parent]: {
-            ...(newParameters[index] as any)[parent],
-            [child]: value
-          }
-        };
-      } else {
-        newParameters[index] = {
-          ...newParameters[index],
-          [field]: value
-        };
-      }
-      return { ...prev, parameters: newParameters };
-    });
   };
 
   const removeParameter = (index: number) => {
@@ -309,7 +287,7 @@ export default function AddMeasurandPage() {
                           <div className="flex justify-between items-start mb-3">
                             <div className="flex items-center gap-2">
                               <h4 className="font-medium text-gray-900">{param.name}</h4>
-                              <Badge variant={param.optional ? "outline" : "default"} size="sm">
+                              <Badge variant={param.optional ? "outline" : "default"}>
                                 {param.optional ? "Optional" : "Required"}
                               </Badge>
                             </div>

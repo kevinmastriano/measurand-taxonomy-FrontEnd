@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { FileText, ChevronRight } from 'lucide-react';
@@ -12,9 +12,7 @@ interface TaxonomyListProps {
   searchTerm?: string;
 }
 
-export default function TaxonomyList({ taxonomy, searchTerm = '' }: TaxonomyListProps) {
-  const [selectedTaxon, setSelectedTaxon] = useState<Taxon | null>(null);
-
+export default function TaxonomyList({ taxonomy }: TaxonomyListProps) {
   if (!taxonomy) {
     return (
       <Card>
@@ -89,7 +87,7 @@ export default function TaxonomyList({ taxonomy, searchTerm = '' }: TaxonomyList
               <div key={idx} className="border rounded-lg p-4 bg-gray-50">
                 <div className="flex items-center gap-2 mb-2">
                   <strong className="text-base text-gray-900">{param.name}</strong>
-                  <Badge variant={param.optional ? 'secondary' : 'default'} size="sm">
+                  <Badge variant={param.optional ? 'secondary' : 'default'}>
                     {param.optional ? 'Optional' : 'Required'}
                   </Badge>
                 </div>
@@ -145,14 +143,14 @@ export default function TaxonomyList({ taxonomy, searchTerm = '' }: TaxonomyList
                     
                     <div className="flex items-center gap-2 flex-shrink-0">
                       {taxon.deprecated && (
-                        <Badge variant="destructive" size="sm">Deprecated</Badge>
+                        <Badge variant="destructive">Deprecated</Badge>
                       )}
                       {taxon.disciplines?.map(disc => (
-                        <Badge key={disc.name} variant="outline" size="sm">
+                        <Badge key={disc.name} variant="outline">
                           {disc.name}
                         </Badge>
                       ))}
-                      <Badge variant="secondary" size="sm">
+                      <Badge variant="secondary">
                         {taxon.parameters?.length || 0} params
                       </Badge>
                       <ChevronRight className="h-4 w-4 text-gray-400" />

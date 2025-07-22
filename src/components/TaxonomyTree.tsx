@@ -81,7 +81,7 @@ export default function TaxonomyTree({ taxonomy, searchTerm = '' }: TaxonomyTree
     setSelectedNode(node);
   };
 
-  const renderNode = (node: TreeNode, depth: number = 0): JSX.Element => {
+  const renderNode = (node: TreeNode, depth: number = 0) => {
     const hasChildren = Object.keys(node.children).length > 0;
     const isExpanded = expandedNodes.has(node.fullPath);
     const isSelected = selectedNode?.fullPath === node.fullPath;
@@ -134,15 +134,15 @@ export default function TaxonomyTree({ taxonomy, searchTerm = '' }: TaxonomyTree
           {/* Badges */}
           <div className="ml-auto flex gap-1">
             {node.taxon?.deprecated && (
-              <Badge variant="destructive" size="sm">Deprecated</Badge>
+              <Badge variant="destructive">Deprecated</Badge>
             )}
             {node.taxon && (
-              <Badge variant="secondary" size="sm">
+              <Badge variant="secondary">
                 {node.taxon.parameters?.length || 0} params
               </Badge>
             )}
             {hasChildren && (
-              <Badge variant="outline" size="sm">
+              <Badge variant="outline">
                 {Object.keys(node.children).length}
               </Badge>
             )}
@@ -177,7 +177,7 @@ export default function TaxonomyTree({ taxonomy, searchTerm = '' }: TaxonomyTree
           <CardTitle className="text-lg">{taxon.name}</CardTitle>
           <div className="flex gap-2">
             {taxon.disciplines?.map(disc => (
-              <Badge key={disc.name} variant="outline">{disc.name}</Badge>
+              <Badge variant="outline" key={disc.name}>{disc.name}</Badge>
             ))}
           </div>
         </CardHeader>
@@ -210,7 +210,7 @@ export default function TaxonomyTree({ taxonomy, searchTerm = '' }: TaxonomyTree
                     <div key={idx} className="border rounded p-2 text-sm">
                       <div className="flex items-center gap-2">
                         <strong>{param.name}</strong>
-                        <Badge variant={param.optional ? 'secondary' : 'default'} size="sm">
+                        <Badge variant={param.optional ? 'secondary' : 'default'}>
                           {param.optional ? 'Optional' : 'Required'}
                         </Badge>
                       </div>
@@ -272,8 +272,15 @@ export default function TaxonomyTree({ taxonomy, searchTerm = '' }: TaxonomyTree
           </CardHeader>
           <CardContent>
             <div className="space-y-1 max-h-96 overflow-y-auto">
-              {Object.entries(treeData).map(([rootName, children]) => 
-                renderNode({ name: rootName, fullPath: rootName, children, taxon: null })
+              {treeData && Object.entries(treeData).map(([, rootNode]) => 
+                renderNode(rootNode)
+              )}
+              {!treeData && (
+                <div className="flex items-center justify-center h-32">
+                  <div className="text-center">
+                    <div className="text-sm text-muted-foreground">Loading taxonomy tree...</div>
+                  </div>
+                </div>
               )}
             </div>
           </CardContent>

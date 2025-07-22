@@ -8,16 +8,17 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
-import { Lock, Check, X, Eye, FileText, Clock, CheckCircle, XCircle, RotateCcw, User, ArrowLeft } from 'lucide-react';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
+import { Lock, Check, X, Eye, Clock, CheckCircle, XCircle, RotateCcw, User, ArrowLeft } from 'lucide-react';
 import { PendingMeasurand, Taxon } from '@/types/taxonomy';
 import { toast } from 'sonner';
 import Link from 'next/link';
 
 const REVIEW_PASSWORD = 'secret';
 
-interface ExtendedPendingMeasurand extends Omit<PendingMeasurand, 'submittedAt'> {
+interface ExtendedPendingMeasurand extends Omit<PendingMeasurand, 'submittedAt' | 'reviewedAt'> {
   submittedAt: string; // JSON serialized date
+  reviewedAt?: string; // JSON serialized date
   xmlContent: string;
 }
 
@@ -56,6 +57,25 @@ export default function ReviewPage() {
       localStorage.setItem('reviewerName', reviewerName);
     }
   }, [reviewerName, authenticated]);
+
+  const getBadgeVariant = (status: string): "default" | "destructive" | "outline" => {
+    switch (status) {
+      case 'approved':
+        return 'default';
+      case 'rejected':
+        return 'destructive';
+      default:
+        return 'outline';
+    }
+  };
+
+  const getRejectButtonText = (status: string): string => {
+    return status === 'rejected' ? 'Update as Rejected' : 'Reject';
+  };
+
+  const getApproveButtonText = (status: string): string => {
+    return status === 'approved' ? 'Update as Approved' : 'Approve';
+  };
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -163,7 +183,7 @@ export default function ReviewPage() {
               <div key={idx} className="border rounded p-3">
                 <div className="flex items-center gap-2 mb-2">
                   <strong>{param.name}</strong>
-                  <Badge variant={param.optional ? 'secondary' : 'default'} size="sm">
+                  <Badge variant={param.optional ? 'secondary' : 'default'}>
                     {param.optional ? 'Optional' : 'Required'}
                   </Badge>
                 </div>
@@ -372,11 +392,11 @@ export default function ReviewPage() {
                     </div>
                     <div className="flex items-center gap-2">
                       {measurand.taxon.disciplines?.map(disc => (
-                        <Badge key={disc.name} variant="outline" size="sm">
+                        <Badge key={disc.name} variant="outline">
                           {disc.name}
                         </Badge>
                       ))}
-                      <Badge variant="secondary" size="sm">
+                      <Badge variant="secondary">
                         {measurand.taxon.parameters?.length || 0} parameters
                       </Badge>
                     </div>
@@ -448,14 +468,14 @@ export default function ReviewPage() {
                       )}
                       <div className="flex items-center gap-2">
                         {measurand.taxon.disciplines?.map(disc => (
-                          <Badge key={disc.name} variant="outline" size="sm">
+                          <Badge key={disc.name} variant="outline">
                             {disc.name}
                           </Badge>
                         ))}
-                        <Badge variant="secondary" size="sm">
+                        <Badge variant="secondary">
                           {measurand.taxon.parameters?.length || 0} parameters
                         </Badge>
-                        <Badge variant="outline" size="sm" className="text-green-600 border-green-300">
+                        <Badge variant="outline" className="text-green-600 border-green-300">
                           Added to Taxonomy
                         </Badge>
                       </div>
@@ -486,7 +506,7 @@ export default function ReviewPage() {
                       <div>
                         <CardTitle className="flex items-center gap-2">
                           {measurand.taxon.name}
-                          <Badge variant="destructive">
+                          <Badge variant={getBadgeVariant('rejected')}>
                             <X className="h-3 w-3 mr-1" />Rejected
                           </Badge>
                         </CardTitle>
@@ -523,11 +543,11 @@ export default function ReviewPage() {
                     )}
                     <div className="flex items-center gap-2">
                       {measurand.taxon.disciplines?.map(disc => (
-                        <Badge key={disc.name} variant="outline" size="sm">
+                        <Badge key={disc.name} variant="outline">
                           {disc.name}
                         </Badge>
                       ))}
-                      <Badge variant="secondary" size="sm">
+                      <Badge variant="secondary">
                         {measurand.taxon.parameters?.length || 0} parameters
                       </Badge>
                     </div>
@@ -562,7 +582,7 @@ export default function ReviewPage() {
                     Review the details and approve or reject this measurand submission.
                     {selectedMeasurand.status !== 'pending' && (
                       <span className="block mt-2 font-medium">
-                        Current Status: <Badge variant={selectedMeasurand.status === 'approved' ? 'default' : 'destructive'}>
+                        Current Status: <Badge variant={getBadgeVariant(selectedMeasurand.status)}>
                           {selectedMeasurand.status}
                         </Badge>
                       </span>
@@ -667,7 +687,7 @@ export default function ReviewPage() {
                     disabled={!reviewerName.trim()}
                   >
                     <X className="h-4 w-4 mr-2" />
-                    {selectedMeasurand.status === 'rejected' ? 'Update as Rejected' : 'Reject'}
+                    {getRejectButtonText(selectedMeasurand.status)}
                   </Button>
                   <AlertDialogAction
                     onClick={() => updateMeasurandStatus(selectedMeasurand.id, 'approved', reviewNotes)}
@@ -675,7 +695,7 @@ export default function ReviewPage() {
                     disabled={!reviewerName.trim()}
                   >
                     <Check className="h-4 w-4 mr-2" />
-                    {selectedMeasurand.status === 'approved' ? 'Update as Approved' : 'Approve'}
+                    {getApproveButtonText(selectedMeasurand.status)}
                   </AlertDialogAction>
                 </>
               )}
