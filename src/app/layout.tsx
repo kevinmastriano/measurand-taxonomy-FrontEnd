@@ -38,7 +38,7 @@ export default function RootLayout({
               <div className="flex items-center justify-between">
                 <div>
                   <Link href="/" className="hover:opacity-80 transition-opacity">
-                    <h1 className="text-2xl font-bold text-primary">
+                    <h1 className="text-2xl font-extrabold text-primary">
                       Measurand Taxonomy
                     </h1>
                     <p className="text-sm text-muted-foreground mt-1">
