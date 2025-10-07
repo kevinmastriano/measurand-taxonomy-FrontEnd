@@ -13,14 +13,29 @@ Optional input taxonomy file can passed for validation.
 Requires python environment with xmlschema
 """
 
+import lxml.etree as ET
 import xmlschema
+
 import argparse
 import time
 from pathlib import Path
 
 def validate(*args):
     schema = xmlschema.XMLSchema('MeasurandTaxonomyCatalog.xsd')
-    schema.validate(args[0])
+    print(f'Validating file: {args[0]}')
+    try:
+        xml_doc = ET.parse(args[0])
+    except Exception as e:
+        raise e
+    else:
+        try:
+            schema.validate(args[0])
+        except Exception as e:
+            for error in schema.iter_errors(xml_doc):
+                print('===================')
+                print(f'file: {name}; sourceline: {error.sourceline}; path: {error.path} | reason: {error.reason} | message: {error.message}')
+                print('===================')
+            raise e
 
 def validate_list(*args):
     schema = xmlschema.XMLSchema('MeasurandTaxonomyCatalog.xsd')
@@ -29,9 +44,21 @@ def validate_list(*args):
 
     for name in lst:
         p = Path(args[0])
-        f = p / name
-        print(f)
-        schema.validate(f)
+        file_ = p / name
+        print(f'Validating file from list: {file_}')
+        try:
+            xml_doc = ET.parse(file_)
+        except Exception as e:
+            raise e
+        else:
+            try:
+                schema.validate(file_)
+            except Exception as e:
+                for error in schema.iter_errors(xml_doc):
+                    print('===================')
+                    print(f'file: {name}; sourceline: {error.sourceline}; path: {error.path} | reason: {error.reason} | message: {error.message}')
+                    print('===================')
+                raise e
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
@@ -39,7 +66,6 @@ if __name__ == '__main__':
             description='Validates taxonomy and schema'
             )
     parser.add_argument('-f', '--filename', 
-            default='MeasurandTaxonomyCatalog.xml', 
             help="Input taxonomy file")
     parser.add_argument('-d', '--dirpath', help="Output directory")
     parser.add_argument('-v', '--verbose', action='store_true')
