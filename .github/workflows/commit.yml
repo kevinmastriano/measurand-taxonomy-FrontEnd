@@ -15,7 +15,7 @@ jobs:
  # github.event.workflow_run.conclusion == 'success'
     # ' &&
     if: |    
-       github.event.review.state == 'approved
+       github.event.review.state == 'approved'
     runs-on: ubuntu-latest
     permissions:
       # Give default GITHUB_TOKEN write permission to commit and push
