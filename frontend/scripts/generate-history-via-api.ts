@@ -89,10 +89,12 @@ async function githubAPIRequest<T>(
         const remaining = response.headers['x-ratelimit-remaining'];
         const reset = response.headers['x-ratelimit-reset'];
         if (remaining) {
-          rateLimitRemaining = parseInt(remaining, 10);
+          const remainingStr = Array.isArray(remaining) ? remaining[0] : remaining;
+          rateLimitRemaining = parseInt(remainingStr, 10);
         }
         if (reset) {
-          rateLimitReset = parseInt(reset, 10);
+          const resetStr = Array.isArray(reset) ? reset[0] : reset;
+          rateLimitReset = parseInt(resetStr, 10);
         }
         
         let data = '';
