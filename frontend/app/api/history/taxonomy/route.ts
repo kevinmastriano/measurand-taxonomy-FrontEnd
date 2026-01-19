@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getCachedTaxonomyHistory } from '@/lib/taxonomy-history-cache';
+import { getStaticHistoryCache, shouldUseStaticCache } from '@/lib/static-history-cache';
 
 export async function GET(request: Request) {
   try {
@@ -7,12 +8,22 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const forceRefresh = searchParams.get('refresh') === 'true';
     
-    // Get cached taxonomy history (will use cache if available)
-    // This returns immediately even if cache is building
-    const cachedHistory = await getCachedTaxonomyHistory(forceRefresh);
+    let cachedHistory;
+    let isStatic = false;
+    
+    // In production/serverless environments, use pre-built static cache
+    if (shouldUseStaticCache()) {
+      console.log('[API] Using static pre-built history cache');
+      cachedHistory = getStaticHistoryCache();
+      isStatic = true;
+    } else {
+      // In development, use dynamic Git-based cache
+      console.log('[API] Using dynamic Git-based history cache');
+      cachedHistory = await getCachedTaxonomyHistory(forceRefresh);
+    }
     
     if (!cachedHistory) {
-      // Cache is building in background - return empty result immediately
+      // Cache is building in background or not available
       return NextResponse.json(
         { 
           changes: [],
@@ -33,6 +44,8 @@ export async function GET(request: Request) {
       ...cachedHistory,
       fromCache: isFromCache,
       cacheAgeMs: cacheAge,
+      isStatic,
+      note: isStatic ? 'Using pre-built cache from build time' : undefined,
     });
   } catch (error) {
     console.error('Error getting taxonomy history:', error);

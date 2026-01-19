@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { TaxonomyChange } from '@/lib/types';
 import { getCachedTaxonomyHistory } from '@/lib/taxonomy-history-cache';
+import { getStaticHistoryCache, shouldUseStaticCache } from '@/lib/static-history-cache';
 
 function normalizeTaxonName(name: string): string {
   // Normalize taxon name for comparison: trim whitespace
@@ -108,8 +109,19 @@ export async function GET(
     const taxonName = decodeURIComponent(params.name);
     console.log(`[TaxonHistory] Request for taxon: "${taxonName}" (decoded from: "${params.name}")`);
     
-    // Use cached taxonomy history (will be instant if already cached)
-    const cachedHistory = await getCachedTaxonomyHistory();
+    let cachedHistory;
+    let isStatic = false;
+    
+    // In production/serverless environments, use pre-built static cache
+    if (shouldUseStaticCache()) {
+      console.log('[TaxonHistory] Using static pre-built history cache');
+      cachedHistory = getStaticHistoryCache();
+      isStatic = true;
+    } else {
+      // In development, use dynamic Git-based cache
+      console.log('[TaxonHistory] Using dynamic Git-based history cache');
+      cachedHistory = await getCachedTaxonomyHistory();
+    }
     
     if (!cachedHistory) {
       console.error('[TaxonHistory] No cached history available');
@@ -182,6 +194,8 @@ export async function GET(
       commitsWithChanges: taxonHistory.length,
       fromCache: true,
       cacheAgeMs: Date.now() - cachedHistory.cachedAt,
+      isStatic,
+      note: isStatic ? 'Using pre-built cache from build time' : undefined,
     };
     
     console.log(`[TaxonHistory] Returning ${taxonHistory.length} commits for "${taxonName}"`);

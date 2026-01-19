@@ -1,67 +1,7 @@
 import { NextResponse } from 'next/server';
-import { TaxonomyChange, GitCommit } from '@/lib/types';
-import { getTaxonomyHistory } from '@/lib/taxonomy-diff';
-import { execSync } from 'child_process';
-import path from 'path';
-
-async function getGitHistory(): Promise<GitCommit[]> {
-  try {
-    const repoPath = path.join(process.cwd(), '..', '..');
-    const gitLog = execSync(
-      'git log --pretty=format:"%H|%an|%ae|%ad|%s" --date=iso --name-only -100',
-      { 
-        cwd: repoPath, 
-        encoding: 'utf-8',
-        maxBuffer: 5 * 1024 * 1024,
-      }
-    );
-
-    const commits: GitCommit[] = [];
-    const lines = gitLog.split('\n');
-    let currentCommit: Partial<GitCommit> | null = null;
-    const files: string[] = [];
-
-    for (const line of lines) {
-      if (line.includes('|')) {
-        if (currentCommit) {
-          commits.push({
-            hash: currentCommit.hash!,
-            author: currentCommit.author!,
-            date: currentCommit.date!,
-            message: currentCommit.message!,
-            files: files.length > 0 ? [...files] : undefined,
-          });
-          files.length = 0;
-        }
-
-        const [hash, author, email, date, ...messageParts] = line.split('|');
-        currentCommit = {
-          hash: hash.substring(0, 7),
-          author: `${author} <${email}>`,
-          date: new Date(date).toLocaleDateString(),
-          message: messageParts.join('|'),
-        };
-      } else if (line.trim() && currentCommit) {
-        files.push(line.trim());
-      }
-    }
-
-    if (currentCommit) {
-      commits.push({
-        hash: currentCommit.hash!,
-        author: currentCommit.author!,
-        date: currentCommit.date!,
-        message: currentCommit.message!,
-        files: files.length > 0 ? [...files] : undefined,
-      });
-    }
-
-    return commits.slice(0, 100);
-  } catch (error) {
-    console.error('Error getting git history:', error);
-    return [];
-  }
-}
+import { TaxonomyChange } from '@/lib/types';
+import { getCachedTaxonomyHistory } from '@/lib/taxonomy-history-cache';
+import { getStaticHistoryCache, shouldUseStaticCache } from '@/lib/static-history-cache';
 
 function filterDisciplineChanges(
   changes: TaxonomyChange[],
@@ -139,21 +79,57 @@ export async function GET(
 ) {
   try {
     const disciplineName = decodeURIComponent(params.discipline);
+    console.log(`[DisciplineHistory] Request for discipline: "${disciplineName}"`);
     
-    const commits = await getGitHistory();
+    let cachedHistory;
+    let isStatic = false;
     
-    if (commits.length === 0) {
-      return NextResponse.json({ changes: [] });
+    // In production/serverless environments, use pre-built static cache
+    if (shouldUseStaticCache()) {
+      console.log('[DisciplineHistory] Using static pre-built history cache');
+      cachedHistory = getStaticHistoryCache();
+      isStatic = true;
+    } else {
+      // In development, use dynamic Git-based cache
+      console.log('[DisciplineHistory] Using dynamic Git-based history cache');
+      cachedHistory = await getCachedTaxonomyHistory();
+    }
+    
+    if (!cachedHistory) {
+      console.error('[DisciplineHistory] No cached history available');
+      return NextResponse.json({ 
+        changes: [],
+        discipline: disciplineName,
+        totalCommits: 0,
+        commitsWithChanges: 0,
+        error: 'Taxonomy history cache not available. Please try again in a moment.',
+      });
+    }
+    
+    if (cachedHistory.changes.length === 0) {
+      console.log('[DisciplineHistory] Cached history exists but has no changes');
+      return NextResponse.json({ 
+        changes: [],
+        discipline: disciplineName,
+        totalCommits: cachedHistory.totalCommits,
+        commitsWithChanges: 0,
+        message: 'No taxonomy changes found in history',
+      });
     }
 
-    const taxonomyHistory = await getTaxonomyHistory(commits);
-    const disciplineHistory = filterDisciplineChanges(taxonomyHistory, disciplineName);
+    console.log(`[DisciplineHistory] Cached history has ${cachedHistory.changes.length} commits with changes`);
+
+    const disciplineHistory = filterDisciplineChanges(cachedHistory.changes, disciplineName);
 
     return NextResponse.json({
       changes: disciplineHistory,
       discipline: disciplineName,
-      totalCommits: commits.length,
+      totalCommits: cachedHistory.totalCommits,
       commitsWithChanges: disciplineHistory.length,
+      fromCache: true,
+      cacheAgeMs: Date.now() - cachedHistory.cachedAt,
+      isStatic,
+      note: isStatic ? 'Using pre-built cache from build time' : undefined,
     });
   } catch (error) {
     console.error('Error getting discipline history:', error);
