@@ -52,12 +52,29 @@ After sync, files are stored in:
 frontend/
 └── data/
     └── taxonomy/
-        ├── MeasurandTaxonomyCatalog.xml      ← Main catalog
-        ├── MeasurandTaxonomyCatalog.xsd      ← Schema
-        ├── MeasurandTaxonomyProperties.xml   ← Properties
-        ├── .last-sync-commit                 ← Last commit SHA
-        └── .sync-metadata.json               ← Sync metadata
+        ├── MeasurandTaxonomyCatalog.xml           ← Main catalog
+        ├── MeasurandTaxonomyCatalog.xsd           ← Schema
+        ├── MeasurandTaxonomyProperties.xml        ← Properties
+        ├── taxonomy-history-cache.json            ← Git history cache (generated)
+        ├── .last-sync-commit                      ← Last commit SHA
+        └── .sync-metadata.json                    ← Sync metadata
 ```
+
+## History Cache Generation
+
+The sync process also generates a **taxonomy history cache** that enables version history features:
+
+- **Method**: Uses GitHub API (no Git repository required)
+- **Process**: 
+  1. Fetches commits that modified taxonomy files
+  2. Downloads XML content at each commit
+  3. Compares versions to detect changes
+  4. Generates comprehensive change history
+- **Output**: `taxonomy-history-cache.json` (~3-5 MB)
+- **Limitations**: 
+  - Processes up to 50 commits per sync (to avoid rate limits)
+  - Only processes commits with main catalog (skips source-only commits)
+  - Requires GitHub API access (60 req/hour unauthenticated, 5000/hour authenticated)
 
 ## Update Detection
 

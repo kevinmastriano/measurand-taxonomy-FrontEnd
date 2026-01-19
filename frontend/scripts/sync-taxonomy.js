@@ -157,6 +157,22 @@ async function syncTaxonomy() {
     
     await Promise.all(downloadPromises);
     
+    // Generate history cache using GitHub API
+    console.log('');
+    console.log('Generating taxonomy history cache...');
+    try {
+      const { execSync } = require('child_process');
+      execSync('npx tsx scripts/generate-history-via-api.ts', {
+        cwd: process.cwd(),
+        stdio: 'inherit',
+        maxBuffer: 50 * 1024 * 1024,
+      });
+      console.log('✓ History cache generated');
+    } catch (error) {
+      console.warn('⚠ History cache generation failed (non-critical):', error.message);
+      // Don't fail the sync if history generation fails
+    }
+    
     // Save commit SHA if we got it
     if (typeof updateNeeded === 'string') {
       const commitFile = path.join(SYNC_DIR, '.last-sync-commit');

@@ -14,9 +14,19 @@ The following files are downloaded from the NCSLI-MII repository:
 2. **`MeasurandTaxonomyCatalog.xsd`** - XML schema definition (optional, for validation)
 3. **`MeasurandTaxonomyProperties.xml`** - Taxonomy properties (optional)
 
+## History Cache Generated
+
+In addition to syncing files, the sync process also generates a **taxonomy history cache** using the GitHub API:
+
+- **`taxonomy-history-cache.json`** - Complete Git history of taxonomy changes
+  - Generated via GitHub API (no Git repository needed)
+  - Contains all commits with taxonomy changes
+  - Includes change details (added/removed/modified taxons)
+  - Enables version history features on Vercel
+
 ## Storage Location
 
-Synced files are stored in: `frontend/data/taxonomy/`
+Synced files and history cache are stored in: `frontend/data/taxonomy/`
 
 ## Manual Sync
 

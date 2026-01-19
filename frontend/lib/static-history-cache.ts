@@ -5,27 +5,39 @@ import fs from 'fs';
 /**
  * Read the pre-built static history cache
  * This is used in production/serverless environments where Git is not available
+ * Checks multiple locations:
+ * 1. Synced data directory (data/taxonomy/) - from daily cron sync
+ * 2. Public directory (public/) - from build-time generation
  */
 export function getStaticHistoryCache(): CachedTaxonomyHistory | null {
-  try {
-    const historyPath = path.join(process.cwd(), 'public', 'taxonomy-history.json');
-    
-    // Check if file exists
-    if (!fs.existsSync(historyPath)) {
-      console.warn('[StaticCache] History cache file not found at:', historyPath);
-      return null;
+  // Try multiple possible locations
+  const possiblePaths = [
+    // 1. Synced data directory (from cron sync)
+    path.join(process.cwd(), 'data', 'taxonomy', 'taxonomy-history-cache.json'),
+    // 2. Public directory (from build-time generation)
+    path.join(process.cwd(), 'public', 'taxonomy-history.json'),
+    // 3. Alternative synced location
+    path.join(process.cwd(), '..', 'data', 'taxonomy', 'taxonomy-history-cache.json'),
+  ];
+  
+  for (const historyPath of possiblePaths) {
+    try {
+      if (fs.existsSync(historyPath)) {
+        const historyData = fs.readFileSync(historyPath, 'utf-8');
+        const history = JSON.parse(historyData) as CachedTaxonomyHistory;
+        
+        console.log(`[StaticCache] Loaded static history cache from ${historyPath}: ${history.changes.length} changes from ${history.totalCommits} commits`);
+        
+        return history;
+      }
+    } catch (error) {
+      // Try next path
+      continue;
     }
-    
-    const historyData = fs.readFileSync(historyPath, 'utf-8');
-    const history = JSON.parse(historyData) as CachedTaxonomyHistory;
-    
-    console.log(`[StaticCache] Loaded static history cache: ${history.changes.length} changes from ${history.totalCommits} commits`);
-    
-    return history;
-  } catch (error) {
-    console.error('[StaticCache] Error reading static history cache:', error);
-    return null;
   }
+  
+  console.warn('[StaticCache] History cache file not found in any location. Tried:', possiblePaths);
+  return null;
 }
 
 /**

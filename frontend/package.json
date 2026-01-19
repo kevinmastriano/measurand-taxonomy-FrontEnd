@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "sync-taxonomy": "node scripts/sync-taxonomy.js"
+    "sync-taxonomy": "node scripts/sync-taxonomy.js",
+    "generate-history": "tsx scripts/generate-history-via-api.ts"
   },
   "dependencies": {
     "next": "^14.2.0",
