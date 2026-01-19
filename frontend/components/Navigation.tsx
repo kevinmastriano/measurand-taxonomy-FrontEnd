@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FileText, History, List, Tag, Zap, GitCompare, Code } from 'lucide-react';
+import { FileText, History, List, Tag, Zap, GitCompare, Code, BookOpen } from 'lucide-react';
 
 export default function Navigation() {
   const pathname = usePathname();
@@ -11,6 +11,9 @@ export default function Navigation() {
   const isActive = (path: string) => {
     if (path === '/') {
       return pathname === '/';
+    }
+    if (path === '/browse') {
+      return pathname === '/browse';
     }
     return pathname.startsWith(path);
   };
@@ -36,6 +39,10 @@ export default function Navigation() {
             </div>
             <div className="hidden sm:ml-8 sm:flex sm:space-x-1">
               <Link href="/" className={getLinkClassName('/')}>
+                <BookOpen className="w-4 h-4 mr-2" />
+                Getting Started
+              </Link>
+              <Link href="/browse" className={getLinkClassName('/browse')}>
                 <List className="w-4 h-4 mr-2" />
                 Browse
               </Link>
