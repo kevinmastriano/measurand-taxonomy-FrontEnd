@@ -41,11 +41,23 @@ npm run sync-taxonomy
 
 ### Setup
 
-1. **Add Environment Variable** (optional, for security):
+1. **Add GitHub Token** (recommended, for higher rate limits):
+   - Create a GitHub Personal Access Token:
+     - Go to: https://github.com/settings/tokens
+     - Click "Generate new token (classic)"
+     - Name: "Measurand Taxonomy Sync"
+     - Scope: Check `public_repo` (read-only access to public repositories)
+     - Generate and copy the token
+   - In Vercel dashboard → Settings → Environment Variables
+   - Add: `GITHUB_TOKEN` = (your GitHub token)
+   - **Why?** Increases API rate limit from 60 to 5,000 requests/hour
+   - **Note:** Without token, history generation may hit rate limits
+
+2. **Add Environment Variable** (optional, for security):
    - In Vercel dashboard → Settings → Environment Variables
    - Add: `CRON_SECRET` = (generate a random secret string)
 
-2. **Configure Cron Job in Vercel Dashboard**:
+3. **Configure Cron Job in Vercel Dashboard**:
    - Go to your Vercel project → Settings → Cron Jobs
    - Click "Create Cron Job"
    - **Path**: `/api/sync-taxonomy`

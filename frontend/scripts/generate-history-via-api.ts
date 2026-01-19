@@ -47,40 +47,84 @@ interface GitHubContent {
   content: string;
 }
 
-// GitHub API helper
-function githubAPIRequest<T>(endpoint: string, options: { headers?: Record<string, string> } = {}): Promise<T> {
-  return new Promise((resolve, reject) => {
+// Rate limit tracking
+let rateLimitRemaining = 60;
+let rateLimitReset = 0;
+
+// GitHub API helper with rate limit handling and retry logic
+async function githubAPIRequest<T>(
+  endpoint: string, 
+  options: { headers?: Record<string, string> } = {},
+  retries = 3
+): Promise<T> {
+  return new Promise(async (resolve, reject) => {
     const url = `${GITHUB_API_BASE}${endpoint}`;
     const token = process.env.GITHUB_TOKEN; // Optional GitHub token for higher rate limits
     
-    https.get(url, {
-      headers: {
-        'User-Agent': 'measurand-taxonomy-sync',
-        'Accept': 'application/vnd.github.v3+json',
-        ...(token && { 'Authorization': `token ${token}` }),
-        ...options.headers,
-      }
-    }, (response) => {
-      let data = '';
-      
-      response.on('data', (chunk) => {
-        data += chunk;
-      });
-      
-      response.on('end', () => {
-        if (response.statusCode === 200) {
-          try {
-            resolve(JSON.parse(data) as T);
-          } catch (error) {
-            reject(new Error('Failed to parse API response'));
-          }
-        } else if (response.statusCode === 404) {
-          resolve(null as T);
-        } else {
-          reject(new Error(`API request failed: ${response.statusCode} ${response.statusMessage}`));
+    // Check rate limit before making request
+    const now = Math.floor(Date.now() / 1000);
+    if (rateLimitRemaining <= 5 && rateLimitReset > now) {
+      const waitTime = rateLimitReset - now + 1;
+      console.log(`⚠ Rate limit low (${rateLimitRemaining} remaining). Waiting ${waitTime}s...`);
+      await new Promise(resolve => setTimeout(resolve, waitTime * 1000));
+    }
+    
+    const makeRequest = (attempt: number) => {
+      https.get(url, {
+        headers: {
+          'User-Agent': 'measurand-taxonomy-sync',
+          'Accept': 'application/vnd.github.v3+json',
+          ...(token && { 'Authorization': `token ${token}` }),
+          ...options.headers,
         }
-      });
-    }).on('error', reject);
+      }, (response) => {
+        // Update rate limit tracking from headers
+        const remaining = response.headers['x-ratelimit-remaining'];
+        const reset = response.headers['x-ratelimit-reset'];
+        if (remaining) {
+          rateLimitRemaining = parseInt(remaining, 10);
+        }
+        if (reset) {
+          rateLimitReset = parseInt(reset, 10);
+        }
+        
+        let data = '';
+        
+        response.on('data', (chunk) => {
+          data += chunk;
+        });
+        
+        response.on('end', () => {
+          if (response.statusCode === 200) {
+            try {
+              resolve(JSON.parse(data) as T);
+            } catch (error) {
+              reject(new Error('Failed to parse API response'));
+            }
+          } else if (response.statusCode === 404) {
+            resolve(null as T);
+          } else if (response.statusCode === 403 && data.includes('rate limit')) {
+            // Rate limit exceeded
+            const resetTime = rateLimitReset || Math.floor(Date.now() / 1000) + 3600;
+            const waitTime = resetTime - Math.floor(Date.now() / 1000);
+            
+            if (attempt < retries && waitTime < 3600) {
+              console.log(`⚠ Rate limit exceeded. Retrying in ${waitTime}s (attempt ${attempt + 1}/${retries})...`);
+              setTimeout(() => {
+                makeRequest(attempt + 1);
+              }, waitTime * 1000);
+            } else {
+              reject(new Error(`GitHub API rate limit exceeded. Reset at ${new Date(resetTime * 1000).toISOString()}. ${token ? '' : 'Consider setting GITHUB_TOKEN environment variable for higher limits (5000/hour).'}`));
+            }
+          } else {
+            const errorMsg = data ? JSON.parse(data).message || response.statusMessage : response.statusMessage;
+            reject(new Error(`API request failed: ${response.statusCode} ${errorMsg}`));
+          }
+        });
+      }).on('error', reject);
+    };
+    
+    makeRequest(0);
   });
 }
 
@@ -94,6 +138,8 @@ async function getTaxonomyCommits(): Promise<Array<{
   files: string[];
 }>> {
   console.log('Fetching commits from GitHub API...');
+  const hasToken = !!process.env.GITHUB_TOKEN;
+  console.log(`Using ${hasToken ? 'authenticated' : 'unauthenticated'} API (${hasToken ? '5000' : '60'} requests/hour limit)`);
   
   const commits: Array<{
     hash: string;
@@ -105,7 +151,7 @@ async function getTaxonomyCommits(): Promise<Array<{
   }> = [];
   let page = 1;
   const perPage = 100;
-  const maxCommits = 50; // Limit to avoid rate limits
+  const maxCommits = hasToken ? 100 : 30; // Lower limit for unauthenticated requests
   
   while (commits.length < maxCommits) {
     try {
@@ -118,8 +164,26 @@ async function getTaxonomyCommits(): Promise<Array<{
       }
       
       // Filter commits that modified taxonomy files
-      for (const commit of response) {
+      // First pass: check commit message and basic info (no extra API call)
+      const potentialCommits = response.filter(commit => {
+        const message = commit.commit.message.toLowerCase();
+        return message.includes('taxonomy') || 
+               message.includes('taxon') || 
+               message.includes('xml') ||
+               message.includes('catalog');
+      });
+      
+      // If no obvious matches, check all commits (but limit detail fetches)
+      const commitsToCheck = potentialCommits.length > 0 ? potentialCommits : response.slice(0, 20);
+      
+      for (const commit of commitsToCheck) {
         if (commits.length >= maxCommits) break;
+        
+        // Check rate limit before making another request
+        if (rateLimitRemaining <= 10) {
+          console.log(`⚠ Rate limit getting low (${rateLimitRemaining} remaining). Stopping at ${commits.length} commits.`);
+          break;
+        }
         
         // Get commit details to see which files were changed
         const commitDetail = await githubAPIRequest<GitHubCommitDetail>(`/commits/${commit.sha}`);
@@ -141,21 +205,29 @@ async function getTaxonomyCommits(): Promise<Array<{
               message: commit.commit.message.split('\n')[0],
               files: commitDetail.files.map(f => f.filename),
             });
+            console.log(`  ✓ Found taxonomy commit: ${commit.sha.substring(0, 7)} (${commits.length}/${maxCommits})`);
           }
         }
         
-        // Small delay to avoid rate limiting
-        await new Promise(resolve => setTimeout(resolve, 100));
+        // Delay between requests to avoid rate limiting
+        // Longer delay for unauthenticated requests
+        await new Promise(resolve => setTimeout(resolve, hasToken ? 200 : 500));
       }
       
-      if (response.length < perPage || commits.length >= maxCommits) {
+      if (response.length < perPage || commits.length >= maxCommits || rateLimitRemaining <= 10) {
         break;
       }
       
       page++;
       
-    } catch (error) {
-      console.error('Error fetching commits:', error);
+      // Delay between pages
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+    } catch (error: any) {
+      console.error('Error fetching commits:', error.message);
+      if (error.message.includes('rate limit')) {
+        console.error('⚠ Rate limit hit. Stopping commit fetch.');
+      }
       break;
     }
   }
@@ -240,6 +312,15 @@ async function generateHistoryCache() {
   console.log('║  Generating Taxonomy History Cache via GitHub API      ║');
   console.log('╚════════════════════════════════════════════════════════╝');
   console.log('');
+  
+  // Warn if no GitHub token (lower rate limits)
+  if (!process.env.GITHUB_TOKEN) {
+    console.log('⚠ WARNING: No GITHUB_TOKEN set. Using unauthenticated API.');
+    console.log('   Rate limit: 60 requests/hour (may be insufficient)');
+    console.log('   To increase limit to 5000/hour, set GITHUB_TOKEN environment variable');
+    console.log('   Create token at: https://github.com/settings/tokens');
+    console.log('');
+  }
   
   const startTime = Date.now();
   
@@ -357,13 +438,64 @@ async function generateHistoryCache() {
   } catch (error: any) {
     console.error('');
     console.error('╔════════════════════════════════════════════════════════╗');
-    console.error('║  History Cache Generation Failed                     ║');
-    console.error('╚════════════════════════════════════════════════════════╝');
-    console.error('');
-    console.error('Error:', error.message);
-    console.error('');
     
-    return { success: false, error: error.message };
+    // If we got some commits before failing, it's a partial success
+    if (commits.length > 0) {
+      console.error('║  History Cache Generation Partially Completed      ║');
+      console.error('╚════════════════════════════════════════════════════════╝');
+      console.error('');
+      console.error(`⚠ Warning: ${error.message}`);
+      console.error(`✓ Successfully processed ${commits.length} commits before error`);
+      console.error('');
+      console.error('This may be due to GitHub API rate limits.');
+      console.error('To fix:');
+      console.error('  1. Set GITHUB_TOKEN environment variable');
+      console.error('  2. Create token at: https://github.com/settings/tokens');
+      console.error('  3. Token only needs "public_repo" scope');
+      console.error('');
+      console.error('Saving partial cache...');
+      
+      // Save partial cache
+      try {
+        const partialCache = {
+          changes: history.reverse(),
+          totalCommits: commits.length,
+          commitsWithChanges: history.length,
+          processingTimeMs: Date.now() - startTime,
+          cachedAt: Date.now(),
+          oldestProcessedCommitHash: commits[0]?.hash,
+          initialCommit,
+          warning: `Partial cache: ${error.message}`,
+        };
+        
+        if (!fs.existsSync(OUTPUT_DIR)) {
+          fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+        }
+        fs.writeFileSync(HISTORY_CACHE_FILE, JSON.stringify(partialCache, null, 2));
+        console.error(`✓ Partial cache saved with ${commits.length} commits`);
+      } catch (saveError) {
+        console.error('Failed to save partial cache:', saveError);
+      }
+      
+      return { success: false, error: error.message, partial: true, commitsProcessed: commits.length };
+    } else {
+      console.error('║  History Cache Generation Failed                     ║');
+      console.error('╚════════════════════════════════════════════════════════╝');
+      console.error('');
+      console.error('Error:', error.message);
+      console.error('');
+      
+      if (error.message.includes('rate limit')) {
+        console.error('GitHub API rate limit exceeded.');
+        console.error('Solutions:');
+        console.error('  1. Set GITHUB_TOKEN environment variable for higher limits');
+        console.error('  2. Wait for rate limit to reset (usually 1 hour)');
+        console.error('  3. Reduce maxCommits limit in the script');
+        console.error('');
+      }
+      
+      return { success: false, error: error.message };
+    }
   }
 }
 
