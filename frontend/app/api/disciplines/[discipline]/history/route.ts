@@ -84,14 +84,18 @@ export async function GET(
     let cachedHistory;
     let isStatic = false;
     
-    // In production/serverless environments, use pre-built static cache
-    if (shouldUseStaticCache()) {
-      console.log('[DisciplineHistory] Using static pre-built history cache');
-      cachedHistory = getStaticHistoryCache();
+    // Always prefer static cache (from NCSLI-MII/measurand-taxonomy via GitHub API)
+    const staticCache = getStaticHistoryCache();
+    if (staticCache) {
+      console.log('[DisciplineHistory] Using static history cache from NCSLI-MII/measurand-taxonomy');
+      cachedHistory = staticCache;
       isStatic = true;
+    } else if (shouldUseStaticCache()) {
+      console.log('[DisciplineHistory] Static cache not found in production');
+      cachedHistory = null;
     } else {
-      // In development, use dynamic Git-based cache
-      console.log('[DisciplineHistory] Using dynamic Git-based history cache');
+      // In development, fall back to dynamic cache only if static cache unavailable
+      console.log('[DisciplineHistory] Static cache not found, falling back to dynamic cache');
       cachedHistory = await getCachedTaxonomyHistory();
     }
     
@@ -129,7 +133,7 @@ export async function GET(
       fromCache: true,
       cacheAgeMs: Date.now() - cachedHistory.cachedAt,
       isStatic,
-      note: isStatic ? 'Using pre-built cache from build time' : undefined,
+      note: isStatic ? 'History from NCSLI-MII/measurand-taxonomy repository (via GitHub API)' : 'History from local Git repository',
     });
   } catch (error) {
     console.error('Error getting discipline history:', error);

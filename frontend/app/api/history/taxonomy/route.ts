@@ -11,14 +11,20 @@ export async function GET(request: Request) {
     let cachedHistory;
     let isStatic = false;
     
-    // In production/serverless environments, use pre-built static cache
-    if (shouldUseStaticCache()) {
-      console.log('[API] Using static pre-built history cache');
-      cachedHistory = getStaticHistoryCache();
+    // Always prefer static cache (from NCSLI-MII/measurand-taxonomy via GitHub API)
+    // This ensures we're showing history from the taxonomy repository, not the frontend repo
+    const staticCache = getStaticHistoryCache();
+    if (staticCache) {
+      console.log('[API] Using static history cache from NCSLI-MII/measurand-taxonomy');
+      cachedHistory = staticCache;
       isStatic = true;
+    } else if (shouldUseStaticCache()) {
+      // In production/serverless, static cache should always be available
+      console.log('[API] Static cache not found in production - this should not happen');
+      cachedHistory = null;
     } else {
-      // In development, use dynamic Git-based cache
-      console.log('[API] Using dynamic Git-based history cache');
+      // In development, fall back to dynamic cache only if static cache unavailable
+      console.log('[API] Static cache not found, falling back to dynamic cache');
       cachedHistory = await getCachedTaxonomyHistory(forceRefresh);
     }
     
@@ -45,7 +51,7 @@ export async function GET(request: Request) {
       fromCache: isFromCache,
       cacheAgeMs: cacheAge,
       isStatic,
-      note: isStatic ? 'Using pre-built cache from build time' : undefined,
+      note: isStatic ? 'History from NCSLI-MII/measurand-taxonomy repository (via GitHub API)' : 'History from local Git repository',
     });
   } catch (error) {
     console.error('Error getting taxonomy history:', error);
