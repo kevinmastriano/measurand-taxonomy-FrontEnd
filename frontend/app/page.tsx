@@ -1,372 +1,270 @@
-import { BookOpen, Download, GitBranch, ExternalLink, Code, FileText } from 'lucide-react';
-import { execSync } from 'child_process';
-import path from 'path';
+import Link from 'next/link';
+import { BookOpen, List, Tag, Zap, GitBranch, FileText, Code, Search, TrendingUp, Shield, Workflow } from 'lucide-react';
 
-function getRepositoryUrl(): string {
-  try {
-    const repoPath = path.join(process.cwd(), '..');
-    const url = execSync('git config --get remote.origin.url', { 
-      cwd: repoPath, 
-      encoding: 'utf8',
-      stdio: ['ignore', 'pipe', 'ignore']
-    }).trim();
-    
-    // Convert git@github.com:user/repo.git to https://github.com/user/repo
-    if (url.startsWith('git@')) {
-      return url.replace('git@github.com:', 'https://github.com/').replace(/\.git$/, '');
-    }
-    // Convert https://github.com/user/repo.git to https://github.com/user/repo
-    return url.replace(/\.git$/, '');
-  } catch (error) {
-    // Fallback: use environment variable or placeholder
-    return process.env.NEXT_PUBLIC_REPO_URL || 'https://github.com/NCSLI-MII/measurand-taxonomy';
-  }
-}
-
-export default function Home() {
-  const repoUrl = getRepositoryUrl();
-
+export default function HomePage() {
   return (
-    <div>
-      <div className="mb-8 pb-8 border-b border-[#d0d7de] dark:border-[#30363d]">
-        <div className="flex items-center gap-3 mb-2">
-          <BookOpen className="w-6 h-6 text-[#0969da] dark:text-[#58a6ff]" />
-          <h1 className="text-3xl font-semibold text-[#24292f] dark:text-[#e6edf3]">
-            Getting Started
-          </h1>
+    <div className="min-h-screen">
+      {/* Hero Section */}
+      <div className="relative overflow-hidden bg-gradient-to-b from-[#f6f8fa] to-[#ffffff] dark:from-[#0d1117] dark:to-[#161b22] border-b border-[#d0d7de] dark:border-[#30363d]">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+          <div className="text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 text-sm font-medium text-[#0969da] dark:text-[#58a6ff] bg-[#ddf4ff] dark:bg-[#0c2d41] border border-[#54aeff] dark:border-[#1f6feb] rounded-full">
+              <Shield className="w-4 h-4" />
+              NCSL International MII Standard
+            </div>
+            
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-[#24292f] dark:text-[#e6edf3] mb-6 leading-tight">
+              Measurand Taxonomy
+            </h1>
+            
+            <p className="text-xl sm:text-2xl text-[#656d76] dark:text-[#8b949e] mb-4 max-w-3xl mx-auto">
+              A standardized, machine-readable taxonomy for describing measurement capabilities and calibration services
+            </p>
+            
+            <p className="text-base sm:text-lg text-[#656d76] dark:text-[#8b949e] mb-10 max-w-2xl mx-auto">
+              Enable automated CMC searches, digital calibration certificates, and seamless laboratory capability discovery
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Link
+                href="/getting-started"
+                className="inline-flex items-center gap-2 px-6 py-3 text-base font-semibold text-[#ffffff] bg-[#0969da] hover:bg-[#0860ca] dark:bg-[#1f6feb] dark:hover:bg-[#1a5cd7] rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-[#0969da] dark:focus:ring-[#58a6ff] focus:ring-offset-2"
+              >
+                <BookOpen className="w-5 h-5" />
+                Get Started
+              </Link>
+              
+              <Link
+                href="/browse"
+                className="inline-flex items-center gap-2 px-6 py-3 text-base font-semibold text-[#24292f] dark:text-[#e6edf3] bg-[#ffffff] dark:bg-[#21262d] border border-[#d0d7de] dark:border-[#30363d] hover:bg-[#f6f8fa] dark:hover:bg-[#30363d] rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-[#0969da] dark:focus:ring-[#58a6ff] focus:ring-offset-2"
+              >
+                <List className="w-5 h-5" />
+                Browse Taxonomy
+              </Link>
+            </div>
+          </div>
         </div>
-        <p className="text-[#656d76] dark:text-[#8b949e] text-base">
-          Learn how to access, download, and use the NCSL International MII Measurand Taxonomy Catalog.
-        </p>
+
+        {/* Decorative gradient */}
+        <div className="absolute top-0 right-0 -translate-y-12 translate-x-12 blur-3xl opacity-20 dark:opacity-10">
+          <div className="w-96 h-96 bg-[#0969da] dark:bg-[#1f6feb] rounded-full"></div>
+        </div>
+        <div className="absolute bottom-0 left-0 translate-y-12 -translate-x-12 blur-3xl opacity-20 dark:opacity-10">
+          <div className="w-96 h-96 bg-[#54aeff] dark:bg-[#388bfd] rounded-full"></div>
+        </div>
       </div>
 
-      <div className="space-y-6">
-        {/* What is the Taxonomy */}
-        <div className="border border-[#d0d7de] dark:border-[#30363d] rounded-md overflow-hidden bg-[#ffffff] dark:bg-[#0d1117]">
-          <div className="px-6 py-4 border-b border-[#d0d7de] dark:border-[#30363d] bg-[#f6f8fa] dark:bg-[#161b22]">
-            <h2 className="text-xl font-semibold text-[#24292f] dark:text-[#e6edf3]">
-              What is the Measurand Taxonomy?
+      {/* Features Grid */}
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-[#24292f] dark:text-[#e6edf3] mb-4">
+            Why Use the Measurand Taxonomy?
+          </h2>
+          <p className="text-lg text-[#656d76] dark:text-[#8b949e] max-w-2xl mx-auto">
+            Standardize measurement specifications and enable machine-readable calibration capabilities
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+          {/* Feature 1 */}
+          <div className="border border-[#d0d7de] dark:border-[#30363d] rounded-lg p-6 bg-[#ffffff] dark:bg-[#0d1117] hover:border-[#0969da] dark:hover:border-[#58a6ff] transition-colors">
+            <div className="w-12 h-12 bg-[#ddf4ff] dark:bg-[#0c2d41] rounded-lg flex items-center justify-center mb-4">
+              <Search className="w-6 h-6 text-[#0969da] dark:text-[#58a6ff]" />
+            </div>
+            <h3 className="text-xl font-semibold text-[#24292f] dark:text-[#e6edf3] mb-2">
+              Automated Discovery
+            </h3>
+            <p className="text-[#656d76] dark:text-[#8b949e]">
+              Enable software to automatically search for laboratories with appropriate capabilities based on standardized taxon identifiers.
+            </p>
+          </div>
+
+          {/* Feature 2 */}
+          <div className="border border-[#d0d7de] dark:border-[#30363d] rounded-lg p-6 bg-[#ffffff] dark:bg-[#0d1117] hover:border-[#0969da] dark:hover:border-[#58a6ff] transition-colors">
+            <div className="w-12 h-12 bg-[#ddf4ff] dark:bg-[#0c2d41] rounded-lg flex items-center justify-center mb-4">
+              <FileText className="w-6 h-6 text-[#0969da] dark:text-[#58a6ff]" />
+            </div>
+            <h3 className="text-xl font-semibold text-[#24292f] dark:text-[#e6edf3] mb-2">
+              Digital CMCs
+            </h3>
+            <p className="text-[#656d76] dark:text-[#8b949e]">
+              Describe laboratory calibration and measurement capabilities unambiguously for machine consumption and automated processing.
+            </p>
+          </div>
+
+          {/* Feature 3 */}
+          <div className="border border-[#d0d7de] dark:border-[#30363d] rounded-lg p-6 bg-[#ffffff] dark:bg-[#0d1117] hover:border-[#0969da] dark:hover:border-[#58a6ff] transition-colors">
+            <div className="w-12 h-12 bg-[#ddf4ff] dark:bg-[#0c2d41] rounded-lg flex items-center justify-center mb-4">
+              <Workflow className="w-6 h-6 text-[#0969da] dark:text-[#58a6ff]" />
+            </div>
+            <h3 className="text-xl font-semibold text-[#24292f] dark:text-[#e6edf3] mb-2">
+              Standardized Workflow
+            </h3>
+            <p className="text-[#656d76] dark:text-[#8b949e]">
+              Use consistent taxon identifiers across digital calibration certificates, instrument specifications, and capability statements.
+            </p>
+          </div>
+
+          {/* Feature 4 */}
+          <div className="border border-[#d0d7de] dark:border-[#30363d] rounded-lg p-6 bg-[#ffffff] dark:bg-[#0d1117] hover:border-[#0969da] dark:hover:border-[#58a6ff] transition-colors">
+            <div className="w-12 h-12 bg-[#ddf4ff] dark:bg-[#0c2d41] rounded-lg flex items-center justify-center mb-4">
+              <GitBranch className="w-6 h-6 text-[#0969da] dark:text-[#58a6ff]" />
+            </div>
+            <h3 className="text-xl font-semibold text-[#24292f] dark:text-[#e6edf3] mb-2">
+              Version Controlled
+            </h3>
+            <p className="text-[#656d76] dark:text-[#8b949e]">
+              Track changes over time with full Git version history. View evolution of the taxonomy and contribute improvements.
+            </p>
+          </div>
+
+          {/* Feature 5 */}
+          <div className="border border-[#d0d7de] dark:border-[#30363d] rounded-lg p-6 bg-[#ffffff] dark:bg-[#0d1117] hover:border-[#0969da] dark:hover:border-[#58a6ff] transition-colors">
+            <div className="w-12 h-12 bg-[#ddf4ff] dark:bg-[#0c2d41] rounded-lg flex items-center justify-center mb-4">
+              <Code className="w-6 h-6 text-[#0969da] dark:text-[#58a6ff]" />
+            </div>
+            <h3 className="text-xl font-semibold text-[#24292f] dark:text-[#e6edf3] mb-2">
+              Developer Friendly
+            </h3>
+            <p className="text-[#656d76] dark:text-[#8b949e]">
+              Access via REST API, XML files, or integration libraries. Parse and integrate into your applications with ease.
+            </p>
+          </div>
+
+          {/* Feature 6 */}
+          <div className="border border-[#d0d7de] dark:border-[#30363d] rounded-lg p-6 bg-[#ffffff] dark:bg-[#0d1117] hover:border-[#0969da] dark:hover:border-[#58a6ff] transition-colors">
+            <div className="w-12 h-12 bg-[#ddf4ff] dark:bg-[#0c2d41] rounded-lg flex items-center justify-center mb-4">
+              <TrendingUp className="w-6 h-6 text-[#0969da] dark:text-[#58a6ff]" />
+            </div>
+            <h3 className="text-xl font-semibold text-[#24292f] dark:text-[#e6edf3] mb-2">
+              Growing Ecosystem
+            </h3>
+            <p className="text-[#656d76] dark:text-[#8b949e]">
+              Join a community of metrology professionals building the future of digital measurement infrastructure.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Quick Links Section */}
+      <div className="bg-[#f6f8fa] dark:bg-[#161b22] border-y border-[#d0d7de] dark:border-[#30363d] py-16">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-[#24292f] dark:text-[#e6edf3] mb-4">
+              Explore the Taxonomy
             </h2>
-          </div>
-          <div className="p-6 space-y-4">
-            <p className="text-[#24292f] dark:text-[#e6edf3]">
-              The <strong>NCSL International Measurement Information Infrastructure (MII) Measurand Taxonomy Catalog</strong> is a standardized, machine-readable taxonomy for describing measurement capabilities and measurands. It provides a structured way to:
-            </p>
-            <ul className="list-disc list-inside space-y-2 text-[#24292f] dark:text-[#e6edf3] ml-4">
-              <li>Tag measurands in digital documents with unique, unambiguous identifiers</li>
-              <li>Describe laboratory calibration and measurement capabilities (CMCs) for machine consumption</li>
-              <li>Build digital Statements of Capability (SoAs)</li>
-              <li>Locate laboratories with appropriate capabilities for specific measurements</li>
-              <li>Enable automated CMC searches and uncertainty calculations</li>
-            </ul>
-            <p className="text-[#656d76] dark:text-[#8b949e] text-sm">
-              Each measurand is identified by a unique <strong>taxon</strong>—a hierarchical string like <code className="px-1.5 py-0.5 bg-[#f6f8fa] dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded text-xs">Measure.Temperature.PRT</code> or <code className="px-1.5 py-0.5 bg-[#f6f8fa] dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded text-xs">Source.Voltage.DC</code>.
+            <p className="text-lg text-[#656d76] dark:text-[#8b949e]">
+              Multiple ways to discover and use measurement specifications
             </p>
           </div>
-        </div>
 
-        {/* Accessing the Repository */}
-        <div className="border border-[#d0d7de] dark:border-[#30363d] rounded-md overflow-hidden bg-[#ffffff] dark:bg-[#0d1117]">
-          <div className="px-6 py-4 border-b border-[#d0d7de] dark:border-[#30363d] bg-[#f6f8fa] dark:bg-[#161b22]">
-            <div className="flex items-center gap-2">
-              <GitBranch className="w-5 h-5 text-[#0969da] dark:text-[#58a6ff]" />
-              <h2 className="text-xl font-semibold text-[#24292f] dark:text-[#e6edf3]">
-                Accessing the Git Repository
-              </h2>
-            </div>
-          </div>
-          <div className="p-6 space-y-4">
-            <p className="text-[#24292f] dark:text-[#e6edf3]">
-              The taxonomy is hosted on GitHub. You can access it in several ways:
-            </p>
-            
-            <div className="space-y-3">
-              <div className="border border-[#d0d7de] dark:border-[#30363d] rounded-md p-4 bg-[#f6f8fa] dark:bg-[#161b22]">
-                <h3 className="text-sm font-semibold text-[#24292f] dark:text-[#e6edf3] mb-2 flex items-center gap-2">
-                  <ExternalLink className="w-4 h-4" />
-                  Via Web Browser
-                </h3>
-                <p className="text-sm text-[#656d76] dark:text-[#8b949e] mb-3">
-                  Navigate to the repository website to browse files, view documentation, and see the commit history:
-                </p>
-                <a
-                  href={repoUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-[#0969da] dark:text-[#58a6ff] hover:underline text-sm font-medium"
-                >
-                  {repoUrl}
-                  <ExternalLink className="w-3 h-3" />
-                </a>
-              </div>
-
-              <div className="border border-[#d0d7de] dark:border-[#30363d] rounded-md p-4 bg-[#f6f8fa] dark:bg-[#161b22]">
-                <h3 className="text-sm font-semibold text-[#24292f] dark:text-[#e6edf3] mb-2 flex items-center gap-2">
-                  <Code className="w-4 h-4" />
-                  Via Git Command Line
-                </h3>
-                <p className="text-sm text-[#656d76] dark:text-[#8b949e] mb-3">
-                  Clone the repository to your local machine:
-                </p>
-                <pre className="text-xs bg-[#ffffff] dark:bg-[#0d1117] border border-[#d0d7de] dark:border-[#30363d] rounded-md p-3 overflow-x-auto">
-                  <code>git clone {repoUrl}.git</code>
-                </pre>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Downloading the Repository */}
-        <div className="border border-[#d0d7de] dark:border-[#30363d] rounded-md overflow-hidden bg-[#ffffff] dark:bg-[#0d1117]">
-          <div className="px-6 py-4 border-b border-[#d0d7de] dark:border-[#30363d] bg-[#f6f8fa] dark:bg-[#161b22]">
-            <div className="flex items-center gap-2">
-              <Download className="w-5 h-5 text-[#0969da] dark:text-[#58a6ff]" />
-              <h2 className="text-xl font-semibold text-[#24292f] dark:text-[#e6edf3]">
-                Downloading the Taxonomy
-              </h2>
-            </div>
-          </div>
-          <div className="p-6 space-y-4">
-            <p className="text-[#24292f] dark:text-[#e6edf3]">
-              There are several ways to download the taxonomy:
-            </p>
-
-            <div className="space-y-4">
-              <div>
-                <h3 className="text-sm font-semibold text-[#24292f] dark:text-[#e6edf3] mb-2">
-                  Option 1: Clone with Git (Recommended)
-                </h3>
-                <p className="text-sm text-[#656d76] dark:text-[#8b949e] mb-2">
-                  This gives you the full repository with history and allows you to stay updated:
-                </p>
-                <pre className="text-xs bg-[#f6f8fa] dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded-md p-3 overflow-x-auto">
-{`git clone ${repoUrl}.git
-cd measurand-taxonomy`}
-                </pre>
-              </div>
-
-              <div>
-                <h3 className="text-sm font-semibold text-[#24292f] dark:text-[#e6edf3] mb-2">
-                  Option 2: Download ZIP Archive
-                </h3>
-                <p className="text-sm text-[#656d76] dark:text-[#8b949e] mb-2">
-                  Download a snapshot of the repository as a ZIP file:
-                </p>
-                <a
-                  href={`${repoUrl}/archive/refs/heads/main.zip`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-[#0969da] dark:text-[#58a6ff] hover:underline text-sm"
-                >
-                  Download ZIP Archive
-                  <ExternalLink className="w-3 h-3" />
-                </a>
-              </div>
-
-              <div>
-                <h3 className="text-sm font-semibold text-[#24292f] dark:text-[#e6edf3] mb-2">
-                  Option 3: Download Individual Files
-                </h3>
-                <p className="text-sm text-[#656d76] dark:text-[#8b949e] mb-2">
-                  The main taxonomy file is available directly:
-                </p>
-                <ul className="list-disc list-inside space-y-1 text-sm text-[#656d76] dark:text-[#8b949e] ml-4">
-                  <li>
-                    <a href={`${repoUrl}/blob/main/MeasurandTaxonomyCatalog.xml`} target="_blank" rel="noopener noreferrer" className="text-[#0969da] dark:text-[#58a6ff] hover:underline">
-                      MeasurandTaxonomyCatalog.xml
-                    </a> — Main taxonomy catalog
-                  </li>
-                  <li>
-                    <a href={`${repoUrl}/blob/main/MeasurandTaxonomyCatalog.xsd`} target="_blank" rel="noopener noreferrer" className="text-[#0969da] dark:text-[#58a6ff] hover:underline">
-                      MeasurandTaxonomyCatalog.xsd
-                    </a> — XML schema definition
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* How to Use */}
-        <div className="border border-[#d0d7de] dark:border-[#30363d] rounded-md overflow-hidden bg-[#ffffff] dark:bg-[#0d1117]">
-          <div className="px-6 py-4 border-b border-[#d0d7de] dark:border-[#30363d] bg-[#f6f8fa] dark:bg-[#161b22]">
-            <div className="flex items-center gap-2">
-              <FileText className="w-5 h-5 text-[#0969da] dark:text-[#58a6ff]" />
-              <h2 className="text-xl font-semibold text-[#24292f] dark:text-[#e6edf3]">
-                How to Use the Taxonomy
-              </h2>
-            </div>
-          </div>
-          <div className="p-6 space-y-4">
-            <div className="space-y-4">
-              <div>
-                <h3 className="text-sm font-semibold text-[#24292f] dark:text-[#e6edf3] mb-2">
-                  1. Browse the Web Interface
-                </h3>
-                <p className="text-sm text-[#656d76] dark:text-[#8b949e] mb-2">
-                  Use this web interface to explore the taxonomy:
-                </p>
-                <ul className="list-disc list-inside space-y-1 text-sm text-[#656d76] dark:text-[#8b949e] ml-4">
-                  <li><strong className="text-[#24292f] dark:text-[#e6edf3]">Browse</strong> — View all taxons in a searchable list</li>
-                  <li><strong className="text-[#24292f] dark:text-[#e6edf3]">Disciplines</strong> — Explore by measurement discipline</li>
-                  <li><strong className="text-[#24292f] dark:text-[#e6edf3]">Quantities</strong> — Browse by quantity kind</li>
-                  <li><strong className="text-[#24292f] dark:text-[#e6edf3]">API</strong> — Access taxonomy data programmatically</li>
-                </ul>
-              </div>
-
-              <div>
-                <h3 className="text-sm font-semibold text-[#24292f] dark:text-[#e6edf3] mb-2">
-                  2. Use the XML Files Directly
-                </h3>
-                <p className="text-sm text-[#656d76] dark:text-[#8b949e] mb-2">
-                  Parse the XML catalog in your applications:
-                </p>
-                <pre className="text-xs bg-[#f6f8fa] dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded-md p-3 overflow-x-auto">
-{`import { parseTaxonomyXML } from './lib/xml-parser';
-import fs from 'fs';
-
-const xmlContent = fs.readFileSync('MeasurandTaxonomyCatalog.xml', 'utf-8');
-const taxons = await parseTaxonomyXML(xmlContent);`}
-                </pre>
-              </div>
-
-              <div>
-                <h3 className="text-sm font-semibold text-[#24292f] dark:text-[#e6edf3] mb-2">
-                  3. Generate HTML Documentation
-                </h3>
-                <p className="text-sm text-[#656d76] dark:text-[#8b949e] mb-2">
-                  Generate human-readable HTML from the XML:
-                </p>
-                <pre className="text-xs bg-[#f6f8fa] dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded-md p-3 overflow-x-auto">
-{`xsltproc -o MeasurandTaxonomyCatalog.html \\
-  MeasurandTaxonomyCatalog.xsl \\
-  MeasurandTaxonomyCatalog.xml`}
-                </pre>
-              </div>
-
-              <div>
-                <h3 className="text-sm font-semibold text-[#24292f] dark:text-[#e6edf3] mb-2">
-                  4. Use the REST API
-                </h3>
-                <p className="text-sm text-[#656d76] dark:text-[#8b949e] mb-2">
-                  Access taxonomy data via the REST API endpoints:
-                </p>
-                <ul className="list-disc list-inside space-y-1 text-sm text-[#656d76] dark:text-[#8b949e] ml-4">
-                  <li><code className="px-1.5 py-0.5 bg-[#f6f8fa] dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded text-xs">GET /api/taxons</code> — Get all taxons</li>
-                  <li><code className="px-1.5 py-0.5 bg-[#f6f8fa] dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded text-xs">GET /api/taxons/[name]</code> — Get a specific taxon</li>
-                  <li><code className="px-1.5 py-0.5 bg-[#f6f8fa] dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded text-xs">GET /api/search?q=...</code> — Search taxons</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* What It Should Be Used For */}
-        <div className="border border-[#54aeff] dark:border-[#1f6feb] rounded-md overflow-hidden bg-[#ddf4ff] dark:bg-[#0c2d41]">
-          <div className="px-6 py-4 border-b border-[#54aeff] dark:border-[#1f6feb]">
-            <h2 className="text-xl font-semibold text-[#0969da] dark:text-[#58a6ff]">
-              What Should the Taxonomy Be Used For?
-            </h2>
-          </div>
-          <div className="p-6 space-y-4">
-            <p className="text-[#0969da] dark:text-[#58a6ff]">
-              The Measurand Taxonomy is designed for machine-readable measurement specifications and should be used for:
-            </p>
-            
-            <div className="space-y-3">
-              <div className="bg-[#ffffff] dark:bg-[#0d1117] border border-[#54aeff] dark:border-[#1f6feb] rounded-md p-4">
-                <h3 className="text-sm font-semibold text-[#24292f] dark:text-[#e6edf3] mb-2">
-                  Digital CMCs (Calibration and Measurement Capabilities)
-                </h3>
-                <p className="text-sm text-[#656d76] dark:text-[#8b949e]">
-                  Describe laboratory services unambiguously for machine consumption. Each CMC comprises a measurand specification (using a taxon) together with measurement uncertainty.
-                </p>
-              </div>
-
-              <div className="bg-[#ffffff] dark:bg-[#0d1117] border border-[#54aeff] dark:border-[#1f6feb] rounded-md p-4">
-                <h3 className="text-sm font-semibold text-[#24292f] dark:text-[#e6edf3] mb-2">
-                  Digital Instrument Specifications
-                </h3>
-                <p className="text-sm text-[#656d76] dark:text-[#8b949e]">
-                  Tag measuring instruments with their measurand capabilities using standardized taxons, enabling automated matching between instruments and calibration services.
-                </p>
-              </div>
-
-              <div className="bg-[#ffffff] dark:bg-[#0d1117] border border-[#54aeff] dark:border-[#1f6feb] rounded-md p-4">
-                <h3 className="text-sm font-semibold text-[#24292f] dark:text-[#e6edf3] mb-2">
-                  Statements of Capability (SoAs)
-                </h3>
-                <p className="text-sm text-[#656d76] dark:text-[#8b949e]">
-                  Build machine-readable SoAs that laboratories can use to communicate their capabilities, and customers can use to search for appropriate calibration services.
-                </p>
-              </div>
-
-              <div className="bg-[#ffffff] dark:bg-[#0d1117] border border-[#54aeff] dark:border-[#1f6feb] rounded-md p-4">
-                <h3 className="text-sm font-semibold text-[#24292f] dark:text-[#e6edf3] mb-2">
-                  Digital Calibration Certificates
-                </h3>
-                <p className="text-sm text-[#656d76] dark:text-[#8b949e]">
-                  Reference measurands in calibration certificates using standardized taxons, ensuring consistency and enabling automated processing.
-                </p>
-              </div>
-
-              <div className="bg-[#ffffff] dark:bg-[#0d1117] border border-[#54aeff] dark:border-[#1f6feb] rounded-md p-4">
-                <h3 className="text-sm font-semibold text-[#24292f] dark:text-[#e6edf3] mb-2">
-                  Automated CMC Searches
-                </h3>
-                <p className="text-sm text-[#656d76] dark:text-[#8b949e]">
-                  Enable software to automatically search for laboratories with appropriate capabilities based on measurand taxons, measurement ranges, and uncertainty requirements.
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-4 p-4 bg-[#ffffff] dark:bg-[#0d1117] border border-[#d0d7de] dark:border-[#30363d] rounded-md">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <Link
+              href="/browse"
+              className="group border border-[#d0d7de] dark:border-[#30363d] rounded-lg p-6 bg-[#ffffff] dark:bg-[#0d1117] hover:border-[#0969da] dark:hover:border-[#58a6ff] transition-all hover:shadow-lg"
+            >
+              <List className="w-8 h-8 text-[#0969da] dark:text-[#58a6ff] mb-3" />
+              <h3 className="text-lg font-semibold text-[#24292f] dark:text-[#e6edf3] mb-2 group-hover:text-[#0969da] dark:group-hover:text-[#58a6ff]">
+                Browse All Taxons
+              </h3>
               <p className="text-sm text-[#656d76] dark:text-[#8b949e]">
-                <strong className="text-[#24292f] dark:text-[#e6edf3]">Important:</strong> Taxons are used for internal document encoding and machine processing. For human-readable documents, use aliases or generate readable text from the taxon definitions.
+                Search and filter through all taxons in list or tree view
               </p>
-            </div>
+            </Link>
+
+            <Link
+              href="/disciplines"
+              className="group border border-[#d0d7de] dark:border-[#30363d] rounded-lg p-6 bg-[#ffffff] dark:bg-[#0d1117] hover:border-[#0969da] dark:hover:border-[#58a6ff] transition-all hover:shadow-lg"
+            >
+              <Tag className="w-8 h-8 text-[#0969da] dark:text-[#58a6ff] mb-3" />
+              <h3 className="text-lg font-semibold text-[#24292f] dark:text-[#e6edf3] mb-2 group-hover:text-[#0969da] dark:group-hover:text-[#58a6ff]">
+                By Discipline
+              </h3>
+              <p className="text-sm text-[#656d76] dark:text-[#8b949e]">
+                Explore taxons organized by measurement discipline
+              </p>
+            </Link>
+
+            <Link
+              href="/quantities"
+              className="group border border-[#d0d7de] dark:border-[#30363d] rounded-lg p-6 bg-[#ffffff] dark:bg-[#0d1117] hover:border-[#0969da] dark:hover:border-[#58a6ff] transition-all hover:shadow-lg"
+            >
+              <Zap className="w-8 h-8 text-[#0969da] dark:text-[#58a6ff] mb-3" />
+              <h3 className="text-lg font-semibold text-[#24292f] dark:text-[#e6edf3] mb-2 group-hover:text-[#0969da] dark:group-hover:text-[#58a6ff]">
+                By Quantity
+              </h3>
+              <p className="text-sm text-[#656d76] dark:text-[#8b949e]">
+                Find taxons grouped by M-Layer quantity kinds
+              </p>
+            </Link>
+
+            <Link
+              href="/api"
+              className="group border border-[#d0d7de] dark:border-[#30363d] rounded-lg p-6 bg-[#ffffff] dark:bg-[#0d1117] hover:border-[#0969da] dark:hover:border-[#58a6ff] transition-all hover:shadow-lg"
+            >
+              <Code className="w-8 h-8 text-[#0969da] dark:text-[#58a6ff] mb-3" />
+              <h3 className="text-lg font-semibold text-[#24292f] dark:text-[#e6edf3] mb-2 group-hover:text-[#0969da] dark:group-hover:text-[#58a6ff]">
+                API Access
+              </h3>
+              <p className="text-sm text-[#656d76] dark:text-[#8b949e]">
+                Programmatic access via REST API endpoints
+              </p>
+            </Link>
           </div>
         </div>
+      </div>
 
-        {/* Additional Resources */}
-        <div className="border border-[#d0d7de] dark:border-[#30363d] rounded-md overflow-hidden bg-[#ffffff] dark:bg-[#0d1117]">
-          <div className="px-6 py-4 border-b border-[#d0d7de] dark:border-[#30363d] bg-[#f6f8fa] dark:bg-[#161b22]">
-            <h2 className="text-xl font-semibold text-[#24292f] dark:text-[#e6edf3]">
-              Additional Resources
-            </h2>
+      {/* Stats Section */}
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          <div>
+            <div className="text-4xl font-bold text-[#0969da] dark:text-[#58a6ff] mb-2">143+</div>
+            <div className="text-sm text-[#656d76] dark:text-[#8b949e]">Taxons</div>
           </div>
-          <div className="p-6">
-            <ul className="space-y-2 text-sm">
-              <li>
-                <a href="/browse" className="text-[#0969da] dark:text-[#58a6ff] hover:underline">
-                  Browse Taxonomy
-                </a> — Explore all taxons in detail
-              </li>
-              <li>
-                <a href="/api" className="text-[#0969da] dark:text-[#58a6ff] hover:underline">
-                  API Documentation
-                </a> — Programmatic access to the taxonomy
-              </li>
-              <li>
-                <a href="/license" className="text-[#0969da] dark:text-[#58a6ff] hover:underline">
-                  License Information
-                </a> — Copyright and licensing details
-              </li>
-              <li>
-                <a href="/history" className="text-[#0969da] dark:text-[#58a6ff] hover:underline">
-                  Revision History
-                </a> — View changes to the taxonomy over time
-              </li>
-              <li>
-                <a href={repoUrl} target="_blank" rel="noopener noreferrer" className="text-[#0969da] dark:text-[#58a6ff] hover:underline">
-                  GitHub Repository
-                </a> — Source code and issue tracking
-              </li>
-            </ul>
+          <div>
+            <div className="text-4xl font-bold text-[#0969da] dark:text-[#58a6ff] mb-2">15+</div>
+            <div className="text-sm text-[#656d76] dark:text-[#8b949e]">Disciplines</div>
+          </div>
+          <div>
+            <div className="text-4xl font-bold text-[#0969da] dark:text-[#58a6ff] mb-2">40+</div>
+            <div className="text-sm text-[#656d76] dark:text-[#8b949e]">Quantity Kinds</div>
+          </div>
+          <div>
+            <div className="text-4xl font-bold text-[#0969da] dark:text-[#58a6ff] mb-2">Open</div>
+            <div className="text-sm text-[#656d76] dark:text-[#8b949e]">Source</div>
+          </div>
+        </div>
+      </div>
+
+      {/* CTA Section */}
+      <div className="bg-gradient-to-r from-[#0969da] to-[#1f6feb] dark:from-[#0c2d41] dark:to-[#1f6feb] py-16">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl font-bold text-[#ffffff] mb-4">
+            Ready to Get Started?
+          </h2>
+          <p className="text-xl text-[#ffffff]/90 mb-8 max-w-2xl mx-auto">
+            Learn how to integrate the Measurand Taxonomy into your applications and workflows
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/getting-started"
+              className="inline-flex items-center gap-2 px-6 py-3 text-base font-semibold text-[#0969da] dark:text-[#0d1117] bg-[#ffffff] hover:bg-[#f6f8fa] rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-[#ffffff] focus:ring-offset-2"
+            >
+              <BookOpen className="w-5 h-5" />
+              View Documentation
+            </Link>
+            <a
+              href="https://github.com/NCSLI-MII/measurand-taxonomy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 text-base font-semibold text-[#ffffff] bg-[#ffffff]/20 hover:bg-[#ffffff]/30 backdrop-blur-sm border border-[#ffffff]/30 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-[#ffffff] focus:ring-offset-2"
+            >
+              <GitBranch className="w-5 h-5" />
+              View on GitHub
+            </a>
           </div>
         </div>
       </div>
     </div>
   );
 }
-

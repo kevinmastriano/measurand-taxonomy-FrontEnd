@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FileText, History, List, Tag, Zap, GitCompare, Code, BookOpen } from 'lucide-react';
+import { FileText, History, List, Tag, Zap, GitCompare, Code, BookOpen, Home } from 'lucide-react';
 
 export default function Navigation() {
   const pathname = usePathname();
@@ -39,6 +39,10 @@ export default function Navigation() {
             </div>
             <div className="hidden sm:ml-8 sm:flex sm:space-x-1">
               <Link href="/" className={getLinkClassName('/')}>
+                <Home className="w-4 h-4 mr-2" />
+                Home
+              </Link>
+              <Link href="/getting-started" className={getLinkClassName('/getting-started')}>
                 <BookOpen className="w-4 h-4 mr-2" />
                 Getting Started
               </Link>
