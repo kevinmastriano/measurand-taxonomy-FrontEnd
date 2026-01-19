@@ -62,8 +62,15 @@ async function githubAPIRequest<T>(
     const token = process.env.GITHUB_TOKEN; // Optional GitHub token for higher rate limits
     
     // Check rate limit before making request
+    // During builds (VERCEL), don't wait - fail fast so we can save partial cache
+    const isBuild = process.env.VERCEL === '1' || process.env.CI === 'true';
     const now = Math.floor(Date.now() / 1000);
     if (rateLimitRemaining <= 5 && rateLimitReset > now) {
+      if (isBuild) {
+        // During build, reject immediately so we can save partial cache
+        reject(new Error(`Rate limit exhausted (${rateLimitRemaining} remaining). Saving partial cache.`));
+        return;
+      }
       const waitTime = rateLimitReset - now + 1;
       console.log(`⚠ Rate limit low (${rateLimitRemaining} remaining). Waiting ${waitTime}s...`);
       await new Promise(resolve => setTimeout(resolve, waitTime * 1000));
@@ -107,6 +114,13 @@ async function githubAPIRequest<T>(
             // Rate limit exceeded
             const resetTime = rateLimitReset || Math.floor(Date.now() / 1000) + 3600;
             const waitTime = resetTime - Math.floor(Date.now() / 1000);
+            
+            // During builds, don't retry - fail fast so we can save partial cache
+            const isBuildEnv = process.env.VERCEL === '1' || process.env.CI === 'true';
+            if (isBuildEnv) {
+              reject(new Error(`Rate limit exceeded during build. Saving partial cache. Set GITHUB_TOKEN for complete history.`));
+              return;
+            }
             
             if (attempt < retries && waitTime < 3600) {
               console.log(`⚠ Rate limit exceeded. Retrying in ${waitTime}s (attempt ${attempt + 1}/${retries})...`);
@@ -344,7 +358,16 @@ async function generateHistoryCache() {
     
     for (let i = 0; i < commits.length; i++) {
       const commit = commits[i];
-      console.log(`Processing commit ${i + 1}/${commits.length}: ${commit.hash}`);
+      
+      // Check rate limit before processing each commit
+      const now = Math.floor(Date.now() / 1000);
+      if (rateLimitRemaining <= 3) {
+        console.log(`⚠ Rate limit exhausted (${rateLimitRemaining} remaining). Saving partial cache...`);
+        console.log(`  Processed ${i}/${commits.length} commits before rate limit`);
+        break; // Exit loop and save partial cache
+      }
+      
+      console.log(`Processing commit ${i + 1}/${commits.length}: ${commit.hash} (${rateLimitRemaining} API calls remaining)`);
       
       try {
         // Get taxonomy XML at this commit
@@ -388,14 +411,25 @@ async function generateHistoryCache() {
         
         previousTaxons = taxons;
         
-        // Rate limiting delay
-        await new Promise(resolve => setTimeout(resolve, 200));
+        // Rate limiting delay (longer delay if rate limit is getting low)
+        const delay = rateLimitRemaining < 10 ? 1000 : 200;
+        await new Promise(resolve => setTimeout(resolve, delay));
         
       } catch (error: any) {
+        // If rate limit error, break and save partial cache
+        if (error.message.includes('rate limit')) {
+          console.log(`⚠ Rate limit hit during commit processing. Saving partial cache...`);
+          console.log(`  Processed ${i}/${commits.length} commits before rate limit`);
+          break;
+        }
         console.error(`  Error processing commit ${commit.hash}:`, error.message);
         continue;
       }
     }
+    
+    // Check if we hit rate limit (partial processing)
+    const processedCommits = history.length + (initialCommit ? 1 : 0);
+    const hitRateLimit = rateLimitRemaining <= 3 || processedCommits < commits.length;
     
     // Create cache object
     const cache = {
@@ -406,6 +440,10 @@ async function generateHistoryCache() {
       cachedAt: Date.now(),
       oldestProcessedCommitHash: commits[0]?.hash,
       initialCommit,
+      ...(hitRateLimit && {
+        warning: `Partial cache: Rate limit reached. Processed ${processedCommits} of ${commits.length} commits. Set GITHUB_TOKEN for complete history.`,
+        partial: true,
+      }),
     };
     
     // Ensure output directory exists
@@ -420,20 +458,35 @@ async function generateHistoryCache() {
     const fileSizeKB = Math.round(fs.statSync(HISTORY_CACHE_FILE).size / 1024);
     
     console.log('');
-    console.log('╔════════════════════════════════════════════════════════╗');
-    console.log('║  History Cache Generated Successfully!                 ║');
-    console.log('╚════════════════════════════════════════════════════════╝');
-    console.log('');
+    if (hitRateLimit) {
+      console.log('╔════════════════════════════════════════════════════════╗');
+      console.log('║  Partial History Cache Generated (Rate Limit Hit)     ║');
+      console.log('╚════════════════════════════════════════════════════════╝');
+      console.log('');
+      console.log(`⚠ Warning: Rate limit reached. Cache contains partial data.`);
+      console.log(`   Set GITHUB_TOKEN environment variable for complete history.`);
+      console.log('');
+    } else {
+      console.log('╔════════════════════════════════════════════════════════╗');
+      console.log('║  History Cache Generated Successfully!                 ║');
+      console.log('╚════════════════════════════════════════════════════════╝');
+      console.log('');
+    }
     console.log(`📊 Statistics:`);
-    console.log(`   • Total commits processed:     ${commits.length}`);
+    console.log(`   • Total commits found:         ${commits.length}`);
+    console.log(`   • Commits processed:           ${processedCommits}`);
     console.log(`   • Commits with changes:        ${history.length}`);
     console.log(`   • Total taxonomy changes:     ${cache.changes.reduce((sum, h) => sum + h.changes.length, 0)}`);
     console.log(`   • Processing time:             ${duration}ms`);
     console.log(`   • Cache file size:             ${fileSizeKB} KB`);
     console.log(`   • Output location:             ${HISTORY_CACHE_FILE}`);
+    if (hitRateLimit) {
+      console.log(`   • API calls remaining:         ${rateLimitRemaining}`);
+    }
     console.log('');
     
-    return { success: true, cache };
+    // Return success even for partial cache (build should continue)
+    return { success: true, cache, partial: hitRateLimit };
     
   } catch (error: any) {
     console.error('');
