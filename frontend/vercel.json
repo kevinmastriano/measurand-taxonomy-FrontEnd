@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/sync-taxonomy",
+      "schedule": "0 2 * * *"
+    }
+  ]
+}

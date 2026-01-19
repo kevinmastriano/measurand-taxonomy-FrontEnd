@@ -36,3 +36,7 @@ next-env.d.ts
 
 # generated cache files
 /public/taxonomy-history.json
+
+# synced taxonomy data (downloaded via cron)
+/data/taxonomy/*
+!/data/taxonomy/.gitkeep

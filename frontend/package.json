@@ -7,7 +7,8 @@
     "prebuild": "node scripts/build-history-cache.js",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "sync-taxonomy": "node scripts/sync-taxonomy.js"
   },
   "dependencies": {
     "next": "^14.2.0",
