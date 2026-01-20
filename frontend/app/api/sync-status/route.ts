@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getSyncMetadata, hasSyncedData } from '@/lib/taxonomy-file-finder';
+import { getSyncMetadata, hasSyncedData, isSyncInProgress, getSyncProgress } from '@/lib/taxonomy-file-finder';
 import fs from 'fs';
 import path from 'path';
 
@@ -9,6 +9,8 @@ export async function GET() {
   try {
     const metadata = getSyncMetadata();
     const hasData = hasSyncedData();
+    const syncing = isSyncInProgress();
+    const progress = syncing ? getSyncProgress() : null;
     
     // Get file info if synced data exists
     let filesInfo: Array<{ name: string; size: number; modified: string }> = [];
@@ -31,6 +33,8 @@ export async function GET() {
       hasSyncedData: hasData,
       metadata: metadata || null,
       files: filesInfo,
+      syncing,
+      progress: progress || null,
     });
   } catch (error) {
     return NextResponse.json(

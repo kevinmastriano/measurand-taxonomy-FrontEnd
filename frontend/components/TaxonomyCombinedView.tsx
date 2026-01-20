@@ -12,9 +12,11 @@ import { useURLState } from '@/hooks/useURLState';
 
 interface TaxonomyCombinedViewProps {
   taxons: Taxon[];
+  hideHeader?: boolean;
+  hideExports?: boolean;
 }
 
-export default function TaxonomyCombinedView({ taxons }: TaxonomyCombinedViewProps) {
+export default function TaxonomyCombinedView({ taxons, hideHeader = false, hideExports = false }: TaxonomyCombinedViewProps) {
   const { urlState, updateURL } = useURLState();
   
   // Initialize state from URL
@@ -170,20 +172,24 @@ export default function TaxonomyCombinedView({ taxons }: TaxonomyCombinedViewPro
   return (
     <div>
       {/* Export buttons - aligned right with vertical line on left */}
-      <div className="mb-2 flex items-center justify-end">
-        <div className="h-6 w-px bg-[#d0d7de] dark:bg-[#30363d] mr-4"></div>
-        <CompleteTaxonomyExport taxons={taxons} />
-      </div>
+      {!hideExports && (
+        <div className="mb-2 flex items-center justify-end">
+          <div className="h-6 w-px bg-[#d0d7de] dark:bg-[#30363d] mr-4"></div>
+          <CompleteTaxonomyExport taxons={taxons} />
+        </div>
+      )}
 
       {/* Header */}
-      <div className="mb-4 pb-3 border-b border-[#d0d7de] dark:border-[#30363d]">
-        <h1 className="text-2xl font-semibold text-[#24292f] dark:text-[#e6edf3] mb-1">
-          Measurand Taxonomy Catalog
-        </h1>
-        <p className="text-sm text-[#656d76] dark:text-[#8b949e]">
-          NCSL International Measurement Information Infrastructure (MII) Measurand Taxonomy Catalog
-        </p>
-      </div>
+      {!hideHeader && (
+        <div className="mb-4 pb-3 border-b border-[#d0d7de] dark:border-[#30363d]">
+          <h1 className="text-2xl font-semibold text-[#24292f] dark:text-[#e6edf3] mb-1">
+            Measurand Taxonomy Catalog
+          </h1>
+          <p className="text-sm text-[#656d76] dark:text-[#8b949e]">
+            NCSL International Measurement Information Infrastructure (MII) Measurand Taxonomy Catalog
+          </p>
+        </div>
+      )}
 
       {/* View Mode Toggle - GitHub style */}
       <div className="mb-4 flex items-center justify-between border-b border-[#d0d7de] dark:border-[#30363d]">

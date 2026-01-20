@@ -68,3 +68,44 @@ export function getSyncMetadata(): { syncedAt: string; commitSHA: string; source
   }
   return null;
 }
+
+/**
+ * Check if sync is currently in progress
+ */
+export function isSyncInProgress(): boolean {
+  try {
+    const lockPath = path.join(process.cwd(), 'data', 'taxonomy', '.sync-in-progress.json');
+    if (!fs.existsSync(lockPath)) {
+      return false;
+    }
+    const lockData = JSON.parse(fs.readFileSync(lockPath, 'utf-8'));
+    const lockAge = Date.now() - lockData.startTime;
+    // If lock is older than 5 minutes, consider it stale (sync probably crashed)
+    if (lockAge > 5 * 60 * 1000) {
+      return false;
+    }
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
+/**
+ * Get sync progress info if available
+ */
+export function getSyncProgress(): { startedAt: string; duration: number } | null {
+  try {
+    const lockPath = path.join(process.cwd(), 'data', 'taxonomy', '.sync-in-progress.json');
+    if (fs.existsSync(lockPath)) {
+      const lockData = JSON.parse(fs.readFileSync(lockPath, 'utf-8'));
+      const duration = Date.now() - lockData.startTime;
+      return {
+        startedAt: lockData.startedAt,
+        duration,
+      };
+    }
+  } catch (error) {
+    // Ignore errors reading lock file
+  }
+  return null;
+}

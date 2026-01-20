@@ -50,22 +50,6 @@ export default function Navigation() {
                 <List className="w-4 h-4 mr-2" />
                 Browse
               </Link>
-              <Link href="/disciplines" className={getLinkClassName('/disciplines')}>
-                <Tag className="w-4 h-4 mr-2" />
-                Disciplines
-              </Link>
-              <Link href="/quantities" className={getLinkClassName('/quantities')}>
-                <Zap className="w-4 h-4 mr-2" />
-                Quantities
-              </Link>
-              <Link href="/compare" className={getLinkClassName('/compare')}>
-                <GitCompare className="w-4 h-4 mr-2" />
-                Compare
-              </Link>
-              <Link href="/api" className={getLinkClassName('/api')}>
-                <Code className="w-4 h-4 mr-2" />
-                API
-              </Link>
             </div>
           </div>
           <div className="flex items-center gap-2">
@@ -73,6 +57,10 @@ export default function Navigation() {
               <Link href="/license" className={getLinkClassName('/license')}>
                 <FileText className="w-4 h-4 mr-2" />
                 License
+              </Link>
+              <Link href="/api" className={getLinkClassName('/api')}>
+                <Code className="w-4 h-4 mr-2" />
+                API
               </Link>
               <Link href="/history" className={getLinkClassName('/history')}>
                 <History className="w-4 h-4 mr-2" />

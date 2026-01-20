@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import TaxonomyCombinedViewWrapper from '@/components/TaxonomyCombinedViewWrapper';
+import BrowseTabsView from '@/components/BrowseTabsView';
 import { loadTaxonomyData } from '@/lib/taxonomy-loader';
 
 async function getTaxonomyData() {
@@ -12,7 +12,7 @@ export default async function BrowsePage() {
   return (
     <div>
       <Suspense fallback={<div className="text-center py-12 text-[#656d76] dark:text-[#8b949e]">Loading taxonomy...</div>}>
-        <TaxonomyCombinedViewWrapper taxons={taxons} />
+        <BrowseTabsView taxons={taxons} />
       </Suspense>
     </div>
   );

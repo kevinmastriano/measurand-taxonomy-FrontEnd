@@ -24,6 +24,8 @@ interface SyncStatusResponse {
   hasSyncedData: boolean;
   metadata: SyncMetadata | null;
   files: Array<{ name: string; size: number; modified: string }>;
+  syncing: boolean;
+  progress: { startedAt: string; duration: number } | null;
 }
 
 export default function SyncPage() {
@@ -42,7 +44,16 @@ export default function SyncPage() {
   useEffect(() => {
     // Load sync status info
     loadSyncInfo();
-  }, []);
+    
+    // Poll sync status if sync is in progress
+    const pollInterval = setInterval(() => {
+      if (syncInfo?.syncing) {
+        loadSyncInfo();
+      }
+    }, 2000);
+    
+    return () => clearInterval(pollInterval);
+  }, [syncInfo?.syncing]);
 
   async function loadSyncInfo() {
     setLoadingInfo(true);
@@ -156,6 +167,28 @@ export default function SyncPage() {
       const data = await response.json();
 
       if (response.ok && data.success) {
+        // Check if sync is processing in background
+        if (data.processing) {
+          setStatus({
+            syncing: false,
+            success: true,
+            message: data.message || 'Sync started in background. Refreshing status...',
+            timestamp: data.timestamp,
+            commitSHA: null,
+            filesSynced: null,
+            error: null,
+          });
+          // Poll sync status every 2 seconds until complete
+          const pollInterval = setInterval(() => {
+            loadSyncInfo();
+          }, 2000);
+          
+          // Stop polling after 60 seconds
+          setTimeout(() => {
+            clearInterval(pollInterval);
+            loadSyncInfo();
+          }, 60000);
+        } else {
           setStatus({
             syncing: false,
             success: true,
@@ -169,6 +202,7 @@ export default function SyncPage() {
           setTimeout(() => {
             loadSyncInfo();
           }, 2000);
+        }
       } else {
         setStatus({
           syncing: false,
@@ -229,7 +263,21 @@ export default function SyncPage() {
             <h2 className="text-lg font-semibold text-[#24292f] dark:text-[#e6edf3] mb-3 flex items-center gap-2">
               <Clock className="w-5 h-5" />
               Sync Status
+              {syncInfo.syncing && (
+                <span className="ml-2 px-2 py-1 text-xs bg-[#0969da] dark:bg-[#1f6feb] text-white rounded-md flex items-center gap-1">
+                  <RefreshCw className="w-3 h-3 animate-spin" />
+                  In Progress
+                </span>
+              )}
             </h2>
+            {syncInfo.syncing && syncInfo.progress && (
+              <div className="mb-3 p-3 bg-[#ddf4ff] dark:bg-[#0c2d41] border border-[#54aeff] dark:border-[#1f6feb] rounded-md">
+                <p className="text-sm text-[#0969da] dark:text-[#58a6ff]">
+                  <strong>Sync in progress...</strong> Started at {new Date(syncInfo.progress.startedAt).toLocaleString()}
+                  {' '}({Math.round(syncInfo.progress.duration / 1000)}s ago)
+                </p>
+              </div>
+            )}
             {syncInfo.hasSyncedData ? (
               <div className="space-y-3">
                 {syncInfo.metadata && (
