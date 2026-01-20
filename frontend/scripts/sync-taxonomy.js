@@ -21,6 +21,8 @@ const FILES_TO_SYNC = [
   'MeasurandTaxonomyCatalog.xml',
   'MeasurandTaxonomyCatalog.xsd',
   'MeasurandTaxonomyProperties.xml',
+  'LICENSE',
+  'COPYRIGHT',
 ];
 
 // Directory to store synced files

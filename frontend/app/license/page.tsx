@@ -3,11 +3,39 @@ import path from 'path';
 
 async function getLicenseContent() {
   try {
-    const licensePath = path.join(process.cwd(), '..', 'LICENSE');
-    const copyrightPath = path.join(process.cwd(), '..', 'COPYRIGHT');
+    // Check multiple possible locations (synced data first, then parent directory)
+    const possibleLicensePaths = [
+      path.join(process.cwd(), 'data', 'taxonomy', 'LICENSE'),
+      path.join(process.cwd(), '..', 'LICENSE'),
+      path.join(process.cwd(), 'LICENSE'),
+    ];
     
-    const license = fs.readFileSync(licensePath, 'utf-8');
-    const copyright = fs.readFileSync(copyrightPath, 'utf-8');
+    const possibleCopyrightPaths = [
+      path.join(process.cwd(), 'data', 'taxonomy', 'COPYRIGHT'),
+      path.join(process.cwd(), '..', 'COPYRIGHT'),
+      path.join(process.cwd(), 'COPYRIGHT'),
+    ];
+    
+    // Find LICENSE file
+    let licensePath: string | null = null;
+    for (const testPath of possibleLicensePaths) {
+      if (fs.existsSync(testPath)) {
+        licensePath = testPath;
+        break;
+      }
+    }
+    
+    // Find COPYRIGHT file
+    let copyrightPath: string | null = null;
+    for (const testPath of possibleCopyrightPaths) {
+      if (fs.existsSync(testPath)) {
+        copyrightPath = testPath;
+        break;
+      }
+    }
+    
+    const license = licensePath ? fs.readFileSync(licensePath, 'utf-8') : '';
+    const copyright = copyrightPath ? fs.readFileSync(copyrightPath, 'utf-8') : '';
     
     return { license, copyright };
   } catch (error) {

@@ -13,6 +13,8 @@ The following files are downloaded from the NCSLI-MII repository:
 1. **`MeasurandTaxonomyCatalog.xml`** - Main taxonomy catalog (required)
 2. **`MeasurandTaxonomyCatalog.xsd`** - XML schema definition (optional, for validation)
 3. **`MeasurandTaxonomyProperties.xml`** - Taxonomy properties (optional)
+4. **`LICENSE`** - Creative Commons license text (used by license page)
+5. **`COPYRIGHT`** - Copyright information (used by license page)
 
 ## History Cache Generated
 

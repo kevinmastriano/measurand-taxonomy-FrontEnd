@@ -28,6 +28,18 @@ The sync script downloads the following files from:
    - **Used by**: Potentially for extended features
    - **Size**: ~10-50 KB
 
+4. **`LICENSE`**
+   - **Location**: Repository root
+   - **Purpose**: Full Creative Commons Attribution-ShareAlike 4.0 International License text
+   - **Used by**: License page (`/license`)
+   - **Size**: ~20-30 KB
+
+5. **`COPYRIGHT`**
+   - **Location**: Repository root
+   - **Purpose**: Copyright information for the taxonomy
+   - **Used by**: License page (`/license`)
+   - **Size**: ~1-5 KB
+
 ## Files NOT Synced (But Available)
 
 ### Source Directory (`source/`)
@@ -55,6 +67,8 @@ frontend/
         ├── MeasurandTaxonomyCatalog.xml           ← Main catalog
         ├── MeasurandTaxonomyCatalog.xsd           ← Schema
         ├── MeasurandTaxonomyProperties.xml        ← Properties
+        ├── LICENSE                                ← License text
+        ├── COPYRIGHT                              ← Copyright information
         ├── taxonomy-history-cache.json            ← Git history cache (generated)
         ├── .last-sync-commit                      ← Last commit SHA
         └── .sync-metadata.json                    ← Sync metadata
@@ -96,7 +110,7 @@ The sync script:
 
 The sync uses:
 - 1 API call to check for updates
-- 3 file downloads (if update needed)
-- **Total**: ~4 requests per sync
+- 5 file downloads (if update needed)
+- **Total**: ~6 requests per sync
 
 With daily syncs, this is well within unauthenticated limits.
