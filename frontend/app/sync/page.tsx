@@ -192,7 +192,7 @@ export default function SyncPage() {
               </div>
             ) : (
               <p className="text-sm text-[#656d76] dark:text-[#8b949e]">
-                No synced data found. Click "Trigger Sync" to download taxonomy files.
+                No synced data found. Click &quot;Trigger Sync&quot; to download taxonomy files.
               </p>
             )}
           </div>
