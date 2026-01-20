@@ -1,41 +1,12 @@
 import { Suspense } from 'react';
 import { Taxon } from '@/lib/types';
-import { parseTaxonomyXML } from '@/lib/xml-parser';
+import { loadTaxonomyData } from '@/lib/taxonomy-loader';
 import ComparePageClient from '@/components/ComparePageClient';
-import fs from 'fs';
-import path from 'path';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
 async function getTaxonomyData() {
-  try {
-    const currentDir = process.cwd();
-    const possiblePaths = [
-      path.resolve(currentDir, '..', 'MeasurandTaxonomyCatalog.xml'),
-      path.resolve(currentDir, 'MeasurandTaxonomyCatalog.xml'),
-      path.join(process.cwd(), '..', 'MeasurandTaxonomyCatalog.xml'),
-    ];
-
-    let xmlPath: string | null = null;
-    for (const testPath of possiblePaths) {
-      if (fs.existsSync(testPath)) {
-        xmlPath = testPath;
-        break;
-      }
-    }
-
-    if (!xmlPath) {
-      console.error('XML file not found. Tried paths:', possiblePaths);
-      return [];
-    }
-
-    const xmlContent = fs.readFileSync(xmlPath, 'utf-8');
-    const taxons = await parseTaxonomyXML(xmlContent);
-    return taxons;
-  } catch (error) {
-    console.error('Error loading taxonomy:', error);
-    return [];
-  }
+  return await loadTaxonomyData();
 }
 
 export default async function ComparePage() {

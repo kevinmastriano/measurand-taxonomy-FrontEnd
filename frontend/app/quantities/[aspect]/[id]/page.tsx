@@ -1,8 +1,6 @@
 import { Suspense } from 'react';
-import { parseTaxonomyXML } from '@/lib/xml-parser';
 import { getQuantityInfo, getMLayerRegistryUrl } from '@/lib/quantity-analyzer';
-import fs from 'fs';
-import path from 'path';
+import { loadTaxonomyData } from '@/lib/taxonomy-loader';
 import Link from 'next/link';
 import { Zap, ArrowLeft, ExternalLink, Tag } from 'lucide-react';
 import TaxonomyListView from '@/components/TaxonomyListView';
@@ -10,34 +8,7 @@ import Breadcrumb from '@/components/Breadcrumb';
 import { generateQuantityBreadcrumb } from '@/lib/breadcrumb-utils';
 
 async function getTaxonomyData() {
-  try {
-    const currentDir = process.cwd();
-    const possiblePaths = [
-      path.resolve(currentDir, '..', '..', 'MeasurandTaxonomyCatalog.xml'),
-      path.resolve(currentDir, '..', 'MeasurandTaxonomyCatalog.xml'),
-      path.join(process.cwd(), '..', '..', 'MeasurandTaxonomyCatalog.xml'),
-    ];
-
-    let xmlPath: string | null = null;
-    for (const testPath of possiblePaths) {
-      if (fs.existsSync(testPath)) {
-        xmlPath = testPath;
-        break;
-      }
-    }
-
-    if (!xmlPath) {
-      console.error('XML file not found. Tried paths:', possiblePaths);
-      return [];
-    }
-
-    const xmlContent = fs.readFileSync(xmlPath, 'utf-8');
-    const taxons = await parseTaxonomyXML(xmlContent);
-    return taxons;
-  } catch (error) {
-    console.error('Error loading taxonomy:', error);
-    return [];
-  }
+  return await loadTaxonomyData();
 }
 
 export default async function QuantityDetailPage({
