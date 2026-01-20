@@ -38,7 +38,22 @@ async function getLicenseContent() {
     }
     
     if (!copyrightPath) {
-      console.warn('[License] COPYRIGHT file not found. Checked paths:', possibleCopyrightPaths);
+      console.warn('[License] COPYRIGHT file not found locally. Checked paths:', possibleCopyrightPaths);
+      console.log('[License] Attempting to fetch COPYRIGHT from GitHub...');
+      
+      // Fallback: fetch COPYRIGHT directly from GitHub if not synced yet
+      try {
+        const copyrightResponse = await fetch('https://raw.githubusercontent.com/NCSLI-MII/measurand-taxonomy/main/COPYRIGHT', {
+          next: { revalidate: 3600 } // Cache for 1 hour
+        });
+        if (copyrightResponse.ok) {
+          const copyrightText = await copyrightResponse.text();
+          console.log('[License] Successfully fetched COPYRIGHT from GitHub');
+          return { license: licensePath ? fs.readFileSync(licensePath, 'utf-8') : '', copyright: copyrightText, copyrightFound: true };
+        }
+      } catch (fetchError) {
+        console.error('[License] Failed to fetch COPYRIGHT from GitHub:', fetchError);
+      }
     }
     
     const license = licensePath ? fs.readFileSync(licensePath, 'utf-8') : '';
