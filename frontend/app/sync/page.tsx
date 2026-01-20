@@ -71,9 +71,16 @@ export default function SyncPage() {
     });
 
     try {
-      const response = await fetch('/api/sync-taxonomy', {
+      // Add timeout to the fetch request (60 seconds)
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 60000);
+      
+      const response = await fetch('/api/sync-taxonomy?skipHistory=true', {
         method: 'GET',
+        signal: controller.signal,
       });
+      
+      clearTimeout(timeoutId);
 
       const data = await response.json();
 
@@ -103,6 +110,12 @@ export default function SyncPage() {
         });
       }
     } catch (error) {
+      const errorMessage = error instanceof Error 
+        ? (error.name === 'AbortError' 
+          ? 'Sync timed out after 60 seconds. Files may have been synced, but the operation did not complete. Check the sync status below.' 
+          : error.message)
+        : 'Network error';
+      
       setStatus({
         syncing: false,
         success: false,
@@ -110,8 +123,13 @@ export default function SyncPage() {
         timestamp: null,
         commitSHA: null,
         filesSynced: null,
-        error: error instanceof Error ? error.message : 'Network error',
+        error: errorMessage,
       });
+      
+      // Reload sync info to check if files were actually synced despite the error
+      setTimeout(() => {
+        loadSyncInfo();
+      }, 1000);
     }
   }
 
@@ -318,6 +336,9 @@ export default function SyncPage() {
               <p>
                 <strong>Note:</strong> The sync also runs automatically via cron job daily at 2 AM
                 UTC. This manual sync is useful for testing or immediate updates.
+              </p>
+              <p className="mt-2">
+                <strong>Manual Sync:</strong> History cache generation is skipped for manual syncs to ensure fast completion (typically 5-10 seconds). The automatic daily sync includes full history generation.
               </p>
             </div>
           </div>

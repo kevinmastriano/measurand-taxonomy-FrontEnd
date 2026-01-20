@@ -27,8 +27,20 @@ export async function GET(request: Request) {
       }
     }
     
-    // Run the sync
-    const result = await syncTaxonomy();
+    // Check query parameters
+    const { searchParams } = new URL(request.url);
+    const skipHistory = searchParams.get('skipHistory') === 'true';
+    
+    // Set a timeout for the sync operation (45 seconds to allow for file downloads)
+    // History generation is skipped for manual syncs to avoid timeouts
+    const syncPromise = syncTaxonomy({ skipHistory: skipHistory || true }); // Default to skipping history for manual syncs
+    
+    // Race between sync and timeout
+    const timeoutPromise = new Promise((_, reject) => 
+      setTimeout(() => reject(new Error('Sync operation timed out after 45 seconds')), 45000)
+    );
+    
+    const result = await Promise.race([syncPromise, timeoutPromise]) as Awaited<ReturnType<typeof syncTaxonomy>>;
     
     if (result.success) {
       // Count synced files

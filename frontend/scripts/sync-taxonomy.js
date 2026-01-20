@@ -132,7 +132,9 @@ async function needsUpdate() {
 }
 
 // Main sync function
-async function syncTaxonomy() {
+async function syncTaxonomy(options = {}) {
+  const { skipHistory = false } = options;
+  
   console.log('╔════════════════════════════════════════════════════════╗');
   console.log('║  Syncing Taxonomy Data from NCSLI-MII Repository      ║');
   console.log('╚════════════════════════════════════════════════════════╝');
@@ -152,27 +154,34 @@ async function syncTaxonomy() {
     ensureSyncDir();
     
     // Download all files
+    console.log('Downloading taxonomy files...');
     const downloadPromises = FILES_TO_SYNC.map(file => {
       const outputPath = path.join(SYNC_DIR, file);
       return downloadFile(file, outputPath);
     });
     
     await Promise.all(downloadPromises);
+    console.log(`✓ Downloaded ${FILES_TO_SYNC.length} files`);
     
-    // Generate history cache using GitHub API
-    console.log('');
-    console.log('Generating taxonomy history cache...');
-    try {
-      const { execSync } = require('child_process');
-      execSync('npx tsx scripts/generate-history-via-api.ts', {
-        cwd: process.cwd(),
-        stdio: 'inherit',
-        maxBuffer: 50 * 1024 * 1024,
-      });
-      console.log('✓ History cache generated');
-    } catch (error) {
-      console.warn('⚠ History cache generation failed (non-critical):', error.message);
-      // Don't fail the sync if history generation fails
+    // Generate history cache using GitHub API (optional, can be slow)
+    if (!skipHistory) {
+      console.log('');
+      console.log('Generating taxonomy history cache (this may take a few minutes)...');
+      try {
+        const { execSync } = require('child_process');
+        execSync('npx tsx scripts/generate-history-via-api.ts', {
+          cwd: process.cwd(),
+          stdio: 'inherit',
+          maxBuffer: 50 * 1024 * 1024,
+        });
+        console.log('✓ History cache generated');
+      } catch (error) {
+        console.warn('⚠ History cache generation failed (non-critical):', error.message);
+        // Don't fail the sync if history generation fails
+      }
+    } else {
+      console.log('');
+      console.log('⚠ Skipping history cache generation (use skipHistory=false to enable)');
     }
     
     // Save commit SHA if we got it
