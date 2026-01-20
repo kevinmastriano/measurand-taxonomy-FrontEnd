@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 import { syncTaxonomy } from '@/scripts/sync-taxonomy';
+import fs from 'fs';
+import path from 'path';
 
 /**
  * API Route for syncing taxonomy data from NCSLI-MII repository
@@ -29,10 +31,18 @@ export async function GET(request: Request) {
     const result = await syncTaxonomy();
     
     if (result.success) {
+      // Count synced files
+      const syncDir = path.join(process.cwd(), 'data', 'taxonomy');
+      let filesSynced = 0;
+      if (fs.existsSync(syncDir)) {
+        filesSynced = fs.readdirSync(syncDir).filter((f: string) => !f.startsWith('.')).length;
+      }
+      
       return NextResponse.json({
         success: true,
         updated: result.updated,
         commitSHA: result.commitSHA,
+        filesSynced,
         message: result.updated 
           ? 'Taxonomy data synced successfully' 
           : 'No updates available',
