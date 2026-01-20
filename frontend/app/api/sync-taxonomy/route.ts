@@ -30,14 +30,24 @@ export async function GET(request: Request) {
     // Check query parameters
     const { searchParams } = new URL(request.url);
     const skipHistory = searchParams.get('skipHistory') === 'true';
+    const fileParam = searchParams.get('file'); // Optional: sync specific file(s)
     
-    // Set a timeout for the sync operation (45 seconds to allow for file downloads)
+    // Parse file parameter (can be single file or comma-separated list)
+    let files: string[] | null = null;
+    if (fileParam) {
+      files = fileParam.split(',').map(f => f.trim()).filter(Boolean);
+    }
+    
+    // Set a timeout for the sync operation (55 seconds to allow for file downloads)
     // History generation is skipped for manual syncs to avoid timeouts
-    const syncPromise = syncTaxonomy({ skipHistory: skipHistory || true }); // Default to skipping history for manual syncs
+    const syncPromise = syncTaxonomy({ 
+      skipHistory: skipHistory || true, // Default to skipping history for manual syncs
+      files: files || undefined // Sync specific files if provided
+    });
     
-    // Race between sync and timeout
+    // Race between sync and timeout (slightly less than maxDuration to allow for response processing)
     const timeoutPromise = new Promise((_, reject) => 
-      setTimeout(() => reject(new Error('Sync operation timed out after 45 seconds')), 45000)
+      setTimeout(() => reject(new Error('Sync operation timed out after 55 seconds. File downloads may be slow or the connection may be unstable.')), 55000)
     );
     
     const result = await Promise.race([syncPromise, timeoutPromise]) as Awaited<ReturnType<typeof syncTaxonomy>>;
@@ -85,3 +95,7 @@ export async function GET(request: Request) {
 
 // Mark this route as dynamic since it performs file operations
 export const dynamic = 'force-dynamic';
+
+// Set maximum duration to 60 seconds (Pro plan allows up to 300s)
+// This gives us enough time for file downloads even if they're slow
+export const maxDuration = 60;

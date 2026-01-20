@@ -36,38 +36,67 @@ function ensureSyncDir() {
   }
 }
 
-// Download a file from GitHub
-function downloadFile(filePath, outputPath) {
+// Download a file from GitHub with timeout
+function downloadFile(filePath, outputPath, timeoutMs = 30000) {
   return new Promise((resolve, reject) => {
     const url = `${BASE_URL}/${filePath}`;
     console.log(`Downloading: ${url}`);
     
     const file = fs.createWriteStream(outputPath);
+    let timeout;
+    let completed = false;
     
-    https.get(url, (response) => {
+    const cleanup = (shouldDeleteFile = false) => {
+      if (timeout) {
+        clearTimeout(timeout);
+        timeout = null;
+      }
+      if (!completed) {
+        completed = true;
+        file.close();
+        if (shouldDeleteFile && fs.existsSync(outputPath)) {
+          try {
+            fs.unlinkSync(outputPath);
+          } catch (e) {
+            // Ignore cleanup errors
+          }
+        }
+      }
+    };
+    
+    // Set timeout for the download
+    timeout = setTimeout(() => {
+      cleanup(true);
+      reject(new Error(`Download timeout for ${filePath} after ${timeoutMs}ms`));
+    }, timeoutMs);
+    
+    https.get(url, {
+      timeout: timeoutMs,
+      headers: {
+        'User-Agent': 'measurand-taxonomy-sync',
+      }
+    }, (response) => {
       if (response.statusCode === 200) {
         response.pipe(file);
         file.on('finish', () => {
-          file.close();
-          console.log(`✓ Downloaded: ${filePath}`);
+          cleanup(false);
+          console.log(`✓ Downloaded: ${filePath} (${(fs.statSync(outputPath).size / 1024).toFixed(2)} KB)`);
           resolve();
         });
       } else if (response.statusCode === 404) {
-        file.close();
-        fs.unlinkSync(outputPath); // Delete empty file
+        cleanup(true);
         console.warn(`⚠ File not found: ${filePath} (404)`);
         resolve(); // Don't fail on missing files
       } else {
-        file.close();
-        fs.unlinkSync(outputPath);
+        cleanup(true);
         reject(new Error(`Failed to download ${filePath}: ${response.statusCode} ${response.statusMessage}`));
       }
     }).on('error', (err) => {
-      file.close();
-      if (fs.existsSync(outputPath)) {
-        fs.unlinkSync(outputPath);
-      }
-      reject(err);
+      cleanup(true);
+      reject(new Error(`Network error downloading ${filePath}: ${err.message}`));
+    }).on('timeout', () => {
+      cleanup(true);
+      reject(new Error(`Request timeout for ${filePath}`));
     });
   });
 }
@@ -131,9 +160,38 @@ async function needsUpdate() {
   }
 }
 
+// Sync a single file
+async function syncSingleFile(fileName) {
+  if (!FILES_TO_SYNC.includes(fileName)) {
+    throw new Error(`Invalid file name: ${fileName}. Must be one of: ${FILES_TO_SYNC.join(', ')}`);
+  }
+  
+  console.log(`╔════════════════════════════════════════════════════════╗`);
+  console.log(`║  Syncing Single File: ${fileName.padEnd(30)} ║`);
+  console.log(`╚════════════════════════════════════════════════════════╝`);
+  console.log('');
+  
+  const startTime = Date.now();
+  
+  try {
+    ensureSyncDir();
+    const outputPath = path.join(SYNC_DIR, fileName);
+    
+    await downloadFile(fileName, outputPath, 20000);
+    
+    const duration = Date.now() - startTime;
+    console.log(`✓ File synced successfully in ${duration}ms`);
+    
+    return { success: true, fileName, duration };
+  } catch (error) {
+    console.error(`✗ Failed to sync ${fileName}:`, error.message);
+    return { success: false, fileName, error: error.message };
+  }
+}
+
 // Main sync function
 async function syncTaxonomy(options = {}) {
-  const { skipHistory = false } = options;
+  const { skipHistory = false, files = null } = options;
   
   console.log('╔════════════════════════════════════════════════════════╗');
   console.log('║  Syncing Taxonomy Data from NCSLI-MII Repository      ║');
@@ -143,25 +201,61 @@ async function syncTaxonomy(options = {}) {
   const startTime = Date.now();
   
   try {
-    // Check if update is needed
-    const updateNeeded = await needsUpdate();
-    if (updateNeeded === false) {
-      console.log('No updates available. Exiting.');
-      return { success: true, updated: false };
-    }
-    
     // Ensure sync directory exists
     ensureSyncDir();
     
-    // Download all files
-    console.log('Downloading taxonomy files...');
-    const downloadPromises = FILES_TO_SYNC.map(file => {
-      const outputPath = path.join(SYNC_DIR, file);
-      return downloadFile(file, outputPath);
-    });
+    // Download files (either specified files or all files)
+    const filesToDownload = files && Array.isArray(files) ? files : FILES_TO_SYNC;
     
-    await Promise.all(downloadPromises);
-    console.log(`✓ Downloaded ${FILES_TO_SYNC.length} files`);
+    // Only check for updates if syncing all files (not individual files)
+    let updateNeeded = true;
+    if (!files || files.length === FILES_TO_SYNC.length) {
+      updateNeeded = await needsUpdate();
+      if (updateNeeded === false) {
+        console.log('No updates available. Exiting.');
+        return { success: true, updated: false };
+      }
+    }
+    
+    // Validate file names
+    const invalidFiles = filesToDownload.filter(f => !FILES_TO_SYNC.includes(f));
+    if (invalidFiles.length > 0) {
+      throw new Error(`Invalid file names: ${invalidFiles.join(', ')}. Valid files: ${FILES_TO_SYNC.join(', ')}`);
+    }
+    
+    console.log(`Downloading ${filesToDownload.length} file(s)...`);
+    const downloadedFiles = [];
+    const failedFiles = [];
+    
+    for (const file of filesToDownload) {
+      const outputPath = path.join(SYNC_DIR, file);
+      try {
+        await downloadFile(file, outputPath, 20000); // 20 second timeout per file
+        downloadedFiles.push(file);
+      } catch (error) {
+        console.error(`✗ Failed to download ${file}:`, error.message);
+        failedFiles.push({ file, error: error.message });
+        // Continue with other files even if one fails
+      }
+    }
+    
+    if (downloadedFiles.length > 0) {
+      console.log(`✓ Downloaded ${downloadedFiles.length}/${FILES_TO_SYNC.length} files`);
+    }
+    
+    if (failedFiles.length > 0) {
+      console.warn(`⚠ Failed to download ${failedFiles.length} file(s):`);
+      failedFiles.forEach(({ file, error }) => {
+        console.warn(`  - ${file}: ${error}`);
+      });
+      
+      // If critical files failed, fail the sync
+      const criticalFiles = ['MeasurandTaxonomyCatalog.xml'];
+      const criticalFailed = failedFiles.some(({ file }) => criticalFiles.includes(file));
+      if (criticalFailed) {
+        throw new Error(`Critical file download failed: ${failedFiles.find(({ file }) => criticalFiles.includes(file)).file}`);
+      }
+    }
     
     // Generate history cache using GitHub API (optional, can be slow)
     if (!skipHistory) {
@@ -184,23 +278,29 @@ async function syncTaxonomy(options = {}) {
       console.log('⚠ Skipping history cache generation (use skipHistory=false to enable)');
     }
     
-    // Save commit SHA if we got it
-    if (typeof updateNeeded === 'string') {
-      const commitFile = path.join(SYNC_DIR, '.last-sync-commit');
-      fs.writeFileSync(commitFile, updateNeeded);
-      console.log(`✓ Saved commit SHA: ${updateNeeded.substring(0, 7)}`);
+    // Only update commit SHA and metadata if syncing all files (not individual files)
+    // This ensures metadata reflects a complete sync, not a partial one
+    if (!files || files.length === FILES_TO_SYNC.length) {
+      // Save commit SHA if we got it
+      if (typeof updateNeeded === 'string') {
+        const commitFile = path.join(SYNC_DIR, '.last-sync-commit');
+        fs.writeFileSync(commitFile, updateNeeded);
+        console.log(`✓ Saved commit SHA: ${updateNeeded.substring(0, 7)}`);
+      }
+      
+      // Save sync metadata
+      const metadata = {
+        syncedAt: new Date().toISOString(),
+        commitSHA: typeof updateNeeded === 'string' ? updateNeeded : null,
+        files: FILES_TO_SYNC,
+        source: `https://github.com/${REPO_OWNER}/${REPO_NAME}`,
+      };
+      
+      const metadataPath = path.join(SYNC_DIR, '.sync-metadata.json');
+      fs.writeFileSync(metadataPath, JSON.stringify(metadata, null, 2));
+    } else {
+      console.log(`⚠ Partial sync (${files.length} file(s)) - metadata not updated`);
     }
-    
-    // Save sync metadata
-    const metadata = {
-      syncedAt: new Date().toISOString(),
-      commitSHA: typeof updateNeeded === 'string' ? updateNeeded : null,
-      files: FILES_TO_SYNC,
-      source: `https://github.com/${REPO_OWNER}/${REPO_NAME}`,
-    };
-    
-    const metadataPath = path.join(SYNC_DIR, '.sync-metadata.json');
-    fs.writeFileSync(metadataPath, JSON.stringify(metadata, null, 2));
     
     const duration = Date.now() - startTime;
     
@@ -210,9 +310,12 @@ async function syncTaxonomy(options = {}) {
     console.log('╚════════════════════════════════════════════════════════╝');
     console.log('');
     console.log(`📊 Statistics:`);
-    console.log(`   • Files synced:        ${FILES_TO_SYNC.length}`);
+    console.log(`   • Files synced:        ${downloadedFiles.length}${files ? ` (of ${files.length} requested)` : ''}`);
     console.log(`   • Sync duration:       ${duration}ms`);
     console.log(`   • Output directory:    ${SYNC_DIR}`);
+    if (failedFiles.length > 0) {
+      console.log(`   • Failed files:        ${failedFiles.length}`);
+    }
     console.log('');
     
     return { success: true, updated: true, commitSHA: typeof updateNeeded === 'string' ? updateNeeded : null };
@@ -242,4 +345,4 @@ if (require.main === module) {
     });
 }
 
-module.exports = { syncTaxonomy };
+module.exports = { syncTaxonomy, syncSingleFile, FILES_TO_SYNC };

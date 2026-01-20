@@ -59,6 +59,77 @@ export default function SyncPage() {
     }
   }
 
+  async function triggerFileSync(fileName: string) {
+    setStatus({
+      syncing: true,
+      success: null,
+      message: `Syncing ${fileName}...`,
+      timestamp: null,
+      commitSHA: null,
+      filesSynced: null,
+      error: null,
+    });
+
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 seconds for single file
+      
+      const response = await fetch(`/api/sync-taxonomy?skipHistory=true&file=${encodeURIComponent(fileName)}`, {
+        method: 'GET',
+        signal: controller.signal,
+      });
+      
+      clearTimeout(timeoutId);
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setStatus({
+          syncing: false,
+          success: true,
+          message: `${fileName} synced successfully`,
+          timestamp: data.timestamp,
+          commitSHA: data.commitSHA,
+          filesSynced: 1,
+          error: null,
+        });
+        setTimeout(() => {
+          loadSyncInfo();
+        }, 1000);
+      } else {
+        setStatus({
+          syncing: false,
+          success: false,
+          message: `Failed to sync ${fileName}`,
+          timestamp: data.timestamp || null,
+          commitSHA: null,
+          filesSynced: null,
+          error: data.error || 'Unknown error',
+        });
+      }
+    } catch (error) {
+      const errorMessage = error instanceof Error 
+        ? (error.name === 'AbortError' 
+          ? `Sync timed out for ${fileName}` 
+          : error.message)
+        : 'Network error';
+      
+      setStatus({
+        syncing: false,
+        success: false,
+        message: `Failed to sync ${fileName}`,
+        timestamp: null,
+        commitSHA: null,
+        filesSynced: null,
+        error: errorMessage,
+      });
+      
+      setTimeout(() => {
+        loadSyncInfo();
+      }, 1000);
+    }
+  }
+
   async function triggerSync() {
     setStatus({
       syncing: true,
@@ -195,13 +266,21 @@ export default function SyncPage() {
                     <p className="text-sm font-medium text-[#24292f] dark:text-[#e6edf3] mb-2">
                       Synced Files ({syncInfo.files.length}):
                     </p>
-                    <ul className="space-y-1 text-sm text-[#656d76] dark:text-[#8b949e]">
+                    <ul className="space-y-2 text-sm text-[#656d76] dark:text-[#8b949e]">
                       {syncInfo.files.map((file) => (
-                        <li key={file.name} className="flex items-center justify-between">
-                          <span className="font-mono">{file.name}</span>
-                          <span className="ml-4">
+                        <li key={file.name} className="flex items-center justify-between gap-2">
+                          <span className="font-mono flex-1">{file.name}</span>
+                          <span className="text-xs text-[#656d76] dark:text-[#8b949e]">
                             {(file.size / 1024).toFixed(2)} KB
                           </span>
+                          <button
+                            onClick={() => triggerFileSync(file.name)}
+                            disabled={status.syncing}
+                            className="px-2 py-1 text-xs bg-[#f6f8fa] dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded hover:bg-[#f3f4f6] dark:hover:bg-[#21262d] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                            title={`Re-sync ${file.name}`}
+                          >
+                            <RefreshCw className={`w-3 h-3 ${status.syncing ? 'animate-spin' : ''}`} />
+                          </button>
                         </li>
                       ))}
                     </ul>
@@ -303,14 +382,37 @@ export default function SyncPage() {
           <div className="p-4 bg-[#f6f8fa] dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded-md">
             <h3 className="text-lg font-semibold text-[#24292f] dark:text-[#e6edf3] mb-3 flex items-center gap-2">
               <Download className="w-5 h-5" />
-              Files Synced
+              Files Available for Sync
             </h3>
-            <ul className="space-y-2 text-sm text-[#656d76] dark:text-[#8b949e]">
-              <li>• MeasurandTaxonomyCatalog.xml (main catalog)</li>
-              <li>• MeasurandTaxonomyCatalog.xsd (schema)</li>
-              <li>• MeasurandTaxonomyProperties.xml (properties)</li>
-              <li>• LICENSE (license text)</li>
-              <li>• COPYRIGHT (copyright information)</li>
+            <ul className="space-y-2 text-sm">
+              {[
+                { name: 'MeasurandTaxonomyCatalog.xml', desc: 'main catalog' },
+                { name: 'MeasurandTaxonomyCatalog.xsd', desc: 'schema' },
+                { name: 'MeasurandTaxonomyProperties.xml', desc: 'properties' },
+                { name: 'LICENSE', desc: 'license text' },
+                { name: 'COPYRIGHT', desc: 'copyright information' },
+              ].map((file) => {
+                const isSynced = syncInfo?.files.some(f => f.name === file.name);
+                return (
+                  <li key={file.name} className="flex items-center justify-between gap-2">
+                    <span className="text-[#656d76] dark:text-[#8b949e]">
+                      <span className="font-mono">{file.name}</span>
+                      <span className="ml-2 text-xs">({file.desc})</span>
+                      {isSynced && (
+                        <span className="ml-2 text-xs text-[#0969da] dark:text-[#58a6ff]">✓ synced</span>
+                      )}
+                    </span>
+                    <button
+                      onClick={() => triggerFileSync(file.name)}
+                      disabled={status.syncing}
+                      className="px-2 py-1 text-xs bg-[#f6f8fa] dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded hover:bg-[#f3f4f6] dark:hover:bg-[#21262d] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      title={`Sync ${file.name}`}
+                    >
+                      <RefreshCw className={`w-3 h-3 ${status.syncing ? 'animate-spin' : ''}`} />
+                    </button>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 
@@ -339,6 +441,9 @@ export default function SyncPage() {
               </p>
               <p className="mt-2">
                 <strong>Manual Sync:</strong> History cache generation is skipped for manual syncs to ensure fast completion (typically 5-10 seconds). The automatic daily sync includes full history generation.
+              </p>
+              <p className="mt-2">
+                <strong>Individual File Sync:</strong> You can sync individual files by clicking the refresh icon next to each file in the sync status section. This is useful if a specific file fails during the main sync or needs to be updated independently.
               </p>
             </div>
           </div>
