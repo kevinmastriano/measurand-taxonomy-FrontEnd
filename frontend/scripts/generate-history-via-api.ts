@@ -347,9 +347,23 @@ async function generateHistoryCache() {
   
   const startTime = Date.now();
   
+  // Declare variables outside try block so they're accessible in catch
+  let commits: Array<{
+    hash: string;
+    fullHash: string;
+    author: string;
+    date: string;
+    message: string;
+    files: string[];
+  }> = [];
+  const history: TaxonomyChange[] = [];
+  let initialCommit: any = null;
+  let commitsWithCatalog = 0;
+  let commitsSkipped = 0;
+  
   try {
     // Get commits
-    const commits = await getTaxonomyCommits();
+    commits = await getTaxonomyCommits();
     
     if (commits.length === 0) {
       console.log('No taxonomy commits found');
@@ -359,11 +373,7 @@ async function generateHistoryCache() {
     // Reverse to process oldest first
     commits.reverse();
     
-    const history: TaxonomyChange[] = [];
     let previousTaxons: any[] = [];
-    let initialCommit: any = null;
-    let commitsWithCatalog = 0;
-    let commitsSkipped = 0;
     
     console.log(`Processing ${commits.length} commits...`);
     
