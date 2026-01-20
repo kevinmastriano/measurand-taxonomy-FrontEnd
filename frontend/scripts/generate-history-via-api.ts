@@ -332,12 +332,16 @@ async function generateHistoryCache() {
   console.log('╚════════════════════════════════════════════════════════╝');
   console.log('');
   
-  // Warn if no GitHub token (lower rate limits)
-  if (!process.env.GITHUB_TOKEN) {
+  // Check GitHub token status
+  const hasToken = !!process.env.GITHUB_TOKEN;
+  if (!hasToken) {
     console.log('⚠ WARNING: No GITHUB_TOKEN set. Using unauthenticated API.');
     console.log('   Rate limit: 60 requests/hour (may be insufficient)');
     console.log('   To increase limit to 5000/hour, set GITHUB_TOKEN environment variable');
     console.log('   Create token at: https://github.com/settings/tokens');
+    console.log('');
+  } else {
+    console.log('✓ GITHUB_TOKEN detected - using authenticated API (5000 requests/hour limit)');
     console.log('');
   }
   
@@ -358,6 +362,8 @@ async function generateHistoryCache() {
     const history: TaxonomyChange[] = [];
     let previousTaxons: any[] = [];
     let initialCommit: any = null;
+    let commitsWithCatalog = 0;
+    let commitsSkipped = 0;
     
     console.log(`Processing ${commits.length} commits...`);
     
@@ -381,9 +387,12 @@ async function generateHistoryCache() {
         // If main catalog doesn't exist, try source files
         if (!xmlContent) {
           // For now, skip commits without main catalog (would need to fetch multiple source files)
-          console.log(`  Skipping - no main catalog at this commit`);
+          commitsSkipped++;
+          console.log(`  Skipping - no main catalog at this commit (${commitsSkipped} skipped so far)`);
           continue;
         }
+        
+        commitsWithCatalog++;
         
         const taxons = await parseTaxonomyXML(xmlContent);
         
@@ -479,14 +488,17 @@ async function generateHistoryCache() {
     }
     console.log(`📊 Statistics:`);
     console.log(`   • Total commits found:         ${commits.length}`);
-    console.log(`   • Commits processed:           ${processedCommits}`);
+    console.log(`   • Commits with main catalog:   ${commitsWithCatalog}`);
+    console.log(`   • Commits skipped (no catalog): ${commitsSkipped}`);
     console.log(`   • Commits with changes:        ${history.length}`);
     console.log(`   • Total taxonomy changes:     ${cache.changes.reduce((sum, h) => sum + h.changes.length, 0)}`);
     console.log(`   • Processing time:             ${duration}ms`);
     console.log(`   • Cache file size:             ${fileSizeKB} KB`);
     console.log(`   • Output location:             ${HISTORY_CACHE_FILE}`);
-    if (hitRateLimit) {
-      console.log(`   • API calls remaining:         ${rateLimitRemaining}`);
+    console.log(`   • API calls remaining:         ${rateLimitRemaining}`);
+    if (commitsSkipped > 0) {
+      console.log(`   • Note: ${commitsSkipped} commits skipped because they don't have MeasurandTaxonomyCatalog.xml`);
+      console.log(`     (Older commits may only have source/ files, not the combined catalog)`);
     }
     console.log('');
     
