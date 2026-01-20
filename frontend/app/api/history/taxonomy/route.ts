@@ -1,6 +1,10 @@
 import { NextResponse } from 'next/server';
 import { getCachedTaxonomyHistory } from '@/lib/taxonomy-history-cache';
 import { getStaticHistoryCache, shouldUseStaticCache } from '@/lib/static-history-cache';
+// Mark this route as dynamic since it uses request.url for query parameters
+export const dynamic = 'force-dynamic';
+
+
 
 export async function GET(request: Request) {
   try {
