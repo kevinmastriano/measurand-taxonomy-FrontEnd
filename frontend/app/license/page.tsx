@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import Image from 'next/image';
 
 async function getLicenseContent() {
   try {
@@ -21,6 +22,7 @@ async function getLicenseContent() {
     for (const testPath of possibleLicensePaths) {
       if (fs.existsSync(testPath)) {
         licensePath = testPath;
+        console.log(`[License] Found LICENSE at: ${testPath}`);
         break;
       }
     }
@@ -30,22 +32,27 @@ async function getLicenseContent() {
     for (const testPath of possibleCopyrightPaths) {
       if (fs.existsSync(testPath)) {
         copyrightPath = testPath;
+        console.log(`[License] Found COPYRIGHT at: ${testPath}`);
         break;
       }
+    }
+    
+    if (!copyrightPath) {
+      console.warn('[License] COPYRIGHT file not found. Checked paths:', possibleCopyrightPaths);
     }
     
     const license = licensePath ? fs.readFileSync(licensePath, 'utf-8') : '';
     const copyright = copyrightPath ? fs.readFileSync(copyrightPath, 'utf-8') : '';
     
-    return { license, copyright };
+    return { license, copyright, copyrightFound: !!copyrightPath };
   } catch (error) {
     console.error('Error loading license:', error);
-    return { license: '', copyright: '' };
+    return { license: '', copyright: '', copyrightFound: false };
   }
 }
 
 export default async function LicensePage() {
-  const { license, copyright } = await getLicenseContent();
+  const { license, copyright, copyrightFound } = await getLicenseContent();
 
   return (
     <div>
@@ -66,9 +73,15 @@ export default async function LicensePage() {
             </h2>
           </div>
           <div className="p-6 bg-[#ffffff] dark:bg-[#0d1117]">
-            <pre className="whitespace-pre-wrap text-sm text-[#24292f] dark:text-[#e6edf3] font-sans leading-relaxed bg-[#f6f8fa] dark:bg-[#161b22] p-4 rounded-md border border-[#d0d7de] dark:border-[#30363d] overflow-x-auto">
-              {copyright}
-            </pre>
+            {copyrightFound && copyright ? (
+              <pre className="whitespace-pre-wrap text-sm text-[#24292f] dark:text-[#e6edf3] font-sans leading-relaxed bg-[#f6f8fa] dark:bg-[#161b22] p-4 rounded-md border border-[#d0d7de] dark:border-[#30363d] overflow-x-auto">
+                {copyright}
+              </pre>
+            ) : (
+              <div className="text-sm text-[#656d76] dark:text-[#8b949e] italic bg-[#f6f8fa] dark:bg-[#161b22] p-4 rounded-md border border-[#d0d7de] dark:border-[#30363d]">
+                Copyright information will be available after the taxonomy sync completes. The COPYRIGHT file is downloaded from the NCSLI-MII repository during the sync process.
+              </div>
+            )}
           </div>
         </div>
 
@@ -98,9 +111,11 @@ export default async function LicensePage() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <img
+                  <Image
                     src="https://licensebuttons.net/l/by-sa/4.0/88x31.png"
                     alt="CC BY-SA 4.0"
+                    width={88}
+                    height={31}
                     className="border border-[#d0d7de] dark:border-[#30363d] rounded bg-[#ffffff] dark:bg-[#0d1117] p-1"
                   />
                 </a>
