@@ -63,14 +63,17 @@ async function githubAPIRequest<T>(
     
     // Check rate limit before making request
     // During builds (VERCEL), don't wait - fail fast so we can save partial cache
-    const isBuild = process.env.VERCEL === '1' || process.env.CI === 'true';
+    const isBuild = process.env.VERCEL === '1' || process.env.CI === 'true' || process.env.NODE_ENV === 'production';
     const now = Math.floor(Date.now() / 1000);
-    if (rateLimitRemaining <= 5 && rateLimitReset > now) {
-      if (isBuild) {
-        // During build, reject immediately so we can save partial cache
-        reject(new Error(`Rate limit exhausted (${rateLimitRemaining} remaining). Saving partial cache.`));
-        return;
-      }
+    
+    // During builds, fail fast if rate limit is low (don't wait)
+    if (isBuild && rateLimitRemaining <= 5) {
+      reject(new Error(`Rate limit low (${rateLimitRemaining} remaining). Saving partial cache. Set GITHUB_TOKEN for complete history.`));
+      return;
+    }
+    
+    // Only wait if not in build environment
+    if (!isBuild && rateLimitRemaining <= 5 && rateLimitReset > now) {
       const waitTime = rateLimitReset - now + 1;
       console.log(`⚠ Rate limit low (${rateLimitRemaining} remaining). Waiting ${waitTime}s...`);
       await new Promise(resolve => setTimeout(resolve, waitTime * 1000));
