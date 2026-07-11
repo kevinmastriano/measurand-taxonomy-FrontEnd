@@ -2,6 +2,7 @@
   "name": "measurand-taxonomy-frontend",
   "version": "1.0.0",
   "private": true,
+  "author": "Kevin Mastriano <kmastriano@customcalibration.com> (https://customcalibration.com)",
   "scripts": {
     "dev": "next dev -p 3001",
     "prebuild": "node scripts/build-history-cache.js",

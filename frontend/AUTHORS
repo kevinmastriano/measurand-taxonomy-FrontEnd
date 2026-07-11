@@ -1,0 +1,14 @@
+# Authors & Credits
+
+## Web application (frontend)
+Kevin Mastriano, Custom Calibration <kmastriano@customcalibration.com>
+https://customcalibration.com
+
+Designed and developed the Measurand Taxonomy web application (Next.js
+frontend, API integration, and sync/history tooling) in this directory.
+
+## Taxonomy data & catalog
+NCSL International — Measurement Information Infrastructure (MII) Committee.
+The Measurand Taxonomy Catalog and its data are copyright © NCSL International,
+licensed under Creative Commons Attribution-ShareAlike 4.0 International
+(CC BY-SA 4.0). Source: https://github.com/NCSLI-MII/measurand-taxonomy

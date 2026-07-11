@@ -178,9 +178,17 @@ The application uses TailwindCSS. Modify `tailwind.config.ts` to customize the d
 - New components: Add to `components/` directory
 - Utilities: Add to `lib/` directory
 
+## Credits
+
+Web application designed and developed by **[Kevin Mastriano, Custom Calibration](https://customcalibration.com)**.
+
+The Measurand Taxonomy data is a work of NCSL International (MII Committee). This credit applies to the frontend web application only; see [AUTHORS](./AUTHORS).
+
 ## License
 
 This frontend application is part of the Measurand Taxonomy project and is licensed under the same Creative Commons Attribution-ShareAlike 4.0 International License.
+
+Copyright © NCSL International for the taxonomy data and catalog.
 
 ## Support
 
