@@ -1,108 +1,49 @@
 import { NextResponse } from 'next/server';
-import { syncTaxonomy } from '@/scripts/sync-taxonomy-v2';
-import fs from 'fs';
-import path from 'path';
+import { revalidateTag } from 'next/cache';
+import { TAXONOMY_TAG } from '@/lib/taxonomy-loader';
 
 /**
- * Optimized API Route for syncing taxonomy data from NCSLI-MII repository
- * 
- * Uses fire-and-forget pattern: returns immediately, processes in background
- * This prevents timeouts and provides better UX
- * 
- * Security: In production, you may want to add authentication/authorization
- * to prevent unauthorized access to this endpoint.
+ * Sync endpoint (Path A — ISR based, no runtime disk writes).
+ *
+ * On Vercel the deployment filesystem is read-only, so we cannot download and
+ * persist files at request time. Instead, this endpoint invalidates the
+ * taxonomy cache tag; the next read of the catalog re-fetches fresh XML from
+ * GitHub (see lib/taxonomy-loader.ts). This is cheap, idempotent, and safe.
+ *
+ * Triggered by:
+ *  - the daily Vercel cron (vercel.json), which automatically sends
+ *    `Authorization: Bearer <CRON_SECRET>` when CRON_SECRET is configured, and
+ *  - the in-app "Sync Now" button on /sync.
+ *
+ * Security: because the only side effect is an idempotent cache revalidation,
+ * the endpoint is safe to expose. If CRON_SECRET is set, it is enforced so the
+ * endpoint can be fully locked down; when it is unset the endpoint stays open
+ * so the in-app button works without shipping a secret to the browser.
  */
 export async function GET(request: Request) {
-  try {
-    // Check for authorization header (optional security measure)
+  const cronSecret = process.env.CRON_SECRET;
+
+  // Optional lockdown: when CRON_SECRET is configured, require it.
+  if (cronSecret) {
     const authHeader = request.headers.get('authorization');
-    const cronSecret = process.env.CRON_SECRET;
-    
-    // If CRON_SECRET is set, require it in the Authorization header
-    if (cronSecret) {
-      if (authHeader !== `Bearer ${cronSecret}`) {
-        return NextResponse.json(
-          { error: 'Unauthorized' },
-          { status: 401 }
-        );
-      }
+    if (authHeader !== `Bearer ${cronSecret}`) {
+      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
     }
-    
-    // Check query parameters
-    const { searchParams } = new URL(request.url);
-    const skipHistory = searchParams.get('skipHistory') === 'true';
-    const fileParam = searchParams.get('file'); // Optional: sync specific file(s)
-    const wait = searchParams.get('wait') === 'true'; // Optional: wait for completion (for cron jobs)
-    
-    // Parse file parameter (can be single file or comma-separated list)
-    let files: string[] | null = null;
-    if (fileParam) {
-      files = fileParam.split(',').map(f => f.trim()).filter(Boolean);
-    }
-    
-    // Fire-and-forget pattern: start sync but don't wait for it
-    // This prevents timeouts and allows the function to return quickly
-    const syncPromise = syncTaxonomy({ 
-      skipHistory: skipHistory || true, // Default to skipping history for manual syncs
-      files: files || undefined // Sync specific files if provided
-    });
-    
-    // If wait=true (for cron jobs), wait for completion with timeout
-    if (wait) {
-      const timeoutPromise = new Promise((_, reject) => 
-        setTimeout(() => reject(new Error('Sync operation timed out after 50 seconds')), 50000)
-      );
-      
-      const result = await Promise.race([syncPromise, timeoutPromise]) as Awaited<ReturnType<typeof syncTaxonomy>>;
-      
-      if (result.success) {
-        const syncDir = path.join(process.cwd(), 'data', 'taxonomy');
-        let filesSynced = 0;
-        if (fs.existsSync(syncDir)) {
-          filesSynced = fs.readdirSync(syncDir).filter((f: string) => !f.startsWith('.')).length;
-        }
-        
-        return NextResponse.json({
-          success: true,
-          updated: result.updated,
-          commitSHA: result.commitSHA,
-          filesSynced,
-          downloaded: result.downloaded || 0,
-          skipped: result.skipped || 0,
-          failed: result.failed || 0,
-          message: result.updated 
-            ? 'Taxonomy data synced successfully' 
-            : 'No updates available',
-          timestamp: new Date().toISOString(),
-        });
-      } else {
-        return NextResponse.json(
-          {
-            success: false,
-            error: result.error,
-            timestamp: new Date().toISOString(),
-          },
-          { status: 500 }
-        );
-      }
-    }
-    
-    // Fire-and-forget: return immediately, process in background
-    // Don't await - let it run asynchronously
-    syncPromise.catch((error) => {
-      console.error('[Background Sync Error]:', error);
-      // Error is logged but doesn't affect the response
-    });
-    
-    // Return immediately with "processing" status
+  }
+
+  try {
+    revalidateTag(TAXONOMY_TAG);
+
     return NextResponse.json({
       success: true,
-      message: 'Sync started in background. Check sync status page for progress.',
+      revalidated: true,
+      tag: TAXONOMY_TAG,
+      message:
+        'Taxonomy cache revalidated. Fresh data will be fetched from GitHub on the next request.',
       timestamp: new Date().toISOString(),
-      processing: true,
     });
   } catch (error) {
-    console.error('Error in sync endpoint:', error);
+    console.error('[Sync] Failed to revalidate taxonomy cache:', error);
     return NextResponse.json(
       {
         success: false,
@@ -114,9 +55,6 @@ export async function GET(request: Request) {
   }
 }
 
-// Mark this route as dynamic since it performs file operations
+// Revalidation must run per-request, never statically.
 export const dynamic = 'force-dynamic';
-
-// Set maximum duration to 60 seconds (Pro plan allows up to 300s)
-// This gives us enough time for file downloads even if they're slow
 export const maxDuration = 60;

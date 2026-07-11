@@ -350,7 +350,7 @@ export default function DisciplineVersionHistory({ disciplineName }: DisciplineV
                         </div>
                         <div className="mt-2">
                           <Link
-                            href={`/taxons/${encodeURIComponent(taxonChange.taxonName)}`}
+                            href={`/browse?taxon=${encodeURIComponent(taxonChange.taxonName)}`}
                             className="text-xs text-[#0969da] dark:text-[#58a6ff] hover:underline"
                           >
                             View taxon details →
