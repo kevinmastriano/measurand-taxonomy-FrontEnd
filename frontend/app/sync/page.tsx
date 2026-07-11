@@ -1,15 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { RefreshCw, CheckCircle, XCircle, Clock, Download, FileText } from 'lucide-react';
+import { useState, useEffect, useCallback } from 'react';
+import { RefreshCw, CheckCircle, XCircle, Clock, FileText } from 'lucide-react';
 
-interface SyncStatus {
-  syncing: boolean;
+interface RefreshStatus {
+  refreshing: boolean;
   success: boolean | null;
   message: string;
   timestamp: string | null;
-  commitSHA: string | null;
-  filesSynced: number | null;
   error: string | null;
 }
 
@@ -29,34 +27,20 @@ interface SyncStatusResponse {
 }
 
 export default function SyncPage() {
-  const [status, setStatus] = useState<SyncStatus>({
-    syncing: false,
+  const [status, setStatus] = useState<RefreshStatus>({
+    refreshing: false,
     success: null,
     message: '',
     timestamp: null,
-    commitSHA: null,
-    filesSynced: null,
     error: null,
   });
   const [syncInfo, setSyncInfo] = useState<SyncStatusResponse | null>(null);
   const [loadingInfo, setLoadingInfo] = useState(true);
 
-  useEffect(() => {
-    // Load sync status info
-    loadSyncInfo();
-    
-    // Poll sync status if sync is in progress
-    const pollInterval = setInterval(() => {
-      if (syncInfo?.syncing) {
-        loadSyncInfo();
-      }
-    }, 2000);
-    
-    return () => clearInterval(pollInterval);
-  }, [syncInfo?.syncing]);
-
-  async function loadSyncInfo() {
-    setLoadingInfo(true);
+  // Load the read-only status panel. Only toggles the loading spinner on the
+  // initial load so subsequent refreshes don't flicker the panel.
+  const loadSyncInfo = useCallback(async (initial = false) => {
+    if (initial) setLoadingInfo(true);
     try {
       const response = await fetch('/api/sync-status');
       const data = await response.json();
@@ -66,175 +50,66 @@ export default function SyncPage() {
     } catch (error) {
       console.error('Error loading sync info:', error);
     } finally {
-      setLoadingInfo(false);
+      if (initial) setLoadingInfo(false);
     }
-  }
+  }, []);
 
-  async function triggerFileSync(fileName: string) {
+  useEffect(() => {
+    loadSyncInfo(true);
+  }, [loadSyncInfo]);
+
+  async function triggerRefresh() {
     setStatus({
-      syncing: true,
+      refreshing: true,
       success: null,
-      message: `Syncing ${fileName}...`,
+      message: 'Revalidating taxonomy cache...',
       timestamp: null,
-      commitSHA: null,
-      filesSynced: null,
       error: null,
     });
 
     try {
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 seconds for single file
-      
-      const response = await fetch(`/api/sync-taxonomy?skipHistory=true&file=${encodeURIComponent(fileName)}`, {
+      const timeoutId = setTimeout(() => controller.abort(), 30000);
+
+      const response = await fetch('/api/sync-taxonomy', {
         method: 'GET',
         signal: controller.signal,
       });
-      
-      clearTimeout(timeoutId);
 
+      clearTimeout(timeoutId);
       const data = await response.json();
 
       if (response.ok && data.success) {
         setStatus({
-          syncing: false,
+          refreshing: false,
           success: true,
-          message: `${fileName} synced successfully`,
-          timestamp: data.timestamp,
-          commitSHA: data.commitSHA,
-          filesSynced: 1,
+          message: data.message || 'Taxonomy cache revalidated.',
+          timestamp: data.timestamp ?? null,
           error: null,
         });
-        setTimeout(() => {
-          loadSyncInfo();
-        }, 1000);
+        // Reflect any change in the status panel.
+        loadSyncInfo();
       } else {
         setStatus({
-          syncing: false,
+          refreshing: false,
           success: false,
-          message: `Failed to sync ${fileName}`,
-          timestamp: data.timestamp || null,
-          commitSHA: null,
-          filesSynced: null,
-          error: data.error || 'Unknown error',
+          message: 'Refresh failed',
+          timestamp: data.timestamp ?? null,
+          error: data.error || (response.status === 401 ? 'Unauthorized (CRON_SECRET is set on this endpoint)' : 'Unknown error'),
         });
       }
     } catch (error) {
-      const errorMessage = error instanceof Error 
-        ? (error.name === 'AbortError' 
-          ? `Sync timed out for ${fileName}` 
-          : error.message)
+      const errorMessage = error instanceof Error
+        ? (error.name === 'AbortError' ? 'Request timed out.' : error.message)
         : 'Network error';
-      
+
       setStatus({
-        syncing: false,
+        refreshing: false,
         success: false,
-        message: `Failed to sync ${fileName}`,
+        message: 'Refresh failed',
         timestamp: null,
-        commitSHA: null,
-        filesSynced: null,
         error: errorMessage,
       });
-      
-      setTimeout(() => {
-        loadSyncInfo();
-      }, 1000);
-    }
-  }
-
-  async function triggerSync() {
-    setStatus({
-      syncing: true,
-      success: null,
-      message: 'Starting sync...',
-      timestamp: null,
-      commitSHA: null,
-      filesSynced: null,
-      error: null,
-    });
-
-    try {
-      // Add timeout to the fetch request (60 seconds)
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 60000);
-      
-      const response = await fetch('/api/sync-taxonomy?skipHistory=true', {
-        method: 'GET',
-        signal: controller.signal,
-      });
-      
-      clearTimeout(timeoutId);
-
-      const data = await response.json();
-
-      if (response.ok && data.success) {
-        // Check if sync is processing in background
-        if (data.processing) {
-          setStatus({
-            syncing: false,
-            success: true,
-            message: data.message || 'Sync started in background. Refreshing status...',
-            timestamp: data.timestamp,
-            commitSHA: null,
-            filesSynced: null,
-            error: null,
-          });
-          // Poll sync status every 2 seconds until complete
-          const pollInterval = setInterval(() => {
-            loadSyncInfo();
-          }, 2000);
-          
-          // Stop polling after 60 seconds
-          setTimeout(() => {
-            clearInterval(pollInterval);
-            loadSyncInfo();
-          }, 60000);
-        } else {
-          setStatus({
-            syncing: false,
-            success: true,
-            message: data.message || 'Sync completed successfully',
-            timestamp: data.timestamp,
-            commitSHA: data.commitSHA,
-            filesSynced: data.filesSynced || null,
-            error: null,
-          });
-          // Reload sync info after a short delay
-          setTimeout(() => {
-            loadSyncInfo();
-          }, 2000);
-        }
-      } else {
-        setStatus({
-          syncing: false,
-          success: false,
-          message: 'Sync failed',
-          timestamp: data.timestamp || null,
-          commitSHA: null,
-          filesSynced: null,
-          error: data.error || 'Unknown error',
-        });
-      }
-    } catch (error) {
-      const errorMessage = error instanceof Error 
-        ? (error.name === 'AbortError' 
-          ? 'Sync timed out after 60 seconds. Files may have been synced, but the operation did not complete. Check the sync status below.' 
-          : error.message)
-        : 'Network error';
-      
-      setStatus({
-        syncing: false,
-        success: false,
-        message: 'Sync failed',
-        timestamp: null,
-        commitSHA: null,
-        filesSynced: null,
-        error: errorMessage,
-      });
-      
-      // Reload sync info to check if files were actually synced despite the error
-      setTimeout(() => {
-        loadSyncInfo();
-      }, 1000);
     }
   }
 
@@ -243,51 +118,39 @@ export default function SyncPage() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-[#24292f] dark:text-[#e6edf3] mb-2">
-            Taxonomy Sync Management
+            Taxonomy Data
           </h1>
           <p className="text-[#656d76] dark:text-[#8b949e]">
-            Manually trigger and monitor taxonomy data synchronization from NCSLI-MII repository
+            Refresh the cached taxonomy so the next request pulls the latest data from the NCSLI-MII repository.
           </p>
         </div>
 
-        {/* Sync Status Info */}
+        {/* Data source / status info */}
         {loadingInfo ? (
           <div className="mb-6 p-4 bg-[#f6f8fa] dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded-md">
             <div className="flex items-center gap-2 text-[#656d76] dark:text-[#8b949e]">
               <RefreshCw className="w-4 h-4 animate-spin" />
-              Loading sync status...
+              Loading status...
             </div>
           </div>
         ) : syncInfo && (
           <div className="mb-6 p-4 bg-[#f6f8fa] dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded-md">
             <h2 className="text-lg font-semibold text-[#24292f] dark:text-[#e6edf3] mb-3 flex items-center gap-2">
               <Clock className="w-5 h-5" />
-              Sync Status
-              {syncInfo.syncing && (
-                <span className="ml-2 px-2 py-1 text-xs bg-[#0969da] dark:bg-[#1f6feb] text-white rounded-md flex items-center gap-1">
-                  <RefreshCw className="w-3 h-3 animate-spin" />
-                  In Progress
-                </span>
-              )}
+              Bundled Data
             </h2>
-            {syncInfo.syncing && syncInfo.progress && (
-              <div className="mb-3 p-3 bg-[#ddf4ff] dark:bg-[#0c2d41] border border-[#54aeff] dark:border-[#1f6feb] rounded-md">
-                <p className="text-sm text-[#0969da] dark:text-[#58a6ff]">
-                  <strong>Sync in progress...</strong> Started at {new Date(syncInfo.progress.startedAt).toLocaleString()}
-                  {' '}({Math.round(syncInfo.progress.duration / 1000)}s ago)
-                </p>
-              </div>
-            )}
             {syncInfo.hasSyncedData ? (
               <div className="space-y-3">
                 {syncInfo.metadata && (
                   <div className="space-y-2 text-sm">
-                    <div>
-                      <span className="text-[#656d76] dark:text-[#8b949e]">Last synced:</span>{' '}
-                      <span className="text-[#24292f] dark:text-[#e6edf3] font-mono">
-                        {new Date(syncInfo.metadata.syncedAt).toLocaleString()}
-                      </span>
-                    </div>
+                    {syncInfo.metadata.syncedAt && (
+                      <div>
+                        <span className="text-[#656d76] dark:text-[#8b949e]">Built/synced:</span>{' '}
+                        <span className="text-[#24292f] dark:text-[#e6edf3] font-mono">
+                          {new Date(syncInfo.metadata.syncedAt).toLocaleString()}
+                        </span>
+                      </div>
+                    )}
                     {syncInfo.metadata.commitSHA && (
                       <div>
                         <span className="text-[#656d76] dark:text-[#8b949e]">Commit SHA:</span>{' '}
@@ -296,23 +159,25 @@ export default function SyncPage() {
                         </span>
                       </div>
                     )}
-                    <div>
-                      <span className="text-[#656d76] dark:text-[#8b949e]">Source:</span>{' '}
-                      <a
-                        href={syncInfo.metadata.source}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-[#0969da] dark:text-[#58a6ff] hover:underline"
-                      >
-                        {syncInfo.metadata.source}
-                      </a>
-                    </div>
+                    {syncInfo.metadata.source && (
+                      <div>
+                        <span className="text-[#656d76] dark:text-[#8b949e]">Source:</span>{' '}
+                        <a
+                          href={syncInfo.metadata.source}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[#0969da] dark:text-[#58a6ff] hover:underline"
+                        >
+                          {syncInfo.metadata.source}
+                        </a>
+                      </div>
+                    )}
                   </div>
                 )}
                 {syncInfo.files.length > 0 && (
                   <div className="mt-4">
                     <p className="text-sm font-medium text-[#24292f] dark:text-[#e6edf3] mb-2">
-                      Synced Files ({syncInfo.files.length}):
+                      Files ({syncInfo.files.length}):
                     </p>
                     <ul className="space-y-2 text-sm text-[#656d76] dark:text-[#8b949e]">
                       {syncInfo.files.map((file) => (
@@ -321,14 +186,6 @@ export default function SyncPage() {
                           <span className="text-xs text-[#656d76] dark:text-[#8b949e]">
                             {(file.size / 1024).toFixed(2)} KB
                           </span>
-                          <button
-                            onClick={() => triggerFileSync(file.name)}
-                            disabled={status.syncing}
-                            className="px-2 py-1 text-xs bg-[#f6f8fa] dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded hover:bg-[#f3f4f6] dark:hover:bg-[#21262d] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                            title={`Re-sync ${file.name}`}
-                          >
-                            <RefreshCw className={`w-3 h-3 ${status.syncing ? 'animate-spin' : ''}`} />
-                          </button>
                         </li>
                       ))}
                     </ul>
@@ -337,34 +194,25 @@ export default function SyncPage() {
               </div>
             ) : (
               <p className="text-sm text-[#656d76] dark:text-[#8b949e]">
-                No synced data found. Click &quot;Trigger Sync&quot; to download taxonomy files.
+                Serving taxonomy directly from GitHub (no bundled data files found on this deployment).
               </p>
             )}
           </div>
         )}
 
-        {/* Sync Control */}
+        {/* Refresh control */}
         <div className="mb-6 p-6 bg-[#ffffff] dark:bg-[#0d1117] border border-[#d0d7de] dark:border-[#30363d] rounded-md">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-semibold text-[#24292f] dark:text-[#e6edf3]">
-              Manual Sync
+              Refresh from GitHub
             </h2>
             <button
-              onClick={triggerSync}
-              disabled={status.syncing}
+              onClick={triggerRefresh}
+              disabled={status.refreshing}
               className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-[#ffffff] bg-[#0969da] hover:bg-[#0860ca] dark:bg-[#1f6feb] dark:hover:bg-[#1a5cd7] rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#0969da] dark:focus:ring-[#58a6ff] focus:ring-offset-2"
             >
-              {status.syncing ? (
-                <>
-                  <RefreshCw className="w-4 h-4 animate-spin" />
-                  Syncing...
-                </>
-              ) : (
-                <>
-                  <RefreshCw className="w-4 h-4" />
-                  Trigger Sync
-                </>
-              )}
+              <RefreshCw className={`w-4 h-4 ${status.refreshing ? 'animate-spin' : ''}`} />
+              {status.refreshing ? 'Refreshing...' : 'Refresh Now'}
             </button>
           </div>
 
@@ -380,7 +228,7 @@ export default function SyncPage() {
               }`}
             >
               <div className="flex items-start gap-3">
-                {status.syncing ? (
+                {status.refreshing ? (
                   <RefreshCw className="w-5 h-5 text-[#0969da] dark:text-[#58a6ff] animate-spin mt-0.5" />
                 ) : status.success === true ? (
                   <CheckCircle className="w-5 h-5 text-[#0969da] dark:text-[#58a6ff] mt-0.5" />
@@ -404,16 +252,6 @@ export default function SyncPage() {
                       {new Date(status.timestamp).toLocaleString()}
                     </p>
                   )}
-                  {status.commitSHA && (
-                    <p className="text-sm text-[#656d76] dark:text-[#8b949e] mt-1">
-                      Commit: <span className="font-mono">{status.commitSHA.substring(0, 7)}</span>
-                    </p>
-                  )}
-                  {status.filesSynced !== null && (
-                    <p className="text-sm text-[#656d76] dark:text-[#8b949e] mt-1">
-                      Files synced: {status.filesSynced}
-                    </p>
-                  )}
                   {status.error && (
                     <p className="text-sm text-[#da3633] dark:text-[#f85149] mt-2 font-mono">
                       {status.error}
@@ -425,75 +263,33 @@ export default function SyncPage() {
           )}
         </div>
 
-        {/* Sync Information */}
-        <div className="space-y-4">
-          <div className="p-4 bg-[#f6f8fa] dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded-md">
-            <h3 className="text-lg font-semibold text-[#24292f] dark:text-[#e6edf3] mb-3 flex items-center gap-2">
-              <Download className="w-5 h-5" />
-              Files Available for Sync
-            </h3>
-            <ul className="space-y-2 text-sm">
-              {[
-                { name: 'MeasurandTaxonomyCatalog.xml', desc: 'main catalog' },
-                { name: 'MeasurandTaxonomyCatalog.xsd', desc: 'schema' },
-                { name: 'MeasurandTaxonomyProperties.xml', desc: 'properties' },
-                { name: 'LICENSE', desc: 'license text' },
-                { name: 'COPYRIGHT', desc: 'copyright information' },
-              ].map((file) => {
-                const isSynced = syncInfo?.files.some(f => f.name === file.name);
-                return (
-                  <li key={file.name} className="flex items-center justify-between gap-2">
-                    <span className="text-[#656d76] dark:text-[#8b949e]">
-                      <span className="font-mono">{file.name}</span>
-                      <span className="ml-2 text-xs">({file.desc})</span>
-                      {isSynced && (
-                        <span className="ml-2 text-xs text-[#0969da] dark:text-[#58a6ff]">✓ synced</span>
-                      )}
-                    </span>
-                    <button
-                      onClick={() => triggerFileSync(file.name)}
-                      disabled={status.syncing}
-                      className="px-2 py-1 text-xs bg-[#f6f8fa] dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded hover:bg-[#f3f4f6] dark:hover:bg-[#21262d] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                      title={`Sync ${file.name}`}
-                    >
-                      <RefreshCw className={`w-3 h-3 ${status.syncing ? 'animate-spin' : ''}`} />
-                    </button>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-
-          <div className="p-4 bg-[#f6f8fa] dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded-md">
-            <h3 className="text-lg font-semibold text-[#24292f] dark:text-[#e6edf3] mb-3 flex items-center gap-2">
-              <FileText className="w-5 h-5" />
-              About
-            </h3>
-            <div className="text-sm text-[#656d76] dark:text-[#8b949e] space-y-2">
-              <p>
-                This page allows you to manually trigger the taxonomy sync process. The sync
-                downloads the latest taxonomy files from the{' '}
-                <a
-                  href="https://github.com/NCSLI-MII/measurand-taxonomy"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[#0969da] dark:text-[#58a6ff] hover:underline"
-                >
-                  NCSLI-MII repository
-                </a>
-                .
-              </p>
-              <p>
-                <strong>Note:</strong> The sync also runs automatically via cron job daily at 2 AM
-                UTC. This manual sync is useful for testing or immediate updates.
-              </p>
-              <p className="mt-2">
-                <strong>Manual Sync:</strong> History cache generation is skipped for manual syncs to ensure fast completion (typically 5-10 seconds). The automatic daily sync includes full history generation.
-              </p>
-              <p className="mt-2">
-                <strong>Individual File Sync:</strong> You can sync individual files by clicking the refresh icon next to each file in the sync status section. This is useful if a specific file fails during the main sync or needs to be updated independently.
-              </p>
-            </div>
+        {/* About */}
+        <div className="p-4 bg-[#f6f8fa] dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded-md">
+          <h3 className="text-lg font-semibold text-[#24292f] dark:text-[#e6edf3] mb-3 flex items-center gap-2">
+            <FileText className="w-5 h-5" />
+            About
+          </h3>
+          <div className="text-sm text-[#656d76] dark:text-[#8b949e] space-y-2">
+            <p>
+              Taxonomy data is fetched from the{' '}
+              <a
+                href="https://github.com/NCSLI-MII/measurand-taxonomy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#0969da] dark:text-[#58a6ff] hover:underline"
+              >
+                NCSLI-MII repository
+              </a>{' '}
+              and cached (ISR). This deployment does not write files at runtime.
+            </p>
+            <p>
+              <strong>Refresh Now</strong> revalidates the cache so the next request re-fetches the
+              latest catalog from GitHub. It does not download or store files locally.
+            </p>
+            <p>
+              A daily cron job (2&nbsp;AM UTC) performs the same revalidation automatically. Revision
+              history is generated at build time.
+            </p>
           </div>
         </div>
       </div>
