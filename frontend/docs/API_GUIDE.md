@@ -89,6 +89,17 @@ All endpoints return a consistent error shape:
 | `503`  | Taxonomy data could not be loaded from disk or GitHub |
 | `500`  | Unexpected server error |
 
+## Rate Limiting & CORS
+
+The API is open (no API keys) but protected against abuse by edge middleware:
+
+- **General endpoints**: 120 requests/minute per IP.
+- **Expensive endpoints** (`/api/sync-taxonomy`, `/api/history/taxonomy/reset`): 5 requests/minute per IP.
+- Exceeding a limit returns `429` with a `Retry-After` header; every response carries `X-RateLimit-Limit` and `X-RateLimit-Remaining`.
+- Limits are per server instance (an abuse backstop). For hard global limits, enable Vercel Firewall rate-limiting rules in the project dashboard.
+
+All `/api/*` responses include `Access-Control-Allow-Origin: *`, so the API can be called from browser apps on any origin. `OPTIONS` preflight requests are answered directly by the middleware with `204`.
+
 ## Caching
 
 - Successful read responses include `Cache-Control: public, s-maxage=300, stale-while-revalidate=600` so CDNs (e.g. Vercel's edge) can cache them for 5 minutes.
