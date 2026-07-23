@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server';
 import { TaxonomyChange } from '@/lib/types';
 import { getCachedTaxonomyHistory } from '@/lib/taxonomy-history-cache';
 import { getStaticHistoryCache, shouldUseStaticCache } from '@/lib/static-history-cache';
+import { apiError, safeDecodeURIComponent } from '@/lib/api-helpers';
+
+export const dynamic = 'force-dynamic';
 
 function filterDisciplineChanges(
   changes: TaxonomyChange[],
@@ -78,7 +81,10 @@ export async function GET(
   { params }: { params: { discipline: string } }
 ) {
   try {
-    const disciplineName = decodeURIComponent(params.discipline);
+    const disciplineName = safeDecodeURIComponent(params.discipline);
+    if (disciplineName === null || disciplineName.trim().length === 0) {
+      return apiError('Invalid discipline name', 400, { changes: [] });
+    }
     console.log(`[DisciplineHistory] Request for discipline: "${disciplineName}"`);
     
     let cachedHistory;

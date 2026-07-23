@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mtc:Taxonomy xmlns:mtc="https://cls-schemas.s3.us-west-1.amazonaws.com/MII/MeasurandTaxonomyCatalog"
+              xmlns:uom="https://cls-schemas.s3.us-west-1.amazonaws.com/MII/UOM_Database">
+  <mtc:Taxon name="Measure.Acceleration" deprecated="false">
+    <mtc:Definition>Measurement of proper acceleration experienced by a device under test.</mtc:Definition>
+    <mtc:Result name="acceleration">
+      <mtc:Quantity name="acceleration"/>
+      <mtc:mLayer aspect="time-domain" id="Q1"/>
+    </mtc:Result>
+    <mtc:Parameter name="frequency" optional="true">
+      <mtc:Definition>Vibration frequency</mtc:Definition>
+      <mtc:Quantity name="frequency"/>
+      <mtc:mLayer aspect="time-domain" id="Q2"/>
+    </mtc:Parameter>
+    <mtc:Discipline name="Mechanical"/>
+  </mtc:Taxon>
+  <mtc:Taxon name="Measure.Voltage.DC" deprecated="false">
+    <mtc:Definition>Measurement of direct-current voltage.</mtc:Definition>
+    <mtc:Result name="voltage">
+      <mtc:Quantity name="voltage"/>
+      <mtc:mLayer aspect="electromagnetics" id="Q3"/>
+    </mtc:Result>
+    <mtc:Parameter name="nominal" optional="false">
+      <mtc:Quantity name="voltage"/>
+    </mtc:Parameter>
+    <mtc:Discipline name="Electrical"/>
+    <mtc:Discipline name="DC and Low Frequency"/>
+  </mtc:Taxon>
+  <mtc:Taxon name="Measure.Legacy.Resistance" deprecated="true" replacement="Measure.Resistance.DC">
+    <mtc:Definition>Deprecated legacy resistance measurement.</mtc:Definition>
+    <mtc:Result name="resistance">
+      <mtc:Quantity name="resistance"/>
+      <mtc:mLayer aspect="electromagnetics" id="Q4"/>
+    </mtc:Result>
+    <mtc:Discipline name="Electrical"/>
+  </mtc:Taxon>
+</mtc:Taxonomy>

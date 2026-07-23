@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mtc:Taxonomy xmlns:mtc="https://cls-schemas.s3.us-west-1.amazonaws.com/MII/MeasurandTaxonomyCatalog">
+  <mtc:Taxon name="Measure.Temperature" deprecated="false">
+    <mtc:Definition>Measurement of temperature.</mtc:Definition>
+    <mtc:Result name="temperature">
+      <mtc:Quantity name="temperature"/>
+      <mtc:mLayer aspect="thermodynamics" id="Q9"/>
+    </mtc:Result>
+    <mtc:Discipline name="Thermodynamics"/>
+  </mtc:Taxon>
+</mtc:Taxonomy>

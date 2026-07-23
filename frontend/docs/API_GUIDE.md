@@ -34,8 +34,8 @@ GET http://localhost:3000/api/taxons
 ```
 
 **Query Parameters:**
-- `discipline` - Filter by discipline name (e.g., `?discipline=Electrical`)
-- `deprecated` - Filter deprecated taxons (`?deprecated=false`)
+- `discipline` - Filter by exact discipline name (e.g., `?discipline=Electrical`). Max 100 characters.
+- `deprecated` - `true` to include deprecated taxons, `false` (default) to exclude them. Any other value returns `400`.
 
 **Example:**
 ```
@@ -46,6 +46,8 @@ GET http://localhost:3000/api/taxons?discipline=Electrical&deprecated=false
 ```
 GET http://localhost:3000/api/taxons/[name]
 ```
+
+Returns `404` if the taxon does not exist, `400` for a malformed or over-long name.
 
 **Example:**
 ```
@@ -65,6 +67,47 @@ GET http://localhost:3000/api/quantities
 ### 5. Search Taxons
 ```
 GET http://localhost:3000/api/search?q=temperature
+```
+
+**Query Parameters:**
+- `q` (required) - Search text, matched case-insensitively against taxon names, definitions, disciplines, parameter names, and result quantities. Max 200 characters.
+- `limit` (optional) - Maximum number of results to return (positive integer, capped at 500). The response's `totalMatches` field reports the full match count.
+
+## Error Responses
+
+All endpoints return a consistent error shape:
+
+```json
+{ "error": "Human-readable message" }
+```
+
+| Status | Meaning |
+| ------ | ------- |
+| `400`  | Invalid query parameter or malformed path segment |
+| `404`  | Taxon not found |
+| `429`  | Cache reset requested too frequently |
+| `503`  | Taxonomy data could not be loaded from disk or GitHub |
+| `500`  | Unexpected server error |
+
+## Caching
+
+- Successful read responses include `Cache-Control: public, s-maxage=300, stale-while-revalidate=600` so CDNs (e.g. Vercel's edge) can cache them for 5 minutes.
+- Parsed taxonomy data is cached in memory per server instance and automatically reloaded when the synced XML file changes.
+
+## Sync Endpoints
+
+- `GET /api/sync-taxonomy` - Triggers a background sync of taxonomy files from the NCSLI-MII repository. Parameters: `wait=true` (wait for completion, used by the nightly cron), `skipHistory=false` (also rebuild the history cache), `file=<name>` (sync specific allowlisted files). If the `CRON_SECRET` environment variable is set, requests must send `Authorization: Bearer <CRON_SECRET>`.
+- `GET /api/sync-status` - Reports the current sync state and synced file list.
+- `POST /api/history/taxonomy/reset` - Deletes the history cache so it rebuilds on the next request (throttled to once per 10 seconds).
+
+## Running the Tests
+
+The API has a vitest test suite covering all route handlers, parameter validation, auth, and the XML parsing/loading layer:
+
+```bash
+cd frontend
+npm test          # run once
+npm run test:watch  # watch mode
 ```
 
 ## Testing Examples

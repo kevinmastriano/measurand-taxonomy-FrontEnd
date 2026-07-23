@@ -1,14 +1,13 @@
 import { NextResponse } from 'next/server';
 import { getAllQuantityKinds } from '@/lib/quantity-analyzer';
-import { loadTaxonomyData } from '@/lib/taxonomy-loader';
+import { loadTaxonomyDataStrict, TaxonomyLoadError } from '@/lib/taxonomy-loader';
+import { apiError, PUBLIC_CACHE_HEADERS } from '@/lib/api-helpers';
 
-async function getTaxonomyData() {
-  return await loadTaxonomyData();
-}
+export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
-    const taxons = await getTaxonomyData();
+    const taxons = await loadTaxonomyDataStrict();
     const quantityMap = getAllQuantityKinds(taxons);
     const quantities = Array.from(quantityMap.values()).map(q => ({
       name: q.name,
@@ -17,17 +16,19 @@ export async function GET() {
       taxonCount: q.taxonCount,
       disciplines: q.disciplines,
     }));
-    
-    return NextResponse.json({
-      quantities,
-      count: quantities.length,
-    });
-  } catch (error) {
+
     return NextResponse.json(
-      { error: 'Failed to fetch quantities' },
-      { status: 500 }
+      {
+        quantities,
+        count: quantities.length,
+      },
+      { headers: PUBLIC_CACHE_HEADERS }
     );
+  } catch (error) {
+    console.error('[api/quantities] Error:', error);
+    if (error instanceof TaxonomyLoadError) {
+      return apiError('Taxonomy data is currently unavailable', 503);
+    }
+    return apiError('Failed to fetch quantities', 500);
   }
 }
-
-

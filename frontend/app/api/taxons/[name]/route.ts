@@ -1,33 +1,44 @@
 import { NextResponse } from 'next/server';
-import { loadTaxonomyData } from '@/lib/taxonomy-loader';
+import { loadTaxonomyDataStrict, TaxonomyLoadError } from '@/lib/taxonomy-loader';
+import {
+  apiError,
+  safeDecodeURIComponent,
+  PUBLIC_CACHE_HEADERS,
+} from '@/lib/api-helpers';
 
-async function getTaxonomyData() {
-  return await loadTaxonomyData();
-}
+export const dynamic = 'force-dynamic';
+
+const MAX_NAME_LENGTH = 200;
 
 export async function GET(
   request: Request,
   { params }: { params: { name: string } }
 ) {
   try {
-    const taxons = await getTaxonomyData();
-    const taxonName = decodeURIComponent(params.name);
-    const taxon = taxons.find(t => t.name === taxonName);
-    
-    if (!taxon) {
-      return NextResponse.json(
-        { error: 'Taxon not found' },
-        { status: 404 }
+    const taxonName = safeDecodeURIComponent(params.name);
+    if (taxonName === null || taxonName.trim().length === 0) {
+      return apiError('Invalid taxon name', 400);
+    }
+    if (taxonName.length > MAX_NAME_LENGTH) {
+      return apiError(
+        `Invalid taxon name: must be at most ${MAX_NAME_LENGTH} characters`,
+        400
       );
     }
-    
-    return NextResponse.json(taxon);
+
+    const taxons = await loadTaxonomyDataStrict();
+    const taxon = taxons.find(t => t.name === taxonName);
+
+    if (!taxon) {
+      return apiError('Taxon not found', 404);
+    }
+
+    return NextResponse.json(taxon, { headers: PUBLIC_CACHE_HEADERS });
   } catch (error) {
-    return NextResponse.json(
-      { error: 'Failed to fetch taxon' },
-      { status: 500 }
-    );
+    console.error('[api/taxons/[name]] Error:', error);
+    if (error instanceof TaxonomyLoadError) {
+      return apiError('Taxonomy data is currently unavailable', 503);
+    }
+    return apiError('Failed to fetch taxon', 500);
   }
 }
-
-
