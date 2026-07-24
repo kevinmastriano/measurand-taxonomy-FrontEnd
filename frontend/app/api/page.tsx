@@ -52,7 +52,7 @@ export default function APIPage() {
                       discipline
                     </code>
                     <span className="ml-2 text-[#656d76] dark:text-[#8b949e]">
-                      Filter by discipline name
+                      Filter by discipline name (case-insensitive)
                     </span>
                   </div>
                   <div className="text-sm">
@@ -60,7 +60,7 @@ export default function APIPage() {
                       deprecated
                     </code>
                     <span className="ml-2 text-[#656d76] dark:text-[#8b949e]">
-                      Filter deprecated taxons (true/false)
+                      false (default) = active only; true = deprecated only; all = both. Invalid values → 400.
                     </span>
                   </div>
                 </div>
@@ -134,10 +134,23 @@ export default function APIPage() {
                 </div>
               </div>
             </div>
-            <div className="p-6">
+            <div className="p-6 space-y-4">
               <p className="text-sm text-[#656d76] dark:text-[#8b949e]">
-                Get all disciplines with their taxon counts and metadata.
+                Get all disciplines with their taxon counts and metadata. Counts exclude deprecated taxons by default (same as <code className="text-xs">/api/taxons</code>).
               </p>
+              <div>
+                <h4 className="text-sm font-semibold text-[#24292f] dark:text-[#e6edf3] mb-2">
+                  Query Parameters
+                </h4>
+                <div className="text-sm">
+                  <code className="px-2 py-1 bg-[#f6f8fa] dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded">
+                    deprecated
+                  </code>
+                  <span className="ml-2 text-[#656d76] dark:text-[#8b949e]">
+                    false (default) / true / all — same semantics as /api/taxons
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -185,13 +198,23 @@ export default function APIPage() {
                 <h4 className="text-sm font-semibold text-[#24292f] dark:text-[#e6edf3] mb-2">
                   Query Parameters
                 </h4>
-                <div className="text-sm">
-                  <code className="px-2 py-1 bg-[#f6f8fa] dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded">
-                    q
-                  </code>
-                  <span className="ml-2 text-[#656d76] dark:text-[#8b949e]">
-                    Search query (required)
-                  </span>
+                <div className="space-y-2">
+                  <div className="text-sm">
+                    <code className="px-2 py-1 bg-[#f6f8fa] dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded">
+                      q
+                    </code>
+                    <span className="ml-2 text-[#656d76] dark:text-[#8b949e]">
+                      Search query (required)
+                    </span>
+                  </div>
+                  <div className="text-sm">
+                    <code className="px-2 py-1 bg-[#f6f8fa] dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded">
+                      deprecated
+                    </code>
+                    <span className="ml-2 text-[#656d76] dark:text-[#8b949e]">
+                      false (default) / true / all — same semantics as /api/taxons
+                    </span>
+                  </div>
                 </div>
               </div>
 

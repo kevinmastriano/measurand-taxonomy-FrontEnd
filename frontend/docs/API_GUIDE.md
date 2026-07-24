@@ -34,12 +34,13 @@ GET http://localhost:3000/api/taxons
 ```
 
 **Query Parameters:**
-- `discipline` - Filter by discipline name (e.g., `?discipline=Electrical`)
-- `deprecated` - Filter deprecated taxons (`?deprecated=false`)
+- `discipline` - Filter by discipline name (case-insensitive, e.g., `?discipline=Electrical`)
+- `deprecated` - `false` (default) = active only; `true` = deprecated only; `all` = both. Invalid values return 400.
 
 **Example:**
 ```
 GET http://localhost:3000/api/taxons?discipline=Electrical&deprecated=false
+GET http://localhost:3000/api/taxons?deprecated=true
 ```
 
 ### 2. Get Specific Taxon
@@ -57,6 +58,9 @@ GET http://localhost:3000/api/taxons/Measure.Acceleration
 GET http://localhost:3000/api/disciplines
 ```
 
+**Query Parameters:**
+- `deprecated` - Same semantics as `/api/taxons`. Default excludes deprecated so `taxonCount` matches `/api/taxons?discipline=...`.
+
 ### 4. Get All Quantities
 ```
 GET http://localhost:3000/api/quantities
@@ -66,6 +70,12 @@ GET http://localhost:3000/api/quantities
 ```
 GET http://localhost:3000/api/search?q=temperature
 ```
+
+**Query Parameters:**
+- `q` - Search query (required)
+- `deprecated` - Same semantics as `/api/taxons` (default: active only)
+
+Results are ranked with name matches first, then quantity/discipline/definition/parameter matches.
 
 ## Testing Examples
 
@@ -127,8 +137,8 @@ curl http://localhost:3000/api/disciplines
    - They read the `MeasurandTaxonomyCatalog.xml` file from the parent directory
 
 3. **CORS**
-   - By default, API routes are accessible from the same origin (same domain)
-   - For cross-origin requests, you'd need to add CORS headers (not needed for same-origin requests)
+   - API routes under `/api/*` allow cross-origin browser requests (`Access-Control-Allow-Origin: *`)
+   - Preflight `OPTIONS` requests return the same CORS allow headers
 
 ## Troubleshooting
 

@@ -31,8 +31,9 @@ export function getAllDisciplines(taxons: Taxon[]): string[] {
  * Get detailed information about a specific discipline
  */
 export function getDisciplineInfo(disciplineName: string, taxons: Taxon[]): DisciplineInfo {
-  const disciplineTaxons = taxons.filter(taxon => 
-    taxon.Discipline?.some(d => d.name === disciplineName)
+  const target = disciplineName.toLowerCase();
+  const disciplineTaxons = taxons.filter(taxon =>
+    taxon.Discipline?.some(d => d.name?.toLowerCase() === target)
   );
   
   // Find common parameters across taxons in this discipline
@@ -159,22 +160,24 @@ export function getAllDisciplineInfos(taxons: Taxon[]): DisciplineInfo[] {
 }
 
 /**
- * Filter taxons by discipline
+ * Filter taxons by discipline (case-insensitive)
  */
 export function filterTaxonsByDiscipline(taxons: Taxon[], disciplineName: string): Taxon[] {
-  return taxons.filter(taxon => 
-    taxon.Discipline?.some(d => d.name === disciplineName)
+  const target = disciplineName.toLowerCase();
+  return taxons.filter(taxon =>
+    taxon.Discipline?.some(d => d.name?.toLowerCase() === target)
   );
 }
 
 /**
- * Filter taxons by multiple disciplines (OR logic)
+ * Filter taxons by multiple disciplines (OR logic, case-insensitive)
  */
 export function filterTaxonsByDisciplines(taxons: Taxon[], disciplineNames: string[]): Taxon[] {
   if (disciplineNames.length === 0) return taxons;
-  
-  return taxons.filter(taxon => 
-    taxon.Discipline?.some(d => disciplineNames.includes(d.name))
+
+  const targets = new Set(disciplineNames.map(n => n.toLowerCase()));
+  return taxons.filter(taxon =>
+    taxon.Discipline?.some(d => d.name && targets.has(d.name.toLowerCase()))
   );
 }
 
