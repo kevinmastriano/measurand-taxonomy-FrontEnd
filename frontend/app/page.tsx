@@ -1,7 +1,14 @@
 import Link from 'next/link';
 import { BookOpen, List, Tag, Zap, GitBranch, FileText, Code, Search, TrendingUp, Shield, Workflow } from 'lucide-react';
+import { loadTaxonomyData } from '@/lib/taxonomy-loader';
+import { getAllDisciplineInfos } from '@/lib/discipline-utils';
+import { getAllQuantityKinds } from '@/lib/quantity-analyzer';
 
-export default function HomePage() {
+export default async function HomePage() {
+  const taxons = await loadTaxonomyData();
+  const disciplineCount = getAllDisciplineInfos(taxons).length;
+  const quantityCount = getAllQuantityKinds(taxons).size;
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -10,7 +17,7 @@ export default function HomePage() {
           <div className="text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 text-sm font-medium text-[#0969da] dark:text-[#58a6ff] bg-[#ddf4ff] dark:bg-[#0c2d41] border border-[#54aeff] dark:border-[#1f6feb] rounded-full">
               <Shield className="w-4 h-4" />
-              NCSL International MII Standard
+              NCSL International MII
             </div>
             
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-[#24292f] dark:text-[#e6edf3] mb-6 leading-tight">
@@ -127,7 +134,7 @@ export default function HomePage() {
               Developer Friendly
             </h3>
             <p className="text-[#656d76] dark:text-[#8b949e]">
-              Access via REST API, XML files, or integration libraries. Parse and integrate into your applications with ease.
+              Access the catalog via this site&apos;s REST API or the source XML. Parse it and integrate into your applications with ease.
             </p>
           </div>
 
@@ -214,19 +221,25 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* Stats Section */}
+      {/* Stats Section — live counts from the loaded catalog */}
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           <div>
-            <div className="text-4xl font-bold text-[#0969da] dark:text-[#58a6ff] mb-2">143+</div>
+            <div className="text-4xl font-bold text-[#0969da] dark:text-[#58a6ff] mb-2">
+              {taxons.length || '—'}
+            </div>
             <div className="text-sm text-[#656d76] dark:text-[#8b949e]">Taxons</div>
           </div>
           <div>
-            <div className="text-4xl font-bold text-[#0969da] dark:text-[#58a6ff] mb-2">15+</div>
+            <div className="text-4xl font-bold text-[#0969da] dark:text-[#58a6ff] mb-2">
+              {disciplineCount || '—'}
+            </div>
             <div className="text-sm text-[#656d76] dark:text-[#8b949e]">Disciplines</div>
           </div>
           <div>
-            <div className="text-4xl font-bold text-[#0969da] dark:text-[#58a6ff] mb-2">40+</div>
+            <div className="text-4xl font-bold text-[#0969da] dark:text-[#58a6ff] mb-2">
+              {quantityCount || '—'}
+            </div>
             <div className="text-sm text-[#656d76] dark:text-[#8b949e]">Quantity Kinds</div>
           </div>
           <div>

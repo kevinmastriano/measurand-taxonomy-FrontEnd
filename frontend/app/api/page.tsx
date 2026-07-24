@@ -39,7 +39,7 @@ export default function APIPage() {
             </div>
             <div className="p-6 space-y-4">
               <p className="text-sm text-[#656d76] dark:text-[#8b949e]">
-                Get all taxons. Supports optional query parameters for filtering.
+                List taxons. By default returns active (non-deprecated) taxons only. Supports optional query parameters for filtering.
               </p>
               
               <div>
@@ -52,7 +52,7 @@ export default function APIPage() {
                       discipline
                     </code>
                     <span className="ml-2 text-[#656d76] dark:text-[#8b949e]">
-                      Filter by discipline name (case-insensitive)
+                      Filter by discipline name (case-insensitive, trimmed)
                     </span>
                   </div>
                   <div className="text-sm">
@@ -73,8 +73,8 @@ export default function APIPage() {
                 <pre className="text-xs bg-[#f6f8fa] dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded-md p-4 overflow-x-auto">
 {`{
   "taxons": [...],
-  "count": 150,
-  "total": 200
+  "count": 134,
+  "total": 143
 }`}
                 </pre>
               </div>

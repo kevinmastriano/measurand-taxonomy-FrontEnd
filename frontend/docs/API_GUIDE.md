@@ -13,12 +13,12 @@ Next.js API routes are **server-side endpoints** that run automatically when you
    ```
 
 2. **The API is now available at:**
-   - Base URL: `http://localhost:3000`
-   - API endpoints: `http://localhost:3000/api/...`
+   - Base URL: `http://localhost:3001`
+   - API endpoints: `http://localhost:3001/api/...`
 
 3. **Test the API:**
-   - Open your browser and go to: `http://localhost:3000/api/taxons`
-   - Or use curl: `curl http://localhost:3000/api/taxons`
+   - Open your browser and go to: `http://localhost:3001/api/taxons`
+   - Or use curl: `curl http://localhost:3001/api/taxons`
    - Or use the browser's developer console:
      ```javascript
      fetch('/api/taxons')
@@ -30,7 +30,7 @@ Next.js API routes are **server-side endpoints** that run automatically when you
 
 ### 1. Get All Taxons
 ```
-GET http://localhost:3000/api/taxons
+GET http://localhost:3001/api/taxons
 ```
 
 **Query Parameters:**
@@ -39,23 +39,23 @@ GET http://localhost:3000/api/taxons
 
 **Example:**
 ```
-GET http://localhost:3000/api/taxons?discipline=Electrical&deprecated=false
-GET http://localhost:3000/api/taxons?deprecated=true
+GET http://localhost:3001/api/taxons?discipline=Electrical&deprecated=false
+GET http://localhost:3001/api/taxons?deprecated=true
 ```
 
 ### 2. Get Specific Taxon
 ```
-GET http://localhost:3000/api/taxons/[name]
+GET http://localhost:3001/api/taxons/[name]
 ```
 
 **Example:**
 ```
-GET http://localhost:3000/api/taxons/Measure.Acceleration
+GET http://localhost:3001/api/taxons/Measure.Acceleration
 ```
 
 ### 3. Get All Disciplines
 ```
-GET http://localhost:3000/api/disciplines
+GET http://localhost:3001/api/disciplines
 ```
 
 **Query Parameters:**
@@ -63,12 +63,12 @@ GET http://localhost:3000/api/disciplines
 
 ### 4. Get All Quantities
 ```
-GET http://localhost:3000/api/quantities
+GET http://localhost:3001/api/quantities
 ```
 
 ### 5. Search Taxons
 ```
-GET http://localhost:3000/api/search?q=temperature
+GET http://localhost:3001/api/search?q=temperature
 ```
 
 **Query Parameters:**
@@ -79,14 +79,14 @@ Results are ranked with name matches first, then quantity/discipline/definition/
 
 ### 6. Health
 ```
-GET http://localhost:3000/api/health
+GET http://localhost:3001/api/health
 ```
 
 Returns readiness (`status: ok|degraded`), taxon counts, and optional last-sync metadata. Not CDN-cached.
 
 ### 7. OpenAPI
 ```
-GET http://localhost:3000/api/openapi
+GET http://localhost:3001/api/openapi
 ```
 
 Machine-readable OpenAPI 3.0 contract for typed clients.
@@ -120,9 +120,9 @@ Clients may send `If-None-Match` for `304 Not Modified`. Search uses a shorter C
 
 ### Browser
 Just open these URLs in your browser while the dev server is running:
-- `http://localhost:3000/api/taxons`
-- `http://localhost:3000/api/disciplines`
-- `http://localhost:3000/api/search?q=voltage`
+- `http://localhost:3001/api/taxons`
+- `http://localhost:3001/api/disciplines`
+- `http://localhost:3001/api/search?q=voltage`
 
 ### JavaScript/Fetch
 ```javascript
@@ -145,18 +145,18 @@ console.log(taxon);
 ### cURL (Command Line)
 ```bash
 # Get all taxons
-curl http://localhost:3000/api/taxons
+curl http://localhost:3001/api/taxons
 
 # Search
-curl "http://localhost:3000/api/search?q=temperature"
+curl "http://localhost:3001/api/search?q=temperature"
 
 # Get disciplines
-curl http://localhost:3000/api/disciplines
+curl http://localhost:3001/api/disciplines
 ```
 
 ### Postman/Insomnia
 1. Create a new GET request
-2. URL: `http://localhost:3000/api/taxons`
+2. URL: `http://localhost:3001/api/taxons`
 3. Send!
 
 ## How It Works
