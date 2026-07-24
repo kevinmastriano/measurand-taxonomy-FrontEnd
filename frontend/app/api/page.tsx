@@ -39,7 +39,7 @@ export default function APIPage() {
             </div>
             <div className="p-6 space-y-4">
               <p className="text-sm text-[#656d76] dark:text-[#8b949e]">
-                Get all taxons. Supports optional query parameters for filtering.
+                List taxons. By default returns active (non-deprecated) taxons only. Supports optional query parameters for filtering.
               </p>
               
               <div>
@@ -52,7 +52,7 @@ export default function APIPage() {
                       discipline
                     </code>
                     <span className="ml-2 text-[#656d76] dark:text-[#8b949e]">
-                      Filter by discipline name
+                      Filter by discipline name (case-insensitive, trimmed)
                     </span>
                   </div>
                   <div className="text-sm">
@@ -60,7 +60,7 @@ export default function APIPage() {
                       deprecated
                     </code>
                     <span className="ml-2 text-[#656d76] dark:text-[#8b949e]">
-                      Filter deprecated taxons (true/false)
+                      false (default) = active only; true = deprecated only; all = both. Invalid values → 400.
                     </span>
                   </div>
                 </div>
@@ -73,8 +73,8 @@ export default function APIPage() {
                 <pre className="text-xs bg-[#f6f8fa] dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded-md p-4 overflow-x-auto">
 {`{
   "taxons": [...],
-  "count": 150,
-  "total": 200
+  "count": 134,
+  "total": 143
 }`}
                 </pre>
               </div>
@@ -134,10 +134,23 @@ export default function APIPage() {
                 </div>
               </div>
             </div>
-            <div className="p-6">
+            <div className="p-6 space-y-4">
               <p className="text-sm text-[#656d76] dark:text-[#8b949e]">
-                Get all disciplines with their taxon counts and metadata.
+                Get all disciplines with their taxon counts and metadata. Counts exclude deprecated taxons by default (same as <code className="text-xs">/api/taxons</code>).
               </p>
+              <div>
+                <h4 className="text-sm font-semibold text-[#24292f] dark:text-[#e6edf3] mb-2">
+                  Query Parameters
+                </h4>
+                <div className="text-sm">
+                  <code className="px-2 py-1 bg-[#f6f8fa] dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded">
+                    deprecated
+                  </code>
+                  <span className="ml-2 text-[#656d76] dark:text-[#8b949e]">
+                    false (default) / true / all — same semantics as /api/taxons
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -185,13 +198,23 @@ export default function APIPage() {
                 <h4 className="text-sm font-semibold text-[#24292f] dark:text-[#e6edf3] mb-2">
                   Query Parameters
                 </h4>
-                <div className="text-sm">
-                  <code className="px-2 py-1 bg-[#f6f8fa] dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded">
-                    q
-                  </code>
-                  <span className="ml-2 text-[#656d76] dark:text-[#8b949e]">
-                    Search query (required)
-                  </span>
+                <div className="space-y-2">
+                  <div className="text-sm">
+                    <code className="px-2 py-1 bg-[#f6f8fa] dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded">
+                      q
+                    </code>
+                    <span className="ml-2 text-[#656d76] dark:text-[#8b949e]">
+                      Search query (required, min 2 characters)
+                    </span>
+                  </div>
+                  <div className="text-sm">
+                    <code className="px-2 py-1 bg-[#f6f8fa] dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded">
+                      deprecated
+                    </code>
+                    <span className="ml-2 text-[#656d76] dark:text-[#8b949e]">
+                      false (default) / true / all — same semantics as /api/taxons
+                    </span>
+                  </div>
                 </div>
               </div>
 
@@ -236,14 +259,27 @@ console.log(\`Found \${data.count} taxons\`);`}
           </div>
         </div>
 
+        {/* Contract + ops */}
+        <div className="border-t border-[#d0d7de] dark:border-[#30363d] pt-8 space-y-4">
+          <h2 className="text-2xl font-semibold text-[#24292f] dark:text-[#e6edf3] mb-4">
+            Contract &amp; operations
+          </h2>
+          <p className="text-sm text-[#656d76] dark:text-[#8b949e]">
+            Machine-readable OpenAPI: <code className="text-xs">GET /api/openapi</code>.
+            Health/readiness: <code className="text-xs">GET /api/health</code>.
+          </p>
+          <p className="text-sm text-[#656d76] dark:text-[#8b949e]">
+            Nested taxon fields keep XML PascalCase (<code className="text-xs">Definition</code>, <code className="text-xs">Result</code>, <code className="text-xs">Parameter</code>, <code className="text-xs">Discipline</code>) by design. <code className="text-xs">Result.mLayer</code> is optional.
+          </p>
+        </div>
+
         {/* Rate Limiting */}
         <div className="border-t border-[#d0d7de] dark:border-[#30363d] pt-8">
           <h2 className="text-2xl font-semibold text-[#24292f] dark:text-[#e6edf3] mb-4">
-            Rate Limiting
+            Rate Limiting &amp; caching
           </h2>
           <p className="text-sm text-[#656d76] dark:text-[#8b949e]">
-            Currently, there are no rate limits on the API. However, please use responsibly and consider
-            implementing caching for production applications.
+            Public API routes are IP rate-limited (~60/min search, ~300/min other). Catalog responses use CDN caching (<code className="text-xs">s-maxage=3600</code>, <code className="text-xs">stale-while-revalidate=86400</code>) with ETags. For heavy external adoption, also enable Vercel Firewall.
           </p>
         </div>
       </div>

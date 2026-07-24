@@ -13,12 +13,12 @@ Next.js API routes are **server-side endpoints** that run automatically when you
    ```
 
 2. **The API is now available at:**
-   - Base URL: `http://localhost:3000`
-   - API endpoints: `http://localhost:3000/api/...`
+   - Base URL: `http://localhost:3001`
+   - API endpoints: `http://localhost:3001/api/...`
 
 3. **Test the API:**
-   - Open your browser and go to: `http://localhost:3000/api/taxons`
-   - Or use curl: `curl http://localhost:3000/api/taxons`
+   - Open your browser and go to: `http://localhost:3001/api/taxons`
+   - Or use curl: `curl http://localhost:3001/api/taxons`
    - Or use the browser's developer console:
      ```javascript
      fetch('/api/taxons')
@@ -30,50 +30,99 @@ Next.js API routes are **server-side endpoints** that run automatically when you
 
 ### 1. Get All Taxons
 ```
-GET http://localhost:3000/api/taxons
+GET http://localhost:3001/api/taxons
 ```
 
 **Query Parameters:**
-- `discipline` - Filter by discipline name (e.g., `?discipline=Electrical`)
-- `deprecated` - Filter deprecated taxons (`?deprecated=false`)
+- `discipline` - Filter by discipline name (case-insensitive, trimmed; e.g., `?discipline=Electrical`)
+- `deprecated` - `false` (default) = active only; `true` = deprecated only; `all` = both. Invalid values return 400.
 
 **Example:**
 ```
-GET http://localhost:3000/api/taxons?discipline=Electrical&deprecated=false
+GET http://localhost:3001/api/taxons?discipline=Electrical&deprecated=false
+GET http://localhost:3001/api/taxons?deprecated=true
 ```
 
 ### 2. Get Specific Taxon
 ```
-GET http://localhost:3000/api/taxons/[name]
+GET http://localhost:3001/api/taxons/[name]
 ```
 
 **Example:**
 ```
-GET http://localhost:3000/api/taxons/Measure.Acceleration
+GET http://localhost:3001/api/taxons/Measure.Acceleration
 ```
 
 ### 3. Get All Disciplines
 ```
-GET http://localhost:3000/api/disciplines
+GET http://localhost:3001/api/disciplines
 ```
+
+**Query Parameters:**
+- `deprecated` - Same semantics as `/api/taxons`. Default excludes deprecated so `taxonCount` matches `/api/taxons?discipline=...`.
 
 ### 4. Get All Quantities
 ```
-GET http://localhost:3000/api/quantities
+GET http://localhost:3001/api/quantities
 ```
 
 ### 5. Search Taxons
 ```
-GET http://localhost:3000/api/search?q=temperature
+GET http://localhost:3001/api/search?q=temperature
 ```
+
+**Query Parameters:**
+- `q` - Search query (required, minimum 2 characters after trim)
+- `deprecated` - Same semantics as `/api/taxons` (default: active only)
+
+Results are ranked with name matches first, then quantity/discipline/definition/parameter matches.
+
+### 6. Health
+```
+GET http://localhost:3001/api/health
+```
+
+Returns readiness (`status: ok|degraded`), taxon counts, and optional last-sync metadata. Not CDN-cached.
+
+### 7. OpenAPI
+```
+GET http://localhost:3001/api/openapi
+```
+
+Machine-readable OpenAPI 3.0 contract for typed clients.
+
+## Schema notes
+
+- **Field casing is intentional:** top-level envelope fields are camelCase (`count`, `deprecated`); nested taxon fields keep XML PascalCase (`Definition`, `Result`, `Parameter`, `Discipline`).
+- **`Result.mLayer` is optional** — some catalog taxons omit it.
+- **Empty discipline names** in source XML are ignored for `/api/disciplines` counts.
+- **`relatedDisciplines`** lists other disciplines that share result quantity kinds (not multi-membership; the catalog rarely assigns multiple disciplines per taxon).
+
+## Known catalog data gaps (upstream XML)
+
+These are source-data issues in [NCSLI-MII/measurand-taxonomy](https://github.com/NCSLI-MII/measurand-taxonomy), not API bugs:
+
+- `Source.Mass.Apparent` — deprecated, empty `replacement`, empty discipline name
+- A few taxons have empty/missing discipline (`Measure.Charge.DC`, `Source.Ratio.Humidity`, …)
+- Some `Result` objects omit `mLayer` (treated as optional in the schema)
+
+## Caching
+
+Catalog GETs send:
+```
+Cache-Control: public, s-maxage=3600, stale-while-revalidate=86400
+ETag: W/"…"
+```
+
+Clients may send `If-None-Match` for `304 Not Modified`. Search uses a shorter CDN TTL (`s-maxage=60`).
 
 ## Testing Examples
 
 ### Browser
 Just open these URLs in your browser while the dev server is running:
-- `http://localhost:3000/api/taxons`
-- `http://localhost:3000/api/disciplines`
-- `http://localhost:3000/api/search?q=voltage`
+- `http://localhost:3001/api/taxons`
+- `http://localhost:3001/api/disciplines`
+- `http://localhost:3001/api/search?q=voltage`
 
 ### JavaScript/Fetch
 ```javascript
@@ -96,18 +145,18 @@ console.log(taxon);
 ### cURL (Command Line)
 ```bash
 # Get all taxons
-curl http://localhost:3000/api/taxons
+curl http://localhost:3001/api/taxons
 
 # Search
-curl "http://localhost:3000/api/search?q=temperature"
+curl "http://localhost:3001/api/search?q=temperature"
 
 # Get disciplines
-curl http://localhost:3000/api/disciplines
+curl http://localhost:3001/api/disciplines
 ```
 
 ### Postman/Insomnia
 1. Create a new GET request
-2. URL: `http://localhost:3000/api/taxons`
+2. URL: `http://localhost:3001/api/taxons`
 3. Send!
 
 ## How It Works
@@ -127,8 +176,17 @@ curl http://localhost:3000/api/disciplines
    - They read the `MeasurandTaxonomyCatalog.xml` file from the parent directory
 
 3. **CORS**
-   - By default, API routes are accessible from the same origin (same domain)
-   - For cross-origin requests, you'd need to add CORS headers (not needed for same-origin requests)
+   - API routes under `/api/*` allow cross-origin browser requests (`Access-Control-Allow-Origin: *`)
+   - Preflight `OPTIONS` requests return the same CORS allow headers
+
+4. **Rate limiting**
+   - In-memory IP limits: ~60 req/min for `/api/search`, ~300 req/min for other public API routes
+   - Exceeded → `429` with `Retry-After` and `X-RateLimit-*` headers
+   - For multi-region production hardening, also enable Vercel Firewall
+
+5. **Errors**
+   - Stable shape: `{ "error": "message" }`
+   - Non-GET methods → `405` with `Allow: GET, HEAD, OPTIONS`
 
 ## Troubleshooting
 

@@ -51,6 +51,17 @@ export default function RootLayout({
                 Creative Commons Attribution-ShareAlike 4.0 International License
               </a>
             </p>
+            <p className="text-center text-xs text-[#656d76] dark:text-[#8b949e] mt-3">
+              Web application designed &amp; developed by{" "}
+              <a
+                href="https://customcalibration.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#0969da] dark:text-[#58a6ff] hover:underline focus:outline-none focus:ring-2 focus:ring-[#0969da] dark:focus:ring-[#58a6ff] rounded"
+              >
+                Kevin Mastriano, Custom Calibration
+              </a>
+            </p>
           </div>
         </footer>
         </ToastProvider>

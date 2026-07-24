@@ -1,30 +1,10 @@
 import { BookOpen, Download, GitBranch, ExternalLink, Code, FileText } from 'lucide-react';
-import { execSync } from 'child_process';
-import path from 'path';
 
-function getRepositoryUrl(): string {
-  try {
-    const repoPath = path.join(process.cwd(), '..');
-    const url = execSync('git config --get remote.origin.url', { 
-      cwd: repoPath, 
-      encoding: 'utf8',
-      stdio: ['ignore', 'pipe', 'ignore']
-    }).trim();
-    
-    // Convert git@github.com:user/repo.git to https://github.com/user/repo
-    if (url.startsWith('git@')) {
-      return url.replace('git@github.com:', 'https://github.com/').replace(/\.git$/, '');
-    }
-    // Convert https://github.com/user/repo.git to https://github.com/user/repo
-    return url.replace(/\.git$/, '');
-  } catch (error) {
-    // Fallback: use environment variable or placeholder
-    return process.env.NEXT_PUBLIC_REPO_URL || 'https://github.com/NCSLI-MII/measurand-taxonomy';
-  }
-}
+/** Upstream taxonomy catalog repo (not this frontend application repo). */
+const TAXONOMY_REPO_URL = 'https://github.com/NCSLI-MII/measurand-taxonomy';
 
 export default function GettingStartedPage() {
-  const repoUrl = getRepositoryUrl();
+  const repoUrl = TAXONOMY_REPO_URL;
 
   return (
     <div>
@@ -60,7 +40,7 @@ export default function GettingStartedPage() {
               <li>Enable automated CMC searches and uncertainty calculations</li>
             </ul>
             <p className="text-[#656d76] dark:text-[#8b949e] text-sm">
-              Each measurand is identified by a unique <strong>taxon</strong>—a hierarchical string like <code className="px-1.5 py-0.5 bg-[#f6f8fa] dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded text-xs">Measure.Temperature.PRT</code> or <code className="px-1.5 py-0.5 bg-[#f6f8fa] dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded text-xs">Source.Voltage.DC</code>.
+              Each measurand is identified by a unique <strong>taxon</strong>—a hierarchical string like <code className="px-1.5 py-0.5 bg-[#f6f8fa] dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded text-xs">Measure.Temperature.Simulated.PRT</code> or <code className="px-1.5 py-0.5 bg-[#f6f8fa] dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded text-xs">Source.Voltage.DC</code>.
             </p>
           </div>
         </div>
@@ -252,10 +232,15 @@ const taxons = await parseTaxonomyXML(xmlContent);`}
                   Access taxonomy data via the REST API endpoints:
                 </p>
                 <ul className="list-disc list-inside space-y-1 text-sm text-[#656d76] dark:text-[#8b949e] ml-4">
-                  <li><code className="px-1.5 py-0.5 bg-[#f6f8fa] dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded text-xs">GET /api/taxons</code> — Get all taxons</li>
+                  <li><code className="px-1.5 py-0.5 bg-[#f6f8fa] dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded text-xs">GET /api/taxons</code> — List taxons (active only by default)</li>
                   <li><code className="px-1.5 py-0.5 bg-[#f6f8fa] dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded text-xs">GET /api/taxons/[name]</code> — Get a specific taxon</li>
+                  <li><code className="px-1.5 py-0.5 bg-[#f6f8fa] dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded text-xs">GET /api/disciplines</code> — List disciplines</li>
                   <li><code className="px-1.5 py-0.5 bg-[#f6f8fa] dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded text-xs">GET /api/search?q=...</code> — Search taxons</li>
+                  <li><code className="px-1.5 py-0.5 bg-[#f6f8fa] dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded text-xs">GET /api/openapi</code> — OpenAPI contract</li>
                 </ul>
+                <p className="text-sm text-[#656d76] dark:text-[#8b949e] mt-2">
+                  See the <a href="/api" className="text-[#0969da] dark:text-[#58a6ff] hover:underline">API documentation</a> for full details.
+                </p>
               </div>
             </div>
           </div>

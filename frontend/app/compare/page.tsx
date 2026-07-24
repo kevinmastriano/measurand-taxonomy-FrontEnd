@@ -16,7 +16,7 @@ export default async function ComparePage() {
     <div>
       <div className="mb-8 pb-8 border-b border-[#d0d7de] dark:border-[#30363d]">
         <Link
-          href="/"
+          href="/browse"
           className="inline-flex items-center gap-2 text-sm text-[#0969da] dark:text-[#58a6ff] hover:underline mb-4"
         >
           <ArrowLeft className="w-4 h-4" />

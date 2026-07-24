@@ -582,7 +582,7 @@ export default function TaxonomyChangeList({ initialChanges }: TaxonomyChangeLis
                           </div>
                           <div className="flex items-center gap-2 ml-2">
                             <Link
-                              href={`/taxons/${encodeURIComponent(taxonChange.taxonName)}`}
+                              href={`/browse?taxon=${encodeURIComponent(taxonChange.taxonName)}`}
                               onClick={(e) => e.stopPropagation()}
                               className="text-[#0969da] dark:text-[#58a6ff] hover:underline"
                             >

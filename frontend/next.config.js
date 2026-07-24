@@ -13,6 +13,22 @@ const nextConfig = {
       },
     ],
   },
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
+          { key: 'Referrer-Policy', value: 'no-referrer' },
+        ],
+      },
+    ];
+  },
+  async rewrites() {
+    return [
+      { source: '/api/openapi.json', destination: '/api/openapi' },
+    ];
+  },
 }
 
 module.exports = nextConfig

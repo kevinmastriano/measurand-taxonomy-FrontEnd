@@ -82,8 +82,10 @@ export function useURLState() {
       }
     }
 
-    // Update URL without page reload
-    router.push(`${pathname}?${params.toString()}`, { scroll: false });
+    // Update URL without page reload. Use replace (not push) because this
+    // fires on every keystroke/filter toggle; push would flood the browser
+    // history so Back steps character-by-character instead of leaving the page.
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
   }, [searchParams, router, pathname]);
 
   // Clear all URL parameters

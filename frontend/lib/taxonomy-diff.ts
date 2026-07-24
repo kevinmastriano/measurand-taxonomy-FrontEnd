@@ -440,18 +440,24 @@ export interface TaxonomyHistoryResult {
 
 export async function getTaxonomyHistory(commits: GitCommit[]): Promise<TaxonomyHistoryResult> {
   const history: TaxonomyChange[] = [];
-  
+
+  // `git log` returns commits newest-first, but diffing requires oldest-first:
+  // each commit must be compared against the state *before* it. Processing
+  // newest-first would invert every added/removed classification and mislabel
+  // the newest commit as the "initial" one. Reverse to chronological order.
+  const chronologicalCommits = [...commits].reverse();
+
   // Filter to only commits that changed taxonomy files
-  const taxonomyCommits = commits.filter(hasTaxonomyFiles);
-  
-  console.log(`Processing ${taxonomyCommits.length} commits with taxonomy changes out of ${commits.length} total commits`);
-  
+  const taxonomyCommits = chronologicalCommits.filter(hasTaxonomyFiles);
+
+  console.log(`Processing ${taxonomyCommits.length} commits with taxonomy changes out of ${chronologicalCommits.length} total commits`);
+
   if (taxonomyCommits.length === 0) {
     return { changes: [] };
   }
 
-  // Create a map of commit indices for quick lookup
-  const commitIndexMap = new Map(commits.map((c, i) => [c.hash, i]));
+  // Create a map of commit indices for quick lookup (chronological order)
+  const commitIndexMap = new Map(chronologicalCommits.map((c, i) => [c.hash, i]));
   
   let previousTaxons: Taxon[] = [];
   let previousCommitIndex: number = -1;
@@ -477,7 +483,8 @@ export async function getTaxonomyHistory(commits: GitCommit[]): Promise<Taxonomy
       // get the taxonomy from the commit just before this one.
       if (previousCommitIndex >= 0 && currentCommitIndex > previousCommitIndex + 1) {
         // There's a gap - get taxonomy from the commit just before this one
-        const previousCommit = commits[currentCommitIndex - 1];
+        // (chronological order: index-1 is the older neighbour)
+        const previousCommit = chronologicalCommits[currentCommitIndex - 1];
         if (previousCommit) {
           console.log(`  Gap detected, getting taxonomy from commit ${previousCommit.hash}`);
           // Pre-resolve hash for previous commit too
@@ -523,13 +530,17 @@ export async function getTaxonomyHistory(commits: GitCommit[]): Promise<Taxonomy
     }
   }
 
-  // Filter out false positives (removed then immediately re-added)
+  // Filter out false positives (removed then immediately re-added).
+  // `history` and filterFalsePositives both operate in chronological
+  // (oldest-first) order.
   console.log(`Filtering false positives from ${history.length} commits...`);
   const filteredHistory = filterFalsePositives(history);
   console.log(`After filtering: ${filteredHistory.length} commits remain`);
 
+  // Return newest-first to match the static cache convention that the API
+  // routes and UI expect.
   return {
-    changes: filteredHistory,
+    changes: [...filteredHistory].reverse(),
     initialCommit,
   };
 }

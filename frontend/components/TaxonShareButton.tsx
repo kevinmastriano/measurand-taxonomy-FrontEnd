@@ -13,10 +13,12 @@ export default function TaxonShareButton({ taxonName, size = 'sm' }: TaxonShareB
   const [copied, setCopied] = useState(false);
 
   const handleShare = async () => {
-    // Generate URL for the taxon detail view
-    const url = typeof window !== 'undefined' 
-      ? `${window.location.origin}/?taxon=${encodeURIComponent(taxonName)}`
-      : `/?taxon=${encodeURIComponent(taxonName)}`;
+    // Generate URL for the taxon detail view. /browse consumes ?taxon= and
+    // auto-expands the matching taxon; the homepage ignores it.
+    const path = `/browse?taxon=${encodeURIComponent(taxonName)}`;
+    const url = typeof window !== 'undefined'
+      ? `${window.location.origin}${path}`
+      : path;
     
     const success = await copyToClipboard(url);
     if (success) {

@@ -76,48 +76,18 @@ async function saveCacheToDisk(cache: CachedTaxonomyHistory): Promise<void> {
   }
 }
 
-async function getGitHistory(oldestProcessedCommitHash?: string): Promise<GitCommit[]> {
+async function getGitHistory(): Promise<GitCommit[]> {
   try {
     const repoPath = path.join(process.cwd(), '..');
-    
-    // Build git log command - if we have an oldest processed commit, only get commits older than it
-    // Otherwise get all commits
-    let gitLogCommand = 'git log --pretty=format:"%H|%an|%ae|%ad|%s" --date=iso --name-only';
-    
-    if (oldestProcessedCommitHash) {
-      // Get full hash for the oldest processed commit
-      try {
-        const fullHash = execSync(`git rev-parse ${oldestProcessedCommitHash}`, {
-          cwd: repoPath,
-          encoding: 'utf-8',
-          maxBuffer: 1024 * 1024,
-        }).trim();
-        
-        // Check if this commit has a parent (not the root commit)
-        try {
-          execSync(`git rev-parse ${fullHash}^`, {
-            cwd: repoPath,
-            encoding: 'utf-8',
-            maxBuffer: 1024 * 1024,
-            stdio: 'ignore', // Suppress output
-          });
-          // Has parent - get all commits older than this one
-          // ${fullHash}^ means the parent of fullHash, and we get all ancestors of that parent
-          gitLogCommand += ` --all ${fullHash}^`;
-          console.log(`[Cache] Fetching commits older than ${fullHash} (incremental update)`);
-        } catch (parentError) {
-          // No parent - this is the root commit, no older commits to fetch
-          console.log(`[Cache] Oldest processed commit ${fullHash} is the root commit, no older commits to fetch`);
-          return []; // Return empty array - no older commits exist
-        }
-      } catch (error) {
-        console.warn(`[Cache] Could not resolve oldest commit hash ${oldestProcessedCommitHash}, fetching all commits`);
-        // Fall through to fetch all commits
-      }
-    } else {
-      console.log('[Cache] Fetching all commits (initial load)');
-    }
-    
+
+    // Always fetch the full history and rebuild from scratch. The previous
+    // "incremental" path combined `--all` with a revision, which makes git
+    // return the union of all refs (ignoring the range), so every change was
+    // re-processed and duplicated on each refresh. The history is small, so a
+    // full rebuild is cheap and correct.
+    const gitLogCommand = 'git log --pretty=format:"%H|%an|%ae|%ad|%s" --date=iso --name-only';
+    console.log('[Cache] Fetching full commit history');
+
     const gitLog = execSync(
       gitLogCommand,
       { 
@@ -221,18 +191,20 @@ export async function refreshTaxonomyHistoryCache(force = false): Promise<Cached
   try {
     console.log('[Cache] Refreshing taxonomy history cache...');
     const startTime = Date.now();
-    
-    // Check if we have existing cache for incremental updates
+    // `force` is retained for API compatibility; a refresh always does a full
+    // rebuild now, so there is no separate incremental path to force.
+    void force;
+
     const existingCache = taxonomyHistoryCache || await loadCacheFromDisk();
-    const oldestProcessedCommitHash = existingCache?.oldestProcessedCommitHash;
-    
-    // Fetch commits (only new ones if we have existing cache and not forcing refresh)
-    const commits = await getGitHistory(force ? undefined : oldestProcessedCommitHash);
-    
+
+    // Always fetch the full history and rebuild from scratch (see getGitHistory).
+    const commits = await getGitHistory();
+
     if (commits.length === 0) {
-      // No new commits - return existing cache or empty result
+      // git unavailable / no commits - keep any existing cache rather than
+      // clobbering it with an empty result.
       if (existingCache) {
-        console.log('[Cache] No new commits found, returning existing cache');
+        console.log('[Cache] No commits returned, keeping existing cache');
         return existingCache;
       }
       const result = {
@@ -247,81 +219,32 @@ export async function refreshTaxonomyHistoryCache(force = false): Promise<Cached
       return result;
     }
 
-    // Process new commits
+    // Rebuild the full change set from all commits.
     const taxonomyHistoryResult = await getTaxonomyHistory(commits);
-    const newTaxonomyHistory = taxonomyHistoryResult.changes;
+    const changes = taxonomyHistoryResult.changes;
     const duration = Date.now() - startTime;
-    console.log(`[Cache] Processed ${newTaxonomyHistory.length} new taxonomy changes from ${commits.length} commits in ${duration}ms`);
+    console.log(`[Cache] Processed ${changes.length} taxonomy changes from ${commits.length} commits in ${duration}ms`);
 
-    // If we have existing cache, merge with new changes
-    if (existingCache && !force && oldestProcessedCommitHash) {
-      console.log('[Cache] Merging new changes with existing cache...');
-      
-      // Combine changes - new changes come first (more recent)
-      const mergedChanges = [...newTaxonomyHistory, ...existingCache.changes];
-      
-      // Update oldestProcessedCommitHash to the oldest commit in the new batch
-      // Since commits are in reverse chronological order (newest first), the last commit is oldest
-      let oldestHash: string | undefined = oldestProcessedCommitHash;
-      if (commits.length > 0) {
-        const oldestCommitInBatch = commits[commits.length - 1];
-        const oldestHashInBatch = oldestCommitInBatch.hash;
-        
-        // Compare with existing oldest - use the older one
-        // Since we're fetching commits older than oldestProcessedCommitHash,
-        // the new oldest should be older than the existing one
-        oldestHash = oldestHashInBatch;
-        
-        console.log(`[Cache] Updated oldest processed commit from ${oldestProcessedCommitHash} to ${oldestHash}`);
-      }
-      
-      const result = {
-        changes: mergedChanges,
-        totalCommits: existingCache.totalCommits + commits.length,
-        commitsWithChanges: mergedChanges.length,
-        processingTimeMs: duration + (existingCache.processingTimeMs || 0),
-        cachedAt: Date.now(),
-        oldestProcessedCommitHash: oldestHash,
-        // Keep initial commit from existing cache (it's the oldest, so it won't change)
-        initialCommit: existingCache.initialCommit || (taxonomyHistoryResult.initialCommit ? {
-          ...taxonomyHistoryResult.initialCommit,
-          taxonNames: Array.from(taxonomyHistoryResult.initialCommit.taxonNames),
-        } : undefined),
-      };
-      
-      taxonomyHistoryCache = result;
-      await saveCacheToDisk(result);
-      console.log(`[Cache] Cache merged successfully: ${mergedChanges.length} total changes from ${result.totalCommits} commits`);
-      return result;
-    } else {
-      // First time or force refresh - use only new changes
-      // Find the oldest commit hash from the commits we just processed
-      // Since commits are in reverse chronological order (newest first), the last one is oldest
-      let oldestHash: string | undefined;
-      if (commits.length > 0) {
-        const oldestCommit = commits[commits.length - 1];
-        oldestHash = oldestCommit.hash;
-        console.log(`[Cache] Initial load: oldest commit is ${oldestHash}`);
-      }
-      
-      const result = {
-        changes: newTaxonomyHistory,
-        totalCommits: commits.length,
-        commitsWithChanges: newTaxonomyHistory.length,
-        processingTimeMs: duration,
-        cachedAt: Date.now(),
-        oldestProcessedCommitHash: oldestHash,
-        initialCommit: taxonomyHistoryResult.initialCommit ? {
-          ...taxonomyHistoryResult.initialCommit,
-          taxonNames: Array.from(taxonomyHistoryResult.initialCommit.taxonNames),
-        } : undefined,
-      };
-      
-      taxonomyHistoryCache = result;
-      await saveCacheToDisk(result);
-      console.log(`[Cache] Cache refreshed successfully at ${new Date().toISOString()}`);
-      return result;
-    }
+    // commits is newest-first; the last entry is the oldest commit processed.
+    const oldestHash = commits[commits.length - 1]?.hash;
+
+    const result = {
+      changes,
+      totalCommits: commits.length,
+      commitsWithChanges: changes.length,
+      processingTimeMs: duration,
+      cachedAt: Date.now(),
+      oldestProcessedCommitHash: oldestHash,
+      initialCommit: taxonomyHistoryResult.initialCommit ? {
+        ...taxonomyHistoryResult.initialCommit,
+        taxonNames: Array.from(taxonomyHistoryResult.initialCommit.taxonNames),
+      } : undefined,
+    };
+
+    taxonomyHistoryCache = result;
+    await saveCacheToDisk(result);
+    console.log(`[Cache] Cache rebuilt successfully at ${new Date().toISOString()}`);
+    return result;
   } catch (error) {
     console.error('[Cache] Error refreshing taxonomy history cache:', error);
     return null;
