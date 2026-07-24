@@ -1,10 +1,15 @@
-import { NextResponse } from 'next/server';
 import { loadTaxonomyData } from '@/lib/taxonomy-loader';
 import {
   filterByDeprecated,
   invalidDeprecatedResponse,
+  MIN_SEARCH_QUERY_LENGTH,
   parseDeprecatedParam,
 } from '@/lib/api-utils';
+import {
+  errorResponse,
+  jsonResponse,
+  SEARCH_CACHE_CONTROL,
+} from '@/lib/api-response';
 import type { Taxon } from '@/lib/types';
 
 async function getTaxonomyData() {
@@ -31,9 +36,14 @@ export async function GET(request: Request) {
     const deprecatedParam = parseDeprecatedParam(searchParams.get('deprecated'));
 
     if (!q || q.trim().length === 0) {
-      return NextResponse.json(
-        { error: 'Query parameter "q" is required' },
-        { status: 400 }
+      return errorResponse('Query parameter "q" is required', 400);
+    }
+
+    const query = q.toLowerCase().trim();
+    if (query.length < MIN_SEARCH_QUERY_LENGTH) {
+      return errorResponse(
+        `Query parameter "q" must be at least ${MIN_SEARCH_QUERY_LENGTH} characters`,
+        400
       );
     }
 
@@ -43,7 +53,6 @@ export async function GET(request: Request) {
 
     const taxons = await getTaxonomyData();
     const scoped = filterByDeprecated(taxons, deprecatedParam.filter);
-    const query = q.toLowerCase().trim();
 
     const results = scoped
       .filter(
@@ -60,16 +69,16 @@ export async function GET(request: Request) {
         return a.name.localeCompare(b.name);
       });
 
-    return NextResponse.json({
-      query: q,
-      results,
-      count: results.length,
-    });
+    return jsonResponse(
+      {
+        query: q.trim(),
+        results,
+        count: results.length,
+      },
+      { request, cacheControl: SEARCH_CACHE_CONTROL }
+    );
   } catch (error) {
     console.error('[api/search] Failed to search taxons:', error);
-    return NextResponse.json(
-      { error: 'Failed to search taxons' },
-      { status: 500 }
-    );
+    return errorResponse('Failed to search taxons', 500);
   }
 }

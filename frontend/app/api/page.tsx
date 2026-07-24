@@ -204,7 +204,7 @@ export default function APIPage() {
                       q
                     </code>
                     <span className="ml-2 text-[#656d76] dark:text-[#8b949e]">
-                      Search query (required)
+                      Search query (required, min 2 characters)
                     </span>
                   </div>
                   <div className="text-sm">
@@ -259,14 +259,27 @@ console.log(\`Found \${data.count} taxons\`);`}
           </div>
         </div>
 
+        {/* Contract + ops */}
+        <div className="border-t border-[#d0d7de] dark:border-[#30363d] pt-8 space-y-4">
+          <h2 className="text-2xl font-semibold text-[#24292f] dark:text-[#e6edf3] mb-4">
+            Contract &amp; operations
+          </h2>
+          <p className="text-sm text-[#656d76] dark:text-[#8b949e]">
+            Machine-readable OpenAPI: <code className="text-xs">GET /api/openapi</code>.
+            Health/readiness: <code className="text-xs">GET /api/health</code>.
+          </p>
+          <p className="text-sm text-[#656d76] dark:text-[#8b949e]">
+            Nested taxon fields keep XML PascalCase (<code className="text-xs">Definition</code>, <code className="text-xs">Result</code>, <code className="text-xs">Parameter</code>, <code className="text-xs">Discipline</code>) by design. <code className="text-xs">Result.mLayer</code> is optional.
+          </p>
+        </div>
+
         {/* Rate Limiting */}
         <div className="border-t border-[#d0d7de] dark:border-[#30363d] pt-8">
           <h2 className="text-2xl font-semibold text-[#24292f] dark:text-[#e6edf3] mb-4">
-            Rate Limiting
+            Rate Limiting &amp; caching
           </h2>
           <p className="text-sm text-[#656d76] dark:text-[#8b949e]">
-            Currently, there are no rate limits on the API. However, please use responsibly and consider
-            implementing caching for production applications.
+            Public API routes are IP rate-limited (~60/min search, ~300/min other). Catalog responses use CDN caching (<code className="text-xs">s-maxage=3600</code>, <code className="text-xs">stale-while-revalidate=86400</code>) with ETags. For heavy external adoption, also enable Vercel Firewall.
           </p>
         </div>
       </div>

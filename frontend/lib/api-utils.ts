@@ -1,5 +1,5 @@
-import { NextResponse } from 'next/server';
 import type { Taxon } from './types';
+import { errorResponse } from './api-response';
 
 export type DeprecatedFilter = 'active' | 'deprecated' | 'all';
 
@@ -36,14 +36,25 @@ export function filterByDeprecated(taxons: Taxon[], filter: DeprecatedFilter): T
   return taxons.filter((taxon) => !taxon.deprecated);
 }
 
+/** Normalize discipline query: trim whitespace; empty → null. */
+export function normalizeDisciplineParam(value: string | null): string | null {
+  if (value === null) return null;
+  const trimmed = value.trim();
+  return trimmed.length > 0 ? trimmed : null;
+}
+
 /** Case-insensitive discipline name match. */
 export function taxonHasDiscipline(taxon: Taxon, discipline: string): boolean {
-  const target = discipline.toLowerCase();
+  const target = discipline.trim().toLowerCase();
   return (
-    taxon.Discipline?.some((d) => d.name?.toLowerCase() === target) ?? false
+    taxon.Discipline?.some((d) => d.name?.trim().toLowerCase() === target) ??
+    false
   );
 }
 
+/** Minimum search query length (after trim). */
+export const MIN_SEARCH_QUERY_LENGTH = 2;
+
 export function invalidDeprecatedResponse(error: string) {
-  return NextResponse.json({ error }, { status: 400 });
+  return errorResponse(error, 400);
 }

@@ -17,7 +17,7 @@ export const TAXONOMY_TAG = 'taxonomy';
 
 // Revalidate the upstream fetch at most once an hour on its own; the cron
 // forces an earlier refresh via revalidateTag.
-const REVALIDATE_SECONDS = 60 * 60;
+export const REVALIDATE_SECONDS = 60 * 60;
 
 /**
  * Fetch the raw taxonomy XML.

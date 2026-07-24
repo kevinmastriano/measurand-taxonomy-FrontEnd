@@ -34,7 +34,7 @@ GET http://localhost:3000/api/taxons
 ```
 
 **Query Parameters:**
-- `discipline` - Filter by discipline name (case-insensitive, e.g., `?discipline=Electrical`)
+- `discipline` - Filter by discipline name (case-insensitive, trimmed; e.g., `?discipline=Electrical`)
 - `deprecated` - `false` (default) = active only; `true` = deprecated only; `all` = both. Invalid values return 400.
 
 **Example:**
@@ -72,10 +72,49 @@ GET http://localhost:3000/api/search?q=temperature
 ```
 
 **Query Parameters:**
-- `q` - Search query (required)
+- `q` - Search query (required, minimum 2 characters after trim)
 - `deprecated` - Same semantics as `/api/taxons` (default: active only)
 
 Results are ranked with name matches first, then quantity/discipline/definition/parameter matches.
+
+### 6. Health
+```
+GET http://localhost:3000/api/health
+```
+
+Returns readiness (`status: ok|degraded`), taxon counts, and optional last-sync metadata. Not CDN-cached.
+
+### 7. OpenAPI
+```
+GET http://localhost:3000/api/openapi
+```
+
+Machine-readable OpenAPI 3.0 contract for typed clients.
+
+## Schema notes
+
+- **Field casing is intentional:** top-level envelope fields are camelCase (`count`, `deprecated`); nested taxon fields keep XML PascalCase (`Definition`, `Result`, `Parameter`, `Discipline`).
+- **`Result.mLayer` is optional** — some catalog taxons omit it.
+- **Empty discipline names** in source XML are ignored for `/api/disciplines` counts.
+- **`relatedDisciplines`** lists other disciplines that share result quantity kinds (not multi-membership; the catalog rarely assigns multiple disciplines per taxon).
+
+## Known catalog data gaps (upstream XML)
+
+These are source-data issues in [NCSLI-MII/measurand-taxonomy](https://github.com/NCSLI-MII/measurand-taxonomy), not API bugs:
+
+- `Source.Mass.Apparent` — deprecated, empty `replacement`, empty discipline name
+- A few taxons have empty/missing discipline (`Measure.Charge.DC`, `Source.Ratio.Humidity`, …)
+- Some `Result` objects omit `mLayer` (treated as optional in the schema)
+
+## Caching
+
+Catalog GETs send:
+```
+Cache-Control: public, s-maxage=3600, stale-while-revalidate=86400
+ETag: W/"…"
+```
+
+Clients may send `If-None-Match` for `304 Not Modified`. Search uses a shorter CDN TTL (`s-maxage=60`).
 
 ## Testing Examples
 
@@ -139,6 +178,15 @@ curl http://localhost:3000/api/disciplines
 3. **CORS**
    - API routes under `/api/*` allow cross-origin browser requests (`Access-Control-Allow-Origin: *`)
    - Preflight `OPTIONS` requests return the same CORS allow headers
+
+4. **Rate limiting**
+   - In-memory IP limits: ~60 req/min for `/api/search`, ~300 req/min for other public API routes
+   - Exceeded → `429` with `Retry-After` and `X-RateLimit-*` headers
+   - For multi-region production hardening, also enable Vercel Firewall
+
+5. **Errors**
+   - Stable shape: `{ "error": "message" }`
+   - Non-GET methods → `405` with `Allow: GET, HEAD, OPTIONS`
 
 ## Troubleshooting
 
