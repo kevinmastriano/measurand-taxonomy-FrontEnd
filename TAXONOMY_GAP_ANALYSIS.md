@@ -1,5 +1,10 @@
 # Measurand Taxonomy — Gap Analysis ("Missing Taxons")
 
+> ⚠️ **Superseded in part.** See `TAXONOMY_GAP_ANALYSIS_REVIEW.md` for a critical review.
+> The enumerated candidate lists below remain useful, but the counts in §7, the summary
+> table, the tier sequencing, and several individual proposals are withdrawn or corrected
+> there. Do not cite §7 standalone.
+
 **Source analyzed:** `NCSLI-MII/measurand-taxonomy` → `MeasurandTaxonomyCatalog.xml` (`main`)
 **Snapshot:** 2026-07-28
 **Catalog size:** 144 taxons total — **135 active**, 9 deprecated
