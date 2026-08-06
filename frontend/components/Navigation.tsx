@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FileText, History, List, Tag, Zap, GitCompare, Code, BookOpen, Home } from 'lucide-react';
+import { FileText, History, List, Tag, Zap, GitCompare, Code, BookOpen, Home, Bot } from 'lucide-react';
 
 export default function Navigation() {
   const pathname = usePathname();
@@ -61,6 +61,10 @@ export default function Navigation() {
               <Link href="/api" className={getLinkClassName('/api')}>
                 <Code className="w-4 h-4 mr-2" />
                 API
+              </Link>
+              <Link href="/mcp" className={getLinkClassName('/mcp')}>
+                <Bot className="w-4 h-4 mr-2" />
+                MCP
               </Link>
               <Link href="/history" className={getLinkClassName('/history')}>
                 <History className="w-4 h-4 mr-2" />
