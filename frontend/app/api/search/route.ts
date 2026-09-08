@@ -1,25 +1,38 @@
 import { NextResponse } from 'next/server';
-import { loadTaxonomyData } from '@/lib/taxonomy-loader';
+import { loadTaxonomyDataStrict, TaxonomyLoadError } from '@/lib/taxonomy-loader';
+import { apiError, parseLimitParam, PUBLIC_CACHE_HEADERS } from '@/lib/api-helpers';
 
-async function getTaxonomyData() {
-  return await loadTaxonomyData();
-}
+export const dynamic = 'force-dynamic';
+
+const MAX_QUERY_LENGTH = 200;
+const MAX_LIMIT = 500;
 
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const q = searchParams.get('q');
-    
+
     if (!q || q.trim().length === 0) {
-      return NextResponse.json(
-        { error: 'Query parameter "q" is required' },
-        { status: 400 }
+      return apiError('Query parameter "q" is required', 400);
+    }
+    if (q.length > MAX_QUERY_LENGTH) {
+      return apiError(
+        `Query parameter "q" must be at most ${MAX_QUERY_LENGTH} characters`,
+        400
       );
     }
-    
-    const taxons = await getTaxonomyData();
+
+    const limit = parseLimitParam(searchParams.get('limit'), MAX_LIMIT);
+    if (limit === undefined) {
+      return apiError(
+        `Invalid "limit" parameter: expected a positive integer (max ${MAX_LIMIT})`,
+        400
+      );
+    }
+
+    const taxons = await loadTaxonomyDataStrict();
     const query = q.toLowerCase().trim();
-    
+
     const results = taxons.filter(taxon =>
       taxon.name.toLowerCase().includes(query) ||
       taxon.Definition?.toLowerCase().includes(query) ||
@@ -27,18 +40,23 @@ export async function GET(request: Request) {
       taxon.Parameter?.some(p => p.name.toLowerCase().includes(query)) ||
       taxon.Result?.Quantity?.name.toLowerCase().includes(query)
     );
-    
-    return NextResponse.json({
-      query: q,
-      results,
-      count: results.length,
-    });
-  } catch (error) {
+
+    const limited = limit === null ? results : results.slice(0, limit);
+
     return NextResponse.json(
-      { error: 'Failed to search taxons' },
-      { status: 500 }
+      {
+        query: q,
+        results: limited,
+        count: limited.length,
+        totalMatches: results.length,
+      },
+      { headers: PUBLIC_CACHE_HEADERS }
     );
+  } catch (error) {
+    console.error('[api/search] Error:', error);
+    if (error instanceof TaxonomyLoadError) {
+      return apiError('Taxonomy data is currently unavailable', 503);
+    }
+    return apiError('Failed to search taxons', 500);
   }
 }
-
-

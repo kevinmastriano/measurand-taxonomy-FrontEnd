@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server';
 import { TaxonomyChange } from '@/lib/types';
 import { getCachedTaxonomyHistory } from '@/lib/taxonomy-history-cache';
 import { getStaticHistoryCache, shouldUseStaticCache } from '@/lib/static-history-cache';
+import { apiError, safeDecodeURIComponent } from '@/lib/api-helpers';
+
+export const dynamic = 'force-dynamic';
 
 function normalizeTaxonName(name: string): string {
   // Normalize taxon name for comparison: trim whitespace
@@ -106,7 +109,10 @@ export async function GET(
   { params }: { params: { name: string } }
 ) {
   try {
-    const taxonName = decodeURIComponent(params.name);
+    const taxonName = safeDecodeURIComponent(params.name);
+    if (taxonName === null || taxonName.trim().length === 0) {
+      return apiError('Invalid taxon name', 400, { changes: [] });
+    }
     console.log(`[TaxonHistory] Request for taxon: "${taxonName}" (decoded from: "${params.name}")`);
     
     let cachedHistory;
